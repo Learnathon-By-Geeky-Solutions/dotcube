@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DeltaShare.ViewModel;
+using Microsoft.Extensions.Logging;
 
 namespace DeltaShare
 {
@@ -16,8 +17,10 @@ namespace DeltaShare
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+            // Singletons - ViewModels
+            builder.Services.AddSingleton<MainViewModel>();
 
             return builder.Build();
         }
