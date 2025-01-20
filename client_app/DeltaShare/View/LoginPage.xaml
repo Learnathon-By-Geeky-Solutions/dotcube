@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
+    x:Class="DeltaShare.View.LoginPage"
+    x:DataType="viewmodel:LoginViewModel"
+    Title="Login - DeltaShare">
+    <VerticalStackLayout
+        Padding="30, 0"
+        Spacing="8">
+        <Entry
+            Text="{Binding EmailInputText}"
+            Placeholder="Email address" />
+        <Entry
+            Text="{Binding PasswordInputText}"
+            Placeholder="Password" />
+        <Button
+            Text="Login"
+            Command="{Binding ClickLoginBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="End" />
+        <Button
+            Text="Forgot your password?"
+            Command="{Binding ClickForgotPasswordBtnCommand}"
+            FontSize="Micro"
+            HorizontalOptions="Start" />
+        <Label
+            Text="Or,"
+            FontSize="Micro"
+            HorizontalOptions="Center"
+            Margin="0, 40, 0 ,0" />
+        <Button
+            Text="Continue with Google"
+            Command="{Binding ClickGoogleSignInBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="Fill" />
+        <Button
+            Text="Continue with Facebook"
+            Command="{Binding ClickFacebookSignInBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="Fill" />
+        <HorizontalStackLayout
+            Margin="0, 30, 0, 0"
+            HorizontalOptions="End">
+            <Label
+                Text="New to DeltaShare?"
+                FontSize="Micro"
+                Margin="0, 0, 20, 0"
+                VerticalOptions="Center" />
+            <Button
+                Text="Sign up"
+                Command="{Binding ClickSignUpBtnCommand}"
+                FontSize="Medium" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

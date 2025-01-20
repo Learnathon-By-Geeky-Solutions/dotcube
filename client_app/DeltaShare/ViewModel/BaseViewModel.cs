@@ -6,10 +6,10 @@ namespace DeltaShare.ViewModel
     {
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-        bool isBusy;
+        private bool isBusy;
 
         [ObservableProperty]
-        string title = string.Empty;
+        private string title = string.Empty;
 
         public bool IsNotBusy => !IsBusy;
 

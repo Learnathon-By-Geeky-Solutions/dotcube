@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using DeltaShare.View;
 
 namespace DeltaShare.ViewModel
 {
@@ -9,37 +10,37 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
-        void ClickJoinPoolBtn()
+        private void ClickJoinPoolBtn()
         {
             ShowDebugMsg("join pool clicked");
         }
 
         [RelayCommand]
-        void ClickCreatePoolBtn()
+        private void ClickCreatePoolBtn()
         {
             ShowDebugMsg("create pool clicked");
         }
 
         [RelayCommand]
-        void ClickPrevPoolLabel(string uid)
+        private void ClickPrevPoolLabel(string uid)
         {
             ShowDebugMsg($"pool clicked uid: {uid}");
         }
 
         [RelayCommand]
-        void ClickCloudStorageBtn()
+        private void ClickCloudStorageBtn()
         {
             ShowDebugMsg("go to cloud storage");
         }
 
         [RelayCommand]
-        void ClickLoginBtn()
+        private async Task ClickLoginBtn()
         {
-            ShowDebugMsg("login button clicked");
+            await Shell.Current.GoToAsync(nameof(LoginPage));
         }
 
         [RelayCommand]
-        void ClickSignupBtn()
+        private void ClickSignupBtn()
         {
             ShowDebugMsg("sign up button clicked");
         }

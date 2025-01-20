@@ -1,4 +1,5 @@
-﻿using DeltaShare.ViewModel;
+﻿using DeltaShare.View;
+using DeltaShare.ViewModel;
 using Microsoft.Extensions.Logging;
 
 namespace DeltaShare
@@ -19,8 +20,16 @@ namespace DeltaShare
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            // Singletons - ViewModels
+            // DI - Views
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<LoginPage>();
+
+            // DI - ViewModels
             builder.Services.AddSingleton<MainViewModel>();
+            builder.Services.AddSingleton<LoginViewModel>();
+
+            // Register - Routes
+            AppRoutes.RegisterRoutes();
 
             return builder.Build();
         }

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell x:Class="DeltaShare.AppShell"
-       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:view="clr-namespace:DeltaShare.View"
-       Shell.FlyoutBehavior="Flyout"
-       Title="DeltaShare">
+<Shell
+    x:Class="DeltaShare.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:view="clr-namespace:DeltaShare.View"
+    Shell.FlyoutBehavior="Flyout"
+    Title="DeltaShare">
 
-    <ShellContent Title="DeltaShare"
-                  ContentTemplate="{DataTemplate view:MainPage}"
-                  Route="MainPage" />
+    <ShellContent
+        Title="DeltaShare"
+        ContentTemplate="{DataTemplate view:MainPage}"
+        Route="MainPage" />
+
 
 </Shell>
