@@ -2,9 +2,9 @@ using DeltaShare.ViewModel;
 
 namespace DeltaShare.View;
 
-public partial class LoginPage : ContentPage
+public partial class LoginView : ContentPage
 {
-    public LoginPage(LoginViewModel viewModel)
+    public LoginView(LoginViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

@@ -9,8 +9,8 @@
 
     <ShellContent
         Title="DeltaShare"
-        ContentTemplate="{DataTemplate view:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate view:MainView}"
+        Route="MainView" />
 
 
 </Shell>

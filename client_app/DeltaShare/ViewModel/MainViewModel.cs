@@ -36,7 +36,7 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private async Task ClickLoginBtn()
         {
-            await Shell.Current.GoToAsync(nameof(LoginPage));
+            await Shell.Current.GoToAsync(nameof(LoginView));
         }
 
         [RelayCommand]

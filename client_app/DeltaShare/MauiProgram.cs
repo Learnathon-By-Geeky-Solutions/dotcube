@@ -21,8 +21,8 @@ namespace DeltaShare
             builder.Logging.AddDebug();
 #endif
             // DI - Views
-            builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<LoginPage>();
+            builder.Services.AddSingleton<MainView>();
+            builder.Services.AddSingleton<LoginView>();
 
             // DI - ViewModels
             builder.Services.AddSingleton<MainViewModel>();

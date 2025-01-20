@@ -6,8 +6,8 @@ namespace DeltaShare
     {
         public static void RegisterRoutes()
         {
-            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
+            Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
+            Routing.RegisterRoute(nameof(MainView), typeof(MainView));
         }
     }
 }

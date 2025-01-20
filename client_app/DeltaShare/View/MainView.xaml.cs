@@ -2,10 +2,10 @@
 
 namespace DeltaShare.View
 {
-    public partial class MainPage : ContentPage
+    public partial class MainView : ContentPage
     {
 
-        public MainPage(MainViewModel viewModel)
+        public MainView(MainViewModel viewModel)
         {
             InitializeComponent();
             BindingContext = viewModel;
