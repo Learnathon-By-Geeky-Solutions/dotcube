@@ -10,9 +10,9 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
-        private void ClickJoinPoolBtn()
+        private async Task ClickJoinPoolBtn()
         {
-            ShowDebugMsg("join pool clicked");
+            await Shell.Current.GoToAsync(nameof(SharePoolView));
         }
 
         [RelayCommand]
