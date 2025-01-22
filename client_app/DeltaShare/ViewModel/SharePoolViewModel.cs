@@ -6,8 +6,10 @@ namespace DeltaShare.ViewModel
 {
     public partial class SharePoolViewModel : BaseViewModel
     {
-        public SharePoolViewModel()
+        private readonly IQRCodeService qrCodeService;
+        public SharePoolViewModel(IQRCodeService qrCodeService)
         {
+            this.qrCodeService = qrCodeService;
         }
 
         [ObservableProperty]
@@ -16,8 +18,7 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private void ClickGenerateQRBtn()
         {
-            QRCodeService qRCodeService = new();
-            PoolQRImage = qRCodeService.GenerateQRCode("test data 123", 200, 200, 0);
+            PoolQRImage = qrCodeService.GenerateQRCode("test data 123", 200, 200, 0);
         }
     }
 }
