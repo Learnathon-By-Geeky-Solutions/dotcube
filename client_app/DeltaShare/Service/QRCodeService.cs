@@ -4,7 +4,7 @@ using ZXing.Rendering;
 
 namespace DeltaShare.Service
 {
-    public interface IQRCodeService
+    interface IQRCodeService
     {
         public ImageSource GenerateQRCode(string data, int height, int width, int margin);
     }
