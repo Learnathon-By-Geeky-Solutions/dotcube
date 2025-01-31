@@ -17,7 +17,7 @@
                 HorizontalOptions="Fill" />
             <Button
                 Text="Create a Pool"
-                Command="{Binding ClickPrevPoolLabelCommand}"
+                Command="{Binding ClickCreatePoolBtnCommand}"
                 FontSize="Medium"
                 HorizontalOptions="Fill" />
             <Label
