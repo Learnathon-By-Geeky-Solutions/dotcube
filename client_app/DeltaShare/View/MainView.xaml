@@ -1,85 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    x:Class="DeltaShare.View.MainView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
-    x:Class="DeltaShare.View.MainView"
     x:DataType="viewmodel:MainViewModel">
 
     <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="8">
+        <VerticalStackLayout Padding="30,0" Spacing="8">
             <Button
-                Text="Join a Pool"
+                ContentLayout="Left, 10"
+                HorizontalOptions="End"
+                Text="Click" />
+            <Button
                 Command="{Binding ClickJoinPoolBtnCommand}"
                 FontSize="Medium"
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Fill"
+                Text="Join a Pool" />
             <Button
-                Text="Create a Pool"
                 Command="{Binding ClickCreatePoolBtnCommand}"
                 FontSize="Medium"
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Fill"
+                Text="Create a Pool" />
             <Label
-                Text="Previous Pools"
+                Margin="0,20,0,0"
                 FontSize="Subtitle"
-                Margin="0,20,0,0" />
+                Text="Previous Pools" />
             <Label
+                Style="{StaticResource PrevPoolLabel}"
                 Text="Learnathon resources 1"
-                Style="{StaticResource PrevPoolLabel}"
                 TextColor="LightBlue">
                 <Label.GestureRecognizers>
-                    <PointerGestureRecognizer
-                        PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}"
-                        PointerPressedCommandParameter="123" />
+                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="123" />
                 </Label.GestureRecognizers>
             </Label>
             <Label
+                Style="{StaticResource PrevPoolLabel}"
                 Text="Learnathon resources 2"
-                Style="{StaticResource PrevPoolLabel}"
                 TextColor="LightBlue">
                 <Label.GestureRecognizers>
-                    <PointerGestureRecognizer
-                        PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}"
-                        PointerPressedCommandParameter="456" />
+                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="456" />
                 </Label.GestureRecognizers>
             </Label>
             <Label
-                Text="Learnathon resources 3"
                 Style="{StaticResource PrevPoolLabel}"
+                Text="Learnathon resources 3"
                 TextColor="LightBlue">
                 <Label.GestureRecognizers>
-                    <PointerGestureRecognizer
-                        PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}"
-                        PointerPressedCommandParameter="789" />
+                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="789" />
                 </Label.GestureRecognizers>
             </Label>
 
             <Button
-                Text="Cloud Storage"
                 Command="{Binding ClickCloudStorageBtnCommand}"
                 FontSize="Medium"
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Fill"
+                Text="Cloud Storage" />
             <Label
-                Text="To use cloud features"
+                Margin="0,60,0,0"
                 FontSize="Subtitle"
                 HorizontalOptions="Center"
-                Margin="0, 60, 0, 0" />
-            <HorizontalStackLayout
-                HorizontalOptions="Center"
-                Spacing="8">
+                Text="To use cloud features" />
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
                 <Button
-                    Text="Login"
                     Command="{Binding ClickLoginBtnCommand}"
-                    FontSize="Medium" />
+                    FontSize="Medium"
+                    Text="Login" />
                 <Label
-                    Text="or"
                     FontSize="Micro"
+                    Text="or"
                     VerticalTextAlignment="Center" />
                 <Button
-                    Text="Sign up"
                     Command="{Binding ClickSignupBtnCommand}"
-                    FontSize="Medium" />
+                    FontSize="Medium"
+                    Text="Sign up" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

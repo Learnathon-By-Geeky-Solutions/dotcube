@@ -21,19 +21,19 @@ namespace DeltaShare
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            // DI - Views
+            // Dependency Injection - Views
             builder.Services.AddSingleton<MainView>();
             builder.Services.AddSingleton<LoginView>();
             builder.Services.AddSingleton<SharePoolView>();
             builder.Services.AddSingleton<CreatePoolView>();
 
-            // DI - ViewModels
+            // Dependency Injection - ViewModels
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<SharePoolViewModel>();
             builder.Services.AddSingleton<CreatePoolViewModel>();
 
-            // DI - Services
+            // Dependency Injection - Services
             builder.Services.AddSingleton<QRCodeService>();
             builder.Services.AddSingleton<PoolCreatorServerService>();
 

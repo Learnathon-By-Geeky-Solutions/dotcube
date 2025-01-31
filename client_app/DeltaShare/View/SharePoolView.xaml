@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    x:Class="DeltaShare.View.SharePoolView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:DeltaShare.Model"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
-    x:Class="DeltaShare.View.SharePoolView"
-    x:DataType="viewmodel:SharePoolViewModel"
-    Title="SharePoolView">
+    Title="SharePoolView"
+    x:DataType="viewmodel:SharePoolViewModel">
     <VerticalStackLayout>
         <Label
+            HorizontalOptions="Center"
             Text="Demo QR code test"
-            VerticalOptions="Center"
-            HorizontalOptions="Center" />
+            VerticalOptions="Center" />
         <CollectionView
-            ItemsSource="{Binding PoolUsers}"
             ItemsLayout="HorizontalList"
+            ItemsSource="{Binding PoolUsers}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
-                <DataTemplate
-                    x:DataType="model:User">
+                <DataTemplate x:DataType="model:User">
                     <VerticalStackLayout>
-                        <Image
-                            MaximumHeightRequest="48"
-                            Source="dotnet_bot.png" />
-                        <Label
-                            Text="{Binding Username}"
-                            HorizontalOptions="Center" />
+                        <Image MaximumHeightRequest="48" Source="dotnet_bot.png" />
+                        <Label HorizontalOptions="Center" Text="{Binding Username}" />
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Button
-            Text="Generate QR for test"
             Command="{Binding ClickGenerateQRBtnCommand}"
             FontSize="Medium"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            Text="Generate QR for test" />
         <Image
+            HeightRequest="200"
+            HorizontalOptions="Center"
             Source="{Binding PoolQRImage}"
             VerticalOptions="Center"
-            HorizontalOptions="Center"
-            HeightRequest="200"
             WidthRequest="200" />
     </VerticalStackLayout>
 </ContentPage>
