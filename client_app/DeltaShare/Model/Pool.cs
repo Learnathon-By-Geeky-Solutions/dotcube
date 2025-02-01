@@ -1,13 +1,13 @@
 ﻿namespace DeltaShare.Model
 {
-    class PoolInfo
+    class Pool
     {
         public override string ToString()
         {
             return $"dotpool://{SSID}/{Password}/{CreatorAddress}";
         }
 
-        public PoolInfo(string name, string ssid, string password, string creatorAddress)
+        public Pool(string name, string ssid, string password, string creatorAddress)
         {
             Name = name;
             SSID = ssid;

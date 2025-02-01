@@ -28,10 +28,10 @@ Cross-platform file-sharing solution to exchange files seamlessly across Android
 3. Clone this repository `git clone https://github.com/Learnathon-By-Geeky-Solutions/dotcube.git`
 4. Open `client_app/DeltaShare.sln` in Visual Studio 2022.
 5. Build and run the project.
-Detailed instructions can be found in the [wiki](wiki/Build-and-Run)
+Detailed instructions can be found in the [wiki](https://github.com/Learnathon-By-Geeky-Solutions/dotcube/wiki)
 
 ## Resources
-- [Project Wiki](wiki/)
+- [Project Wiki](https://github.com/Learnathon-By-Geeky-Solutions/dotcube/wiki)
 - [Project Documentation](docs/)
 - [Development Setup](docs/setup.md)
 - [Contributing Guidelines](CONTRIBUTING.md)

@@ -1,57 +1,49 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    x:Class="DeltaShare.View.LoginView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
-    x:Class="DeltaShare.View.LoginView"
-    x:DataType="viewmodel:LoginViewModel"
-    Title="Login - DeltaShare">
-    <VerticalStackLayout
-        Padding="30, 0"
-        Spacing="8">
-        <Entry
-            Text="{Binding EmailInputText}"
-            Placeholder="Email address" />
-        <Entry
-            Text="{Binding PasswordInputText}"
-            Placeholder="Password" />
+    Title="Login - DeltaShare"
+    x:DataType="viewmodel:LoginViewModel">
+    <VerticalStackLayout Padding="30,0" Spacing="8">
+        <Entry Placeholder="Email address" Text="{Binding EmailInputText}" />
+        <Entry Placeholder="Password" Text="{Binding PasswordInputText}" />
         <Button
-            Text="Login"
             Command="{Binding ClickLoginBtnCommand}"
             FontSize="Medium"
-            HorizontalOptions="End" />
+            HorizontalOptions="End"
+            Text="Login" />
         <Button
-            Text="Forgot your password?"
             Command="{Binding ClickForgotPasswordBtnCommand}"
             FontSize="Micro"
-            HorizontalOptions="Start" />
+            HorizontalOptions="Start"
+            Text="Forgot your password?" />
         <Label
-            Text="Or,"
+            Margin="0,40,0,0"
             FontSize="Micro"
             HorizontalOptions="Center"
-            Margin="0, 40, 0 ,0" />
+            Text="Or," />
         <Button
-            Text="Continue with Google"
             Command="{Binding ClickGoogleSignInBtnCommand}"
             FontSize="Medium"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            Text="Continue with Google" />
         <Button
-            Text="Continue with Facebook"
             Command="{Binding ClickFacebookSignInBtnCommand}"
             FontSize="Medium"
-            HorizontalOptions="Fill" />
-        <HorizontalStackLayout
-            Margin="0, 30, 0, 0"
-            HorizontalOptions="End">
+            HorizontalOptions="Fill"
+            Text="Continue with Facebook" />
+        <HorizontalStackLayout Margin="0,30,0,0" HorizontalOptions="End">
             <Label
-                Text="New to DeltaShare?"
+                Margin="0,0,20,0"
                 FontSize="Micro"
-                Margin="0, 0, 20, 0"
+                Text="New to DeltaShare?"
                 VerticalOptions="Center" />
             <Button
-                Text="Sign up"
                 Command="{Binding ClickSignUpBtnCommand}"
-                FontSize="Medium" />
+                FontSize="Medium"
+                Text="Sign up" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
