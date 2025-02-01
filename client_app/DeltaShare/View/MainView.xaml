@@ -9,9 +9,18 @@
     <ScrollView>
         <VerticalStackLayout Padding="30,0" Spacing="8">
             <Button
+                Command="{Binding ClickSettingsBtnCommand}"
                 ContentLayout="Left, 10"
                 HorizontalOptions="End"
-                Text="Click" />
+                Text="">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xf013;"
+                        Color="{AppThemeBinding Light={StaticResource White},
+                                                Dark={StaticResource PrimaryDarkText}}" />
+                </Button.ImageSource>
+            </Button>
             <Button
                 Command="{Binding ClickJoinPoolBtnCommand}"
                 FontSize="Medium"
@@ -75,6 +84,11 @@
                     FontSize="Medium"
                     Text="Sign up" />
             </HorizontalStackLayout>
+            <Button
+                BackgroundColor="Red"
+                Command="{Binding ClearPreferencesBtnCommand}"
+                FontSize="Micro"
+                Text="Clear Preferences" />
         </VerticalStackLayout>
     </ScrollView>
 

@@ -7,6 +7,17 @@ namespace DeltaShare.ViewModel
     {
         public MainViewModel()
         {
+            bool settingsShowed = Preferences.Get(Constants.SettingsShowedKey, false);
+            if (!settingsShowed)
+            {
+                Shell.Current.GoToAsync(nameof(SettingsView));
+            }
+        }
+
+        [RelayCommand]
+        private async Task ClickSettingsBtn()
+        {
+            await Shell.Current.GoToAsync(nameof(SettingsView));
         }
 
         [RelayCommand]
@@ -42,6 +53,13 @@ namespace DeltaShare.ViewModel
         private void ClickSignupBtn()
         {
             ShowDebugMsg("sign up button clicked");
+        }
+
+        [RelayCommand]
+        private void ClearPreferencesBtn()
+        {
+            Preferences.Clear();
+            ShowDebugMsg("Preferences cleared");
         }
     }
 }

@@ -16,7 +16,9 @@ namespace DeltaShare.Service
 
         public PoolCreatorServerService()
         {
-            PoolUsers.Add(new User("You", "", "You", creatorIpAddress, true));
+            string username = Preferences.Get(Constants.UsernameKey, "");
+            string fullname = Preferences.Get(Constants.FullNameKey, "");
+            PoolUsers.Add(new User(fullname, "", username, creatorIpAddress, true));
         }
 
         public void Dispose()
