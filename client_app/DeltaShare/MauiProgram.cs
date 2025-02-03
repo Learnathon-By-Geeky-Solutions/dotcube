@@ -1,4 +1,7 @@
 ﻿using CommunityToolkit.Maui;
+#if ANDROID
+using DeltaShare.Platforms.Android.Service;
+#endif
 using DeltaShare.Service;
 using DeltaShare.View;
 using DeltaShare.ViewModel;
@@ -24,6 +27,7 @@ namespace DeltaShare
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
+
             // Dependency Injection - Views
             builder.Services.AddSingleton<MainView>();
             builder.Services.AddSingleton<LoginView>();
@@ -41,6 +45,17 @@ namespace DeltaShare
             // Dependency Injection - Services
             builder.Services.AddSingleton<QRCodeService>();
             builder.Services.AddSingleton<PoolCreatorServerService>();
+
+            // Dependency Injection - Platform specific components
+#if ANDROID
+            builder.Services.AddSingleton(_ => Android.App.Application.Context);
+            builder.Services.AddSingleton<IWifiDirectService, WifiDirectService>(sp =>
+        {
+            var context = Platform.CurrentActivity ?? throw new InvalidOperationException("Android context is not available.");
+            return new WifiDirectService(context);
+        });
+
+#endif
 
             // Register - Routes
             AppRoutes.RegisterRoutes();

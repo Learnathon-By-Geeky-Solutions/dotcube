@@ -20,14 +20,34 @@ namespace DeltaShare.ViewModel
             await Shell.Current.GoToAsync(nameof(SettingsView));
         }
 
+        private async Task RequestPermissions()
+        {
+            await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+            await Permissions.RequestAsync<Permissions.NetworkState>();
+            await Permissions.RequestAsync<Permissions.NearbyWifiDevices>();
+
+            var locationPermissionStatus = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+            var networkPermissionStatus = await Permissions.CheckStatusAsync<Permissions.NetworkState>();
+            var nearbyPermissionStatus = await Permissions.CheckStatusAsync<Permissions.NearbyWifiDevices>();
+            if (locationPermissionStatus != PermissionStatus.Granted ||
+                networkPermissionStatus != PermissionStatus.Granted ||
+                nearbyPermissionStatus != PermissionStatus.Granted)
+            {
+                await Shell.Current.DisplayAlert("Permissions", "Please grant all permissions to use the app", "OK");
+            }
+
+        }
+
         [RelayCommand]
         private async Task ClickJoinPoolBtn()
         {
+            await RequestPermissions();
         }
 
         [RelayCommand]
         private async Task ClickCreatePoolBtn()
         {
+            await RequestPermissions();
             await Shell.Current.GoToAsync(nameof(CreatePoolView));
         }
 

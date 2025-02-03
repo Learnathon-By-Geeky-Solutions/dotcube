@@ -7,27 +7,20 @@ namespace DeltaShare.ViewModel
     public partial class CreatePoolViewModel : BaseViewModel
     {
         private PoolCreatorServerService serverService;
-        public CreatePoolViewModel(PoolCreatorServerService serverService)
+        private IWifiDirectService wifiDirectService;
+
+        public CreatePoolViewModel(PoolCreatorServerService serverService, IWifiDirectService wifiDirectService)
         {
             this.serverService = serverService;
+            this.wifiDirectService = wifiDirectService;
+
+            wifiDirectService.RegisterReceiver();
         }
 
         [RelayCommand]
-        private void ClickBluetoothTurnOnBtn()
+        private void ClickWifiDirectTurnOnBtn()
         {
-            ShowDebugMsg("turn on bluetooth");
-        }
-
-        [RelayCommand]
-        private void ClickHotspotTurnOnBtn()
-        {
-            ShowDebugMsg("turn on hotspot");
-        }
-
-        [RelayCommand]
-        private void ClickLocationTurnOnBtn()
-        {
-            ShowDebugMsg("turn on location");
+            wifiDirectService.DiscoverPeers();
         }
 
         [RelayCommand]
