@@ -2,6 +2,9 @@
 #if ANDROID
 using DeltaShare.Platforms.Android.Service;
 #endif
+#if WINDOWS
+using DeltaShare.Platforms.Windows.Service;
+#endif
 using DeltaShare.Service;
 using DeltaShare.View;
 using DeltaShare.ViewModel;
@@ -48,13 +51,19 @@ namespace DeltaShare
 
             // Dependency Injection - Platform specific components
 #if ANDROID
+            // WifiDIrect service needs the Android context
             builder.Services.AddSingleton(_ => Android.App.Application.Context);
             builder.Services.AddSingleton<IWifiDirectService, WifiDirectService>(sp =>
-        {
-            var context = Platform.CurrentActivity ?? throw new InvalidOperationException("Android context is not available.");
-            return new WifiDirectService(context);
-        });
+            {
+                var context = Platform.CurrentActivity ?? throw new InvalidOperationException("Android context is not available.");
+                return new WifiDirectService(context);
+            });
+            builder.Services.AddSingleton<IPermissionService, PermissionService>();
+#endif
 
+#if WINDOWS
+            builder.Services.AddSingleton<IWifiDirectService, WifiDirectService>();
+            builder.Services.AddSingleton<IPermissionService, PermissionService>();
 #endif
 
             // Register - Routes

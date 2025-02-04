@@ -1,12 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using DeltaShare.Service;
 using DeltaShare.View;
 
 namespace DeltaShare.ViewModel
 {
     public partial class MainViewModel : BaseViewModel
     {
-        public MainViewModel()
+        private readonly IPermissionService permissionService;
+        public MainViewModel(IPermissionService permissionService)
         {
+            this.permissionService = permissionService;
             bool settingsShowed = Preferences.Get(Constants.SettingsShowedKey, false);
             if (!settingsShowed)
             {
@@ -20,22 +23,20 @@ namespace DeltaShare.ViewModel
             await Shell.Current.GoToAsync(nameof(SettingsView));
         }
 
-        private async Task RequestPermissions()
+        private async Task<bool> RequestPermissions()
         {
-            await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-            await Permissions.RequestAsync<Permissions.NetworkState>();
-            await Permissions.RequestAsync<Permissions.NearbyWifiDevices>();
+            PermissionStatus permissionStatus = await permissionService.RequestPermissions();
 
-            var locationPermissionStatus = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-            var networkPermissionStatus = await Permissions.CheckStatusAsync<Permissions.NetworkState>();
-            var nearbyPermissionStatus = await Permissions.CheckStatusAsync<Permissions.NearbyWifiDevices>();
-            if (locationPermissionStatus != PermissionStatus.Granted ||
-                networkPermissionStatus != PermissionStatus.Granted ||
-                nearbyPermissionStatus != PermissionStatus.Granted)
+            while (permissionStatus != PermissionStatus.Granted)
             {
-                await Shell.Current.DisplayAlert("Permissions", "Please grant all permissions to use the app", "OK");
+                bool shouldRetry = await Shell.Current.DisplayAlert("Permissions", "Please grant all permissions to use the app", "Retry", "Cancel");
+                if (!shouldRetry)
+                {
+                    return false;
+                }
+                permissionStatus = await permissionService.RequestPermissions();
             }
-
+            return true;
         }
 
         [RelayCommand]
@@ -47,7 +48,10 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private async Task ClickCreatePoolBtn()
         {
-            await RequestPermissions();
+            if (!await RequestPermissions())
+            {
+                return;
+            }
             await Shell.Current.GoToAsync(nameof(CreatePoolView));
         }
 

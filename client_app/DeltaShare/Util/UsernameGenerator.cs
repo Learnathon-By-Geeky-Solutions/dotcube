@@ -22,6 +22,7 @@ namespace DeltaShare.Util
                 {
                     line = await reader.ReadLineAsync();
                 }
+                Debug.WriteLine($"random name from {fileName} lineNumber: {lineNumber} line: {line}");
                 return line;
             }
             catch (Exception e)
