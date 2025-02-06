@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Model;
 using DeltaShare.Service;
+using DeltaShare.View;
 
 namespace DeltaShare.ViewModel
 {
@@ -18,6 +19,12 @@ namespace DeltaShare.ViewModel
 
         [ObservableProperty]
         private ImageSource? poolQRImage;
+
+        [RelayCommand]
+        private async Task ClickViewSharedFilesBtn()
+        {
+            await Shell.Current.GoToAsync(nameof(DownloadFileView));
+        }
 
         [RelayCommand]
         private void ClickGenerateQRBtn()

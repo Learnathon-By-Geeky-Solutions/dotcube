@@ -43,6 +43,7 @@ namespace DeltaShare.ViewModel
         private async Task ClickJoinPoolBtn()
         {
             await RequestPermissions();
+            await Shell.Current.GoToAsync(nameof(JoinPoolView));
         }
 
         [RelayCommand]

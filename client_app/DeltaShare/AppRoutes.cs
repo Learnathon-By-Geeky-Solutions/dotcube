@@ -10,6 +10,9 @@ namespace DeltaShare
             Routing.RegisterRoute(nameof(CreatePoolView), typeof(CreatePoolView));
             Routing.RegisterRoute(nameof(SharePoolView), typeof(SharePoolView));
             Routing.RegisterRoute(nameof(SettingsView), typeof(SettingsView));
+            Routing.RegisterRoute(nameof(JoinPoolView), typeof(JoinPoolView));
+            Routing.RegisterRoute(nameof(UploadFileView), typeof(UploadFileView));
+            Routing.RegisterRoute(nameof(DownloadFileView), typeof(DownloadFileView));
         }
     }
 }

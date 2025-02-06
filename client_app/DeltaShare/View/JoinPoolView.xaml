@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DeltaShare.View.JoinPoolView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
+    Title="JoinPoolView"
+    x:DataType="viewmodel:JoinPoolViewModel">
+    <VerticalStackLayout Padding="30,0" Spacing="8">
+        <Label
+            FontSize="Medium"
+            HorizontalOptions="Center"
+            Text="Scan Pool QR Code" />
+        <Label
+            FontSize="Micro"
+            HorizontalOptions="Center"
+            Text="--camera scan section--" />
+        <Label
+            FontSize="Micro"
+            HorizontalOptions="Center"
+            Text="Or" />
+        <Entry Placeholder="pool code" Text="{Binding PoolCodeInputText}" />
+        <Button
+            Command="{Binding ClickJoinPoolBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="Fill"
+            Text="Join Pool" />
+    </VerticalStackLayout>
+</ContentPage>

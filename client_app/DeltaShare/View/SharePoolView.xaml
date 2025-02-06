@@ -30,6 +30,12 @@
             FontSize="Medium"
             HorizontalOptions="Fill"
             Text="Generate QR for test" />
+        <Button
+            Margin="0,10,0,0"
+            Command="{Binding ClickViewSharedFilesBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="Fill"
+            Text="View Shared Files" />
         <Image
             HeightRequest="200"
             HorizontalOptions="Center"
