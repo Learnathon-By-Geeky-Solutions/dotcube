@@ -1,9 +1,12 @@
+using DeltaShare.ViewModel;
+
 namespace DeltaShare.View;
 
 public partial class UploadFileView : ContentPage
 {
-	public UploadFileView()
-	{
-		InitializeComponent();
-	}
+    public UploadFileView(UploadFileViewModel viewModel)
+    {
+        InitializeComponent();
+        BindingContext = viewModel;
+    }
 }

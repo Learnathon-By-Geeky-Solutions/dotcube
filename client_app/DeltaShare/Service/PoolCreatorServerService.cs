@@ -9,16 +9,18 @@ namespace DeltaShare.Service
 {
     public sealed class PoolCreatorServerService : IDisposable
     {
-        private readonly string creatorIpAddress = "192.168.1.106";
         private CancellationTokenSource? cancellationTokenSource;
         private Task? listenTask;
-        public ObservableCollection<User> PoolUsers { get; } = new();
+        private readonly HashSet<string> poolUsersIpHashSet = new();
+        public ObservableCollection<User> PoolUsers { get; set; } = new();
 
         public PoolCreatorServerService()
         {
             string username = Preferences.Get(Constants.UsernameKey, "");
             string fullname = Preferences.Get(Constants.FullNameKey, "");
-            PoolUsers.Add(new User(fullname, "", username, creatorIpAddress, true));
+            User currentUser = new(fullname, "", username, "", true);
+            poolUsersIpHashSet.Add(currentUser.IpAddress);
+            PoolUsers.Add(currentUser);
         }
 
         public void Dispose()
@@ -40,7 +42,7 @@ namespace DeltaShare.Service
 
         private async Task Listen(CancellationToken cancellationToken)
         {
-            string prefix = $"http://{creatorIpAddress}:9898/";
+            string prefix = $"http://{Constants.PoolCreatorIpAddress}:{Constants.Port}/";
             int maxConcurrentRequests = 10;
             HttpListener listener = new();
             listener.Prefixes.Add(prefix);
@@ -82,7 +84,13 @@ namespace DeltaShare.Service
                     false
                 );
                 Debug.WriteLine($"Received new user: {user}");
+                if (poolUsersIpHashSet.Contains(user.IpAddress))
+                {
+                    MultipartParser.SendResponse(context, "User already in pool");
+                    return;
+                }
                 PoolUsers.Add(user);
+                poolUsersIpHashSet.Add(user.IpAddress);
                 MultipartParser.SendResponse(context, "OK");
             }
             catch (Exception ex)

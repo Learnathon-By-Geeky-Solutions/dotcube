@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+
 #if ANDROID
 using DeltaShare.Platforms.Android.Service;
 #endif
@@ -54,6 +55,8 @@ namespace DeltaShare
             // Dependency Injection - Services
             builder.Services.AddSingleton<QRCodeService>();
             builder.Services.AddSingleton<PoolCreatorServerService>();
+            builder.Services.AddSingleton<PoolJoinService>();
+            builder.Services.AddSingleton<HttpClient>();
 
             // Dependency Injection - Platform specific components
 #if ANDROID

@@ -2,11 +2,14 @@
 {
     public static class Constants
     {
-        public static string DefaultUsername = "Unnamed";
+        public const string DefaultUsername = "Unnamed";
 
         // preferences keys
-        public static string SettingsShowedKey = "IsSettingsShowed";
-        public static string UsernameKey = "Username";
-        public static string FullNameKey = "FullName";
+        public const string SettingsShowedKey = "IsSettingsShowed";
+        public const string UsernameKey = "Username";
+        public const string FullNameKey = "FullName";
+
+        public const string PoolCreatorIpAddress = "192.168.1.104";
+        public const string Port = "9898";
     }
 }

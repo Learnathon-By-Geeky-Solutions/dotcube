@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
+using DeltaShare.View;
 
 namespace DeltaShare.ViewModel
 {
     public partial class DownloadFileViewModel : BaseViewModel
     {
-        [ObservableProperty]
-        private string poolCodeInputText = string.Empty;
-
         public DownloadFileViewModel()
         {
 
         }
 
         [RelayCommand]
-        void ClickJoinPoolBtn()
+        async Task ClickAddFilesBtn()
         {
-            ShowDebugMsg($"Join Pool with\npool code: {PoolCodeInputText}");
+            await Shell.Current.GoToAsync(nameof(UploadFileView));
         }
     }
 }

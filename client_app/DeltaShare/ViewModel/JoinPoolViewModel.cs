@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DeltaShare.Service;
 
 namespace DeltaShare.ViewModel
 {
     public partial class JoinPoolViewModel : BaseViewModel
     {
+        private readonly PoolJoinService joinService;
         [ObservableProperty]
         private string poolCodeInputText = string.Empty;
 
-        public JoinPoolViewModel()
+        public JoinPoolViewModel(PoolJoinService joinService)
         {
-
+            this.joinService = joinService;
         }
 
         [RelayCommand]
-        void ClickJoinPoolBtn()
+        private async Task ClickJoinPoolBtn()
         {
-            ShowDebugMsg($"Join Pool with\npool code: {PoolCodeInputText}");
+            await joinService.SendInfoToPoolCreator(PoolCodeInputText);
         }
     }
 }
