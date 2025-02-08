@@ -10,6 +10,7 @@ using DeltaShare.Service;
 using DeltaShare.View;
 using DeltaShare.ViewModel;
 using Microsoft.Extensions.Logging;
+using ZXing.Net.Maui.Controls;
 
 namespace DeltaShare
 {
@@ -21,6 +22,7 @@ namespace DeltaShare
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseBarcodeReader()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -53,7 +55,6 @@ namespace DeltaShare
             builder.Services.AddSingleton<DownloadFileViewModel>();
 
             // Dependency Injection - Services
-            builder.Services.AddSingleton<QRCodeService>();
             builder.Services.AddSingleton<PoolCreatorServerService>();
             builder.Services.AddSingleton<PoolJoinService>();
             builder.Services.AddSingleton<HttpClient>();
