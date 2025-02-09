@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Service;
+using ZXing.Net.Maui;
 
 namespace DeltaShare.ViewModel
 {
@@ -9,6 +10,14 @@ namespace DeltaShare.ViewModel
         private readonly PoolJoinService joinService;
         [ObservableProperty]
         private string poolCodeInputText = string.Empty;
+
+        [ObservableProperty]
+        private BarcodeReaderOptions readerOptions = new()
+        {
+            Formats = BarcodeFormat.QrCode,
+            AutoRotate = true,
+            Multiple = false
+        };
 
         public JoinPoolViewModel(PoolJoinService joinService)
         {
@@ -19,6 +28,15 @@ namespace DeltaShare.ViewModel
         private async Task ClickJoinPoolBtn()
         {
             await joinService.SendInfoToPoolCreator(PoolCodeInputText);
+        }
+
+        [RelayCommand]
+        private async Task BarcodeDetected(List<string> barcodes)
+        {
+            if (barcodes.Any())
+            {
+                PoolCodeInputText = barcodes[0];
+            }
         }
     }
 }

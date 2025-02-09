@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
+    xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
     Title="JoinPoolView"
     x:DataType="viewmodel:JoinPoolViewModel">
     <VerticalStackLayout Padding="30,0" Spacing="8">
@@ -11,10 +12,7 @@
             FontSize="Medium"
             HorizontalOptions="Center"
             Text="Scan Pool QR Code" />
-        <Label
-            FontSize="Micro"
-            HorizontalOptions="Center"
-            Text="--camera scan section--" />
+        <zxing:CameraBarcodeReaderView x:Name="cameraBarcodeReaderView" Options="{Binding ReaderOptions}" />
         <Label
             FontSize="Micro"
             HorizontalOptions="Center"
