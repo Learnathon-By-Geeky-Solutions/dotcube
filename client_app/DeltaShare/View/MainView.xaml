@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DeltaShare.View.MainView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
+    x:DataType="viewmodel:MainViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0" Spacing="8">
+            <Button
+                Command="{Binding ClickSettingsBtnCommand}"
+                ContentLayout="Left, 10"
+                HorizontalOptions="End"
+                Text="">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xf013;"
+                        Color="{AppThemeBinding Light={StaticResource White},
+                                                Dark={StaticResource PrimaryDarkText}}" />
+                </Button.ImageSource>
+            </Button>
+            <Button
+                Command="{Binding ClickJoinPoolBtnCommand}"
+                FontSize="Medium"
+                HorizontalOptions="Fill"
+                Text="Join a Pool" />
+            <Button
+                Command="{Binding ClickCreatePoolBtnCommand}"
+                FontSize="Medium"
+                HorizontalOptions="Fill"
+                Text="Create a Pool" />
+            <Label
+                Margin="0,20,0,0"
+                FontSize="Subtitle"
+                Text="Previous Pools" />
+            <Label
+                Style="{StaticResource PrevPoolLabel}"
+                Text="Learnathon resources 1"
+                TextColor="LightBlue">
+                <Label.GestureRecognizers>
+                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="123" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label
+                Style="{StaticResource PrevPoolLabel}"
+                Text="Learnathon resources 2"
+                TextColor="LightBlue">
+                <Label.GestureRecognizers>
+                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="456" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label
+                Style="{StaticResource PrevPoolLabel}"
+                Text="Learnathon resources 3"
+                TextColor="LightBlue">
+                <Label.GestureRecognizers>
+                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="789" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Button
+                Command="{Binding ClickCloudStorageBtnCommand}"
+                FontSize="Medium"
+                HorizontalOptions="Fill"
+                Text="Cloud Storage" />
+            <Label
+                Margin="0,60,0,0"
+                FontSize="Subtitle"
+                HorizontalOptions="Center"
+                Text="To use cloud features" />
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
+                <Button
+                    Command="{Binding ClickLoginBtnCommand}"
+                    FontSize="Medium"
+                    Text="Login" />
+                <Label
+                    FontSize="Micro"
+                    Text="or"
+                    VerticalTextAlignment="Center" />
+                <Button
+                    Command="{Binding ClickSignupBtnCommand}"
+                    FontSize="Medium"
+                    Text="Sign up" />
+            </HorizontalStackLayout>
+            <Button
+                BackgroundColor="Red"
+                Command="{Binding ClearPreferencesBtnCommand}"
+                FontSize="Micro"
+                Text="Clear Preferences" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
