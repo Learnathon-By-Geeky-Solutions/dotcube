@@ -7,24 +7,14 @@ using MimeKit;
 
 namespace DeltaShare.Service
 {
-    public sealed class PoolCreatorServerService : IDisposable
+    public sealed class PoolUserServerService : IDisposable
     {
         private CancellationTokenSource? cancellationTokenSource;
         private Task? listenTask;
-        private readonly HashSet<string> poolUsersIpHashSet = new();
         private readonly HttpListener listener;
 
-        public PoolCreatorServerService(HttpListener listener)
+        public PoolUserServerService(HttpListener listener)
         {
-            string username = Preferences.Get(Constants.UsernameKey, "");
-            string fullname = Preferences.Get(Constants.FullNameKey, "");
-            User currentUser = new(fullname, "", username, "", true);
-            poolUsersIpHashSet.Add(currentUser.IpAddress);
-
-            StateManager.PoolUsers.Add(currentUser);
-            StateManager.PoolCreatorIpAddress = Constants.PoolCreatorIpAddress;
-            StateManager.IpAddress = Constants.PoolCreatorIpAddress;
-            StateManager.IsPoolCreator = true;
             this.listener = listener;
         }
 
@@ -82,34 +72,25 @@ namespace DeltaShare.Service
 
         private async Task ProcessRequestAsync(HttpListenerContext context)
         {
-            User? newUser = new("", "", "", "", false);
             try
             {
-                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, "/clients");
-                var newUserJsonStream = formParts["UserJson"].Content.Stream;
-                newUser = await JsonSerializer.DeserializeAsync<User>(newUserJsonStream);
-                newUser!.IpAddress = context.Request.RemoteEndPoint.Address.ToString();
-                newUser!.IsAdmin = false;
-
-                Debug.WriteLine($"Received new user: {newUser}");
-                if (poolUsersIpHashSet.Contains(newUser.IpAddress))
+                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, "/clients-sync");
+                var userListJsonStream = formParts["AllUsersJson"].Content.Stream;
+                List<User>? allUsers = await JsonSerializer.DeserializeAsync<List<User>>(userListJsonStream);
+                StateManager.PoolUsers.Clear();
+                foreach (User user in allUsers)
                 {
-                    MultipartParser.SendResponse(context, "User already in pool");
-                    return;
+                    StateManager.PoolUsers.Add(user);
                 }
-                StateManager.PoolUsers.Add(newUser);
-                poolUsersIpHashSet.Add(newUser.IpAddress);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error processing request in server: {ex.Message}");
-                MultipartParser.SendResponse(context, "error");
+                Debug.WriteLine($"Error processing request in client: {ex.Message}");
             }
             finally
             {
-                MultipartParser.SendResponse(context, $"success {newUser.IpAddress}");
+                MultipartParser.SendResponse(context, "success");
             }
         }
-
     }
 }

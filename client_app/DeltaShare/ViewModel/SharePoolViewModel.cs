@@ -3,27 +3,27 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Model;
 using DeltaShare.Service;
+using DeltaShare.Util;
+using DeltaShare.View;
 
 namespace DeltaShare.ViewModel
 {
     public partial class SharePoolViewModel : BaseViewModel
     {
-        private PoolCreatorServerService serverService;
-        public ObservableCollection<User> PoolUsers => serverService.PoolUsers;
+        [ObservableProperty]
+        private string qrCodeData = String.Empty;
+        public ObservableCollection<User> PoolUsers => StateManager.PoolUsers;
 
-        public SharePoolViewModel(PoolCreatorServerService serverService)
+        public SharePoolViewModel(PoolCreatorClientService clientService)
         {
-            this.serverService = serverService;
+            StateManager.PoolUsers.CollectionChanged += async (sender, e) => await clientService.SendAllUserInfoToAllUsers();
+            QrCodeData = Constants.PoolCreatorIpAddress;
         }
 
-        [ObservableProperty]
-        private ImageSource? poolQRImage;
-
         [RelayCommand]
-        private void ClickGenerateQRBtn()
+        private async Task ClickViewSharedFilesBtn()
         {
-            QRCodeService qRCodeService = new();
-            PoolQRImage = qRCodeService.GenerateQRCode("test data 123", 200, 200, 0);
+            await Shell.Current.GoToAsync(nameof(DownloadFileView));
         }
     }
 }
