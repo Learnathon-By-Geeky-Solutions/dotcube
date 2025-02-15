@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Model;
 using DeltaShare.Service;
+using DeltaShare.Util;
 using DeltaShare.View;
 
 namespace DeltaShare.ViewModel
@@ -11,12 +12,11 @@ namespace DeltaShare.ViewModel
     {
         [ObservableProperty]
         private string qrCodeData = String.Empty;
-        private PoolCreatorServerService serverService;
-        public ObservableCollection<User> PoolUsers => serverService.PoolUsers;
+        public ObservableCollection<User> PoolUsers => StateManager.PoolUsers;
 
-        public SharePoolViewModel(PoolCreatorServerService serverService)
+        public SharePoolViewModel(PoolCreatorClientService clientService)
         {
-            this.serverService = serverService;
+            StateManager.PoolUsers.CollectionChanged += async (sender, e) => await clientService.SendAllUserInfoToAllUsers();
             QrCodeData = Constants.PoolCreatorIpAddress;
         }
 

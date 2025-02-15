@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui;
+﻿using System.Net;
+using CommunityToolkit.Maui;
 
 #if ANDROID
 using DeltaShare.Platforms.Android.Service;
@@ -41,7 +42,6 @@ namespace DeltaShare
             builder.Services.AddSingleton<CreatePoolView>();
             builder.Services.AddSingleton<SettingsView>();
             builder.Services.AddSingleton<JoinPoolView>();
-            builder.Services.AddSingleton<UploadFileView>();
             builder.Services.AddSingleton<DownloadFileView>();
 
             // Dependency Injection - ViewModels
@@ -51,13 +51,17 @@ namespace DeltaShare
             builder.Services.AddSingleton<CreatePoolViewModel>();
             builder.Services.AddSingleton<SettingsViewModel>();
             builder.Services.AddSingleton<JoinPoolViewModel>();
-            builder.Services.AddSingleton<UploadFileViewModel>();
             builder.Services.AddSingleton<DownloadFileViewModel>();
 
             // Dependency Injection - Services
             builder.Services.AddSingleton<PoolCreatorServerService>();
-            builder.Services.AddSingleton<PoolJoinService>();
+            builder.Services.AddSingleton<PoolCreatorClientService>();
+            builder.Services.AddSingleton<PoolUserServerService>();
+            builder.Services.AddSingleton<PoolUserClientService>();
             builder.Services.AddSingleton<HttpClient>();
+            var listener = new HttpListener();
+            listener.Prefixes.Add($"http://+:{Constants.Port}/");
+            builder.Services.AddSingleton(listener);
 
             // Dependency Injection - Platform specific components
 #if ANDROID

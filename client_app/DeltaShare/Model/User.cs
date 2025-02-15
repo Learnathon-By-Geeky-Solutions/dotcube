@@ -9,6 +9,14 @@
         public string IpAddress { get; set; }
         public bool IsAdmin { get; set; }
 
+        public string ViewableUsername
+        {
+            get
+            {
+                return Username.Substring(0, 9) + "...";
+            }
+        }
+
         private static int nextId = 1;
 
         private static void incrementId()

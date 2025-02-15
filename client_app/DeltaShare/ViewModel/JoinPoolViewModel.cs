@@ -1,13 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Service;
+using DeltaShare.View;
 using ZXing.Net.Maui;
 
 namespace DeltaShare.ViewModel
 {
     public partial class JoinPoolViewModel : BaseViewModel
     {
-        private readonly PoolJoinService joinService;
+        private readonly PoolUserServerService serverService;
+        private readonly PoolUserClientService clientService;
         [ObservableProperty]
         private string poolCodeInputText = string.Empty;
 
@@ -19,15 +21,23 @@ namespace DeltaShare.ViewModel
             Multiple = false
         };
 
-        public JoinPoolViewModel(PoolJoinService joinService)
+        public JoinPoolViewModel(PoolUserClientService clientService, PoolUserServerService serverService)
         {
-            this.joinService = joinService;
+            this.clientService = clientService;
+            this.serverService = serverService;
         }
 
         [RelayCommand]
         private async Task ClickJoinPoolBtn()
         {
-            await joinService.SendInfoToPoolCreator(PoolCodeInputText);
+            serverService.StartListening();
+
+            bool status = await clientService.SendInfoToPoolCreator(PoolCodeInputText);
+            if (!status)
+            {
+                return;
+            }
+            await Shell.Current.GoToAsync(nameof(DownloadFileView));
         }
 
         [RelayCommand]

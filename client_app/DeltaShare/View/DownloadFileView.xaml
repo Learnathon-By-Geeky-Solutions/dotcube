@@ -3,10 +3,41 @@
     x:Class="DeltaShare.View.DownloadFileView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:DeltaShare.Model"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     Title="DeltaShare"
     x:DataType="viewmodel:DownloadFileViewModel">
     <VerticalStackLayout Padding="30,0" Spacing="8">
+        <Button Command="{Binding ClickRefreshBtnCommand}" Text="Refresh" />
+        <CollectionView
+            ItemsLayout="HorizontalList"
+            ItemsSource="{Binding PoolUsers}"
+            SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:User">
+                    <VerticalStackLayout>
+                        <Border
+                            Margin="0,0,0,0"
+                            Background="Transparent"
+                            HeightRequest="58"
+                            Stroke="SkyBlue"
+                            StrokeShape="RoundRectangle 20,20,20,20"
+                            StrokeThickness="4"
+                            WidthRequest="58">
+                            <Image
+                                Aspect="AspectFit"
+                                HeightRequest="48"
+                                Source="user.png"
+                                WidthRequest="48" />
+                        </Border>
+                        <Label
+                            Margin="4,0,4,0"
+                            HorizontalOptions="Center"
+                            Text="{Binding ViewableUsername}" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Label
             FontSize="Medium"
             HorizontalOptions="Center"
@@ -15,6 +46,9 @@
             FontSize="Medium"
             HorizontalOptions="Center"
             Text="Download" />
-        <Button HorizontalOptions="Center" Text="Add files" />
+        <Button
+            Command="{Binding ClickAddFilesBtnCommand}"
+            HorizontalOptions="Center"
+            Text="Add files" />
     </VerticalStackLayout>
 </ContentPage>

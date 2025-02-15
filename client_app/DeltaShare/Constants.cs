@@ -9,7 +9,7 @@
         public const string UsernameKey = "Username";
         public const string FullNameKey = "FullName";
 
-        public const string PoolCreatorIpAddress = "192.168.1.104";
+        public const string PoolCreatorIpAddress = "192.168.1.103";
         public const string Port = "9898";
     }
 }
