@@ -13,7 +13,14 @@
         {
             get
             {
-                return Username.Substring(0, 9) + "...";
+                if (Username.Length > 10)
+                {
+                    return Username.Substring(0, 10) + "...";
+                }
+                else
+                {
+                    return Username;
+                }
             }
         }
 

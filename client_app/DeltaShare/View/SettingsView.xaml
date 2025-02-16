@@ -4,9 +4,19 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
-    Title="SettingsView"
+    Title="Settings"
     x:DataType="viewmodel:SettingsViewModel">
     <VerticalStackLayout Padding="30,0" Spacing="10">
+        <Border
+            Margin="0,0,0,0"
+            Background="Transparent"
+            HeightRequest="200"
+            Stroke="SkyBlue"
+            StrokeShape="RoundRectangle 66.66"
+            StrokeThickness="8"
+            WidthRequest="200">
+            <Image Aspect="AspectFill" Source="user.png" />
+        </Border>
         <Grid
             ColumnDefinitions="Auto, *"
             RowDefinitions="Auto, Auto"

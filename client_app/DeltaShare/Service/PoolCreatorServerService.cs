@@ -9,6 +9,7 @@ namespace DeltaShare.Service
 {
     public sealed class PoolCreatorServerService : IDisposable
     {
+        private static string ClientsPath = "/clients";
         private CancellationTokenSource? cancellationTokenSource;
         private Task? listenTask;
         private readonly HashSet<string> poolUsersIpHashSet = new();
@@ -82,10 +83,18 @@ namespace DeltaShare.Service
 
         private async Task ProcessRequestAsync(HttpListenerContext context)
         {
+            if (context.Request.Url?.AbsolutePath == ClientsPath)
+            {
+                await ProcessNewUserRequest(context);
+            }
+        }
+
+        private async Task ProcessNewUserRequest(HttpListenerContext context)
+        {
             User? newUser = new("", "", "", "", false);
             try
             {
-                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, "/clients");
+                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, ClientsPath);
                 var newUserJsonStream = formParts["UserJson"].Content.Stream;
                 newUser = await JsonSerializer.DeserializeAsync<User>(newUserJsonStream);
                 newUser!.IpAddress = context.Request.RemoteEndPoint.Address.ToString();
@@ -107,9 +116,8 @@ namespace DeltaShare.Service
             }
             finally
             {
-                MultipartParser.SendResponse(context, $"success {newUser.IpAddress}");
+                MultipartParser.SendResponse(context, $"success {newUser?.IpAddress}");
             }
         }
-
     }
 }
