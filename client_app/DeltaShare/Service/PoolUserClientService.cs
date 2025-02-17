@@ -5,18 +5,14 @@ using DeltaShare.Util;
 
 namespace DeltaShare.Service
 {
-    public class PoolUserClientService
+    public class PoolUserClientService(HttpClient client)
     {
-        private readonly HttpClient client;
+        private readonly HttpClient client = client;
 
-        public PoolUserClientService(HttpClient client)
-        {
-            this.client = client;
-        }
         public async Task<bool> SendInfoToPoolCreator(string poolCode)
         {
             string url = $"http://{poolCode}:{Constants.Port}{Constants.NewClientPath}";
-            User currentUser = new User(
+            User currentUser = new(
                 Preferences.Get(Constants.FullNameKey, ""),
                 "null",
                 Preferences.Get(Constants.UsernameKey, ""),

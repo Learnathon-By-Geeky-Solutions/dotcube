@@ -12,7 +12,7 @@ namespace DeltaShare.ViewModel
     {
         [ObservableProperty]
         private string qrCodeData = String.Empty;
-        public ObservableCollection<User> PoolUsers => StateManager.PoolUsers;
+        public static ObservableCollection<User> PoolUsers => StateManager.PoolUsers;
 
         public SharePoolViewModel(PoolCreatorClientService clientService)
         {

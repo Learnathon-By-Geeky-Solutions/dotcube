@@ -29,6 +29,7 @@
                         <Label
                             Margin="4,0,4,0"
                             HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
                             Text="{Binding ViewableUsername}" />
                     </VerticalStackLayout>
                 </DataTemplate>

@@ -7,11 +7,11 @@ using MimeKit;
 
 namespace DeltaShare.Service
 {
-    public sealed class PoolCreatorServerService : IDisposable
+    public partial class PoolCreatorServerService : IDisposable
     {
         private CancellationTokenSource? cancellationTokenSource;
         private Task? listenTask;
-        private readonly HashSet<string> poolUsersIpHashSet = new();
+        private readonly HashSet<string> poolUsersIpHashSet = [];
         private readonly HttpListener listener;
 
         public PoolCreatorServerService(HttpListener listener)
@@ -30,7 +30,17 @@ namespace DeltaShare.Service
 
         public void Dispose()
         {
-            cancellationTokenSource?.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                StopListening();
+                cancellationTokenSource?.Dispose();
+            }
         }
 
         public void StartListening()
@@ -89,11 +99,11 @@ namespace DeltaShare.Service
             }
             else if (context.Request.Url?.AbsolutePath == Constants.NewFileMetadataPath)
             {
-                await ProcessFileRequest(context);
+                await ProcessNewFileRequest(context);
             }
         }
 
-        private async Task ProcessFileRequest(HttpListenerContext context)
+        private async Task ProcessNewFileRequest(HttpListenerContext context)
         {
             try
             {
@@ -101,16 +111,17 @@ namespace DeltaShare.Service
                 var fileJsonStream = formParts[Constants.UserFilesJsonField].Content.Stream;
                 List<FileMetadata>? allFileMetadata = await JsonSerializer.DeserializeAsync<List<FileMetadata>>(fileJsonStream);
                 string clientIpAddress = context.Request.RemoteEndPoint.Address.ToString();
+                foreach (var fileMetadata in allFileMetadata ?? [])
+                {
+                    fileMetadata.OwnerIpAddress = clientIpAddress;
+                }
                 StateManager.PoolFiles[clientIpAddress] = new List<FileMetadata>(allFileMetadata ?? []);
+                MultipartParser.SendResponse(context, "success");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error processing request in server: {ex.Message}");
                 MultipartParser.SendResponse(context, "error");
-            }
-            finally
-            {
-                MultipartParser.SendResponse(context, "success");
             }
         }
 
@@ -133,15 +144,12 @@ namespace DeltaShare.Service
                 }
                 StateManager.PoolUsers.Add(newUser);
                 poolUsersIpHashSet.Add(newUser.IpAddress);
+                MultipartParser.SendResponse(context, $"success {newUser?.IpAddress}");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error processing request in server: {ex.Message}");
                 MultipartParser.SendResponse(context, "error");
-            }
-            finally
-            {
-                MultipartParser.SendResponse(context, $"success {newUser?.IpAddress}");
             }
         }
     }

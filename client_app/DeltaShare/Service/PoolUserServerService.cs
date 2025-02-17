@@ -7,20 +7,25 @@ using MimeKit;
 
 namespace DeltaShare.Service
 {
-    public sealed class PoolUserServerService : IDisposable
+    public partial class PoolUserServerService(HttpListener listener) : IDisposable
     {
         private CancellationTokenSource? cancellationTokenSource;
         private Task? listenTask;
-        private readonly HttpListener listener;
-
-        public PoolUserServerService(HttpListener listener)
-        {
-            this.listener = listener;
-        }
+        private readonly HttpListener listener = listener;
 
         public void Dispose()
         {
-            cancellationTokenSource?.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                StopListening();
+                cancellationTokenSource?.Dispose();
+            }
         }
 
         public void StartListening()
@@ -48,7 +53,7 @@ namespace DeltaShare.Service
                 return;
             }
 
-            HashSet<Task> requests = new();
+            HashSet<Task> requests = [];
             for (int requestIdx = 0; requestIdx < maxConcurrentRequests; requestIdx++)
             {
                 requests.Add(listener.GetContextAsync());
@@ -70,7 +75,7 @@ namespace DeltaShare.Service
             listener.Close();
         }
 
-        private async Task ProcessRequestAsync(HttpListenerContext context)
+        private static async Task ProcessRequestAsync(HttpListenerContext context)
         {
             if (context.Request.Url?.AbsolutePath == Constants.ClientsSyncPath)
             {
@@ -78,7 +83,7 @@ namespace DeltaShare.Service
             }
         }
 
-        private async Task ProcessUserSyncRequest(HttpListenerContext context)
+        private static async Task ProcessUserSyncRequest(HttpListenerContext context)
         {
             try
             {
@@ -86,18 +91,15 @@ namespace DeltaShare.Service
                 var userListJsonStream = formParts[Constants.AllUsersJsonField].Content.Stream;
                 List<User>? allUsers = await JsonSerializer.DeserializeAsync<List<User>>(userListJsonStream);
                 StateManager.PoolUsers.Clear();
-                foreach (User user in allUsers)
+                foreach (User user in allUsers ?? [])
                 {
                     StateManager.PoolUsers.Add(user);
                 }
+                MultipartParser.SendResponse(context, "success");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error processing request in client: {ex.Message}");
-            }
-            finally
-            {
-                MultipartParser.SendResponse(context, "success");
             }
         }
     }

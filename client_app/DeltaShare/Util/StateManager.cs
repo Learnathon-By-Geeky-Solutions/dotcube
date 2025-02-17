@@ -3,14 +3,14 @@ using DeltaShare.Model;
 
 namespace DeltaShare.Util
 {
-    public class StateManager
+    public static class StateManager
     {
         public static string PoolCreatorIpAddress { get; set; } = String.Empty;
         public static bool IsPoolCreator { get; set; } = false;
         public static string IpAddress { get; set; } = String.Empty;
-        public static ObservableCollection<User> PoolUsers { get; set; } = new();
+        public static ObservableCollection<User> PoolUsers { get; set; } = [];
 
-        public static Dictionary<string, List<FileMetadata>> PoolFiles { get; set; }
+        public static Dictionary<string, List<FileMetadata>> PoolFiles { get; set; } = [];
 
         public static void InitMock()
         {

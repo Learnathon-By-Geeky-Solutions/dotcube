@@ -28,7 +28,7 @@ public partial class SettingsViewModel : BaseViewModel
 
     public SettingsViewModel()
     {
-        LoadSettings();
+        Task.Run(LoadSettings);
     }
 
     private async Task LoadSettings()

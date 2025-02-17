@@ -2,15 +2,14 @@
 
 namespace DeltaShare.Model
 {
-    public class FileMetadata
+    public class FileMetadata(string uuid, string thumbnail, BigInteger size, string filename, string ownerIpAddress, Stream fileStream)
     {
-        public string Uuid { get; set; }
-        public string Thumbnail { get; set; }
-        public BigInteger Size { get; set; }
-        public string Filename { get; set; }
-        public string OwnerIpAddress { get; set; }
-        public Stream Stream { get; set; }
-
+        public string Uuid { get; set; } = uuid;
+        public string Thumbnail { get; set; } = thumbnail;
+        public BigInteger Size { get; set; } = size;
+        public string Filename { get; set; } = filename;
+        public string OwnerIpAddress { get; set; } = ownerIpAddress; // compute
+        public Stream? FileStream { get; set; } = fileStream; // compute
 
         public override string ToString()
         {

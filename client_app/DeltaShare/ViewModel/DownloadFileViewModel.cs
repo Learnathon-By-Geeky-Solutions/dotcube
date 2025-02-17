@@ -8,23 +8,23 @@ namespace DeltaShare.ViewModel
 {
     public partial class DownloadFileViewModel : BaseViewModel
     {
-        public ObservableCollection<User> PoolUsers => StateManager.PoolUsers;
+        public static ObservableCollection<User> PoolUsers => StateManager.PoolUsers;
         public DownloadFileViewModel()
         {
         }
 
         [RelayCommand]
-        async Task ClickRefreshBtn()
+        private static void ClickRefreshBtn()
         {
             Debug.WriteLine("Refresh button clicked");
         }
 
         [RelayCommand]
-        async Task ClickAddFilesBtn()
+        private async Task ClickAddFilesBtn()
         {
             await UploadFiles();
         }
-        public async Task UploadFiles()
+        private async Task UploadFiles()
         {
             IEnumerable<FileResult> files = await PickFiles();
             if (files == null)
@@ -40,7 +40,7 @@ namespace DeltaShare.ViewModel
             }
         }
 
-        public async Task<IEnumerable<FileResult>> PickFiles()
+        private static async Task<IEnumerable<FileResult>> PickFiles()
         {
             try
             {
@@ -55,7 +55,7 @@ namespace DeltaShare.ViewModel
             {
                 Debug.WriteLine(e);
             }
-            return null;
+            return [];
         }
     }
 }

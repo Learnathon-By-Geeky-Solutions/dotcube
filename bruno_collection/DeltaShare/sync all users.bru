@@ -11,5 +11,24 @@ post {
 }
 
 body:multipart-form {
-  AllUsersJson: [{"Id":1,"Name":"Unnamed","Email":"","Username":"balanced-gulf","IpAddress":"","IsAdmin":true},{"Id":2,"Name":"Boltu","Email":"boltu@gmail.com","Username":"boltu123yy","IpAddress":"192.168.1.103","IsAdmin":false}]
+  AllUsersJson: '''
+    [
+      {
+        "Id": 1,
+        "Name": "Unnamed",
+        "Email": "",
+        "Username": "balanced-gulf",
+        "IpAddress": "",
+        "IsAdmin": true
+      },
+      {
+        "Id": 2,
+        "Name": "Boltu",
+        "Email": "boltu@gmail.com",
+        "Username": "boltu123yy",
+        "IpAddress": "192.168.1.103",
+        "IsAdmin": false
+      }
+    ]
+  '''
 }

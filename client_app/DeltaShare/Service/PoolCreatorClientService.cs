@@ -4,13 +4,9 @@ using DeltaShare.Util;
 
 namespace DeltaShare.Service
 {
-    public class PoolCreatorClientService
+    public class PoolCreatorClientService(HttpClient client)
     {
-        private readonly HttpClient client;
-        public PoolCreatorClientService(HttpClient client)
-        {
-            this.client = client;
-        }
+        private readonly HttpClient client = client;
         public async Task SendAllUserInfoToAllUsers()
         {
             string allUsersJson = JsonSerializer.Serialize(StateManager.PoolUsers);
