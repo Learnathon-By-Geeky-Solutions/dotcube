@@ -15,7 +15,7 @@ namespace DeltaShare.Service
         }
         public async Task<bool> SendInfoToPoolCreator(string poolCode)
         {
-            string url = $"http://{poolCode}:{Constants.Port}/clients";
+            string url = $"http://{poolCode}:{Constants.Port}{Constants.NewClientPath}";
             User currentUser = new User(
                 Preferences.Get(Constants.FullNameKey, ""),
                 "null",
@@ -25,7 +25,7 @@ namespace DeltaShare.Service
             string currentUserJson = JsonSerializer.Serialize(currentUser);
             using var form = new MultipartFormDataContent
             {
-                { new StringContent(currentUserJson), "UserJson" },
+                { new StringContent(currentUserJson), Constants.UserJsonField },
             };
 
             try

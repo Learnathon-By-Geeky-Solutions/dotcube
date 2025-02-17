@@ -9,7 +9,6 @@ namespace DeltaShare.Service
 {
     public sealed class PoolCreatorServerService : IDisposable
     {
-        private static string ClientsPath = "/clients";
         private CancellationTokenSource? cancellationTokenSource;
         private Task? listenTask;
         private readonly HashSet<string> poolUsersIpHashSet = new();
@@ -51,6 +50,7 @@ namespace DeltaShare.Service
             int maxConcurrentRequests = 10;
             try
             {
+                Debug.WriteLine($"prefix: {listener.Prefixes}");
                 listener.Start();
             }
             catch (HttpListenerException ex)
@@ -83,9 +83,34 @@ namespace DeltaShare.Service
 
         private async Task ProcessRequestAsync(HttpListenerContext context)
         {
-            if (context.Request.Url?.AbsolutePath == ClientsPath)
+            if (context.Request.Url?.AbsolutePath == Constants.NewClientPath)
             {
                 await ProcessNewUserRequest(context);
+            }
+            else if (context.Request.Url?.AbsolutePath == Constants.NewFileMetadataPath)
+            {
+                await ProcessFileRequest(context);
+            }
+        }
+
+        private async Task ProcessFileRequest(HttpListenerContext context)
+        {
+            try
+            {
+                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, Constants.NewFileMetadataPath);
+                var fileJsonStream = formParts[Constants.UserFilesJsonField].Content.Stream;
+                List<FileMetadata>? allFileMetadata = await JsonSerializer.DeserializeAsync<List<FileMetadata>>(fileJsonStream);
+                string clientIpAddress = context.Request.RemoteEndPoint.Address.ToString();
+                StateManager.PoolFiles[clientIpAddress] = new List<FileMetadata>(allFileMetadata ?? []);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error processing request in server: {ex.Message}");
+                MultipartParser.SendResponse(context, "error");
+            }
+            finally
+            {
+                MultipartParser.SendResponse(context, "success");
             }
         }
 
@@ -94,8 +119,8 @@ namespace DeltaShare.Service
             User? newUser = new("", "", "", "", false);
             try
             {
-                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, ClientsPath);
-                var newUserJsonStream = formParts["UserJson"].Content.Stream;
+                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, Constants.NewClientPath);
+                var newUserJsonStream = formParts[Constants.UserJsonField].Content.Stream;
                 newUser = await JsonSerializer.DeserializeAsync<User>(newUserJsonStream);
                 newUser!.IpAddress = context.Request.RemoteEndPoint.Address.ToString();
                 newUser!.IsAdmin = false;

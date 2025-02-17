@@ -2,6 +2,17 @@
 {
     public static class Constants
     {
+        // App API routes
+        public const string NewClientPath = "/new-client";
+        public const string ClientsSyncPath = "/clients-sync";
+        public const string NewFileMetadataPath = "/new-files";
+
+        // App API form fields
+        public const string UserJsonField = "UserJson";
+        public const string AllUsersJsonField = "AllUsersJson";
+        public const string UserFilesJsonField = "UserFilesJson";
+
+        // default values
         public const string DefaultUsername = "John Doe";
 
         // preferences keys

@@ -20,11 +20,11 @@ namespace DeltaShare.Service
                 {
                     continue;
                 }
-                string url = $"http://{user.IpAddress}:{Constants.Port}/clients-sync";
+                string url = $"http://{user.IpAddress}:{Constants.Port}{Constants.ClientsSyncPath}";
                 //string url = $"https://webhook.site/686e76ce-1f60-4924-b364-4ceb2e5823a1/{user.IpAddress}-{Constants.Port}/clients-sync";
                 using var form = new MultipartFormDataContent
                 {
-                    { new StringContent(allUsersJson), "AllUsersJson" }
+                    { new StringContent(allUsersJson), Constants.AllUsersJsonField }
                 };
                 try
                 {

@@ -10,6 +10,8 @@ namespace DeltaShare.Util
         public static string IpAddress { get; set; } = String.Empty;
         public static ObservableCollection<User> PoolUsers { get; set; } = new();
 
+        public static Dictionary<string, List<FileMetadata>> PoolFiles { get; set; }
+
         public static void InitMock()
         {
             PoolUsers = new ObservableCollection<User>([

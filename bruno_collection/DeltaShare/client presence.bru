@@ -1,0 +1,15 @@
+meta {
+  name: client presence
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{client_ip}}:9898/new-client
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  UserJson: {"Name":"Unnameasdfd","Email":"","Username":"balasnced-gulf"}
+}

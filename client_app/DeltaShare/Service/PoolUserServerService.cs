@@ -9,7 +9,6 @@ namespace DeltaShare.Service
 {
     public sealed class PoolUserServerService : IDisposable
     {
-        private static string ClientSyncPath = "/clients-sync";
         private CancellationTokenSource? cancellationTokenSource;
         private Task? listenTask;
         private readonly HttpListener listener;
@@ -73,7 +72,7 @@ namespace DeltaShare.Service
 
         private async Task ProcessRequestAsync(HttpListenerContext context)
         {
-            if (context.Request.Url?.AbsolutePath == ClientSyncPath)
+            if (context.Request.Url?.AbsolutePath == Constants.ClientsSyncPath)
             {
                 await ProcessUserSyncRequest(context);
             }
@@ -83,8 +82,8 @@ namespace DeltaShare.Service
         {
             try
             {
-                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, ClientSyncPath);
-                var userListJsonStream = formParts["AllUsersJson"].Content.Stream;
+                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, Constants.ClientsSyncPath);
+                var userListJsonStream = formParts[Constants.AllUsersJsonField].Content.Stream;
                 List<User>? allUsers = await JsonSerializer.DeserializeAsync<List<User>>(userListJsonStream);
                 StateManager.PoolUsers.Clear();
                 foreach (User user in allUsers)

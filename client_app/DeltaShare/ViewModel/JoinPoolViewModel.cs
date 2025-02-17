@@ -35,6 +35,7 @@ namespace DeltaShare.ViewModel
             bool status = await clientService.SendInfoToPoolCreator(PoolCodeInputText);
             if (!status)
             {
+                await Shell.Current.DisplayAlert("Error", "Failed to join pool", "OK");
                 return;
             }
             await Shell.Current.GoToAsync(nameof(DownloadFileView));
