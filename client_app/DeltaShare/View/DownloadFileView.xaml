@@ -39,6 +39,15 @@
             FontSize="Medium"
             HorizontalOptions="Center"
             Text="Shared Files" />
+        <CollectionView ItemsLayout="VerticalList" ItemsSource="{Binding PoolFiles}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:FileMetadata">
+                    <HorizontalStackLayout>
+                        <Label FontSize="Medium" Text="{Binding OwnerIpAddress}" />
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Button
             FontSize="Medium"
             HorizontalOptions="Center"

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text.Json;
 using DeltaShare.Model;
 using DeltaShare.Util;
@@ -9,7 +10,7 @@ namespace DeltaShare.Service
     {
         private readonly HttpClient client = client;
 
-        public async Task<bool> SendInfoToPoolCreator(string poolCode)
+        public async Task<bool> SendUserInfoToPoolCreator(string poolCode)
         {
             string url = $"http://{poolCode}:{Constants.Port}{Constants.NewClientPath}";
             User currentUser = new(
@@ -46,6 +47,38 @@ namespace DeltaShare.Service
             {
                 Debug.WriteLine($"Error: {e.Message}");
                 return false;
+            }
+        }
+
+        public void AddFilesToPool(ObservableCollection<FileMetadata> fileMetadata)
+        {
+            foreach (FileMetadata file in fileMetadata)
+            {
+                StateManager.PoolFiles.Add(file);
+            }
+        }
+
+        public async Task SendFileInfoToPoolCreator(ObservableCollection<FileMetadata> fileMetadata)
+        {
+
+            // send to creator
+            string filesJson = JsonSerializer.Serialize(fileMetadata);
+            using var form = new MultipartFormDataContent
+            {
+                { new StringContent(filesJson), Constants.UserFilesJsonField },
+            };
+            try
+            {
+                HttpResponseMessage response = await client.PostAsync(
+                $"http://{StateManager.PoolCreatorIpAddress}:{Constants.Port}{Constants.NewFileMetadataPath}",
+                    //$"https://webhook.site/686e76ce-1f60-4924-b364-4ceb2e5823a1/newFiles",
+                    form);
+                string responseBody = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"response: {responseBody}");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error: {e.Message}");
             }
         }
     }

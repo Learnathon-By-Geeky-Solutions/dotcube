@@ -21,7 +21,7 @@
         public const string FullNameKey = "FullName";
 
         // temporary creator values
-        public const string PoolCreatorIpAddress = "192.168.1.103";
+        public const string PoolCreatorIpAddress = "192.168.1.109";
         public const string Port = "9898";
 
         // window size

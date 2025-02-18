@@ -2,16 +2,16 @@
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Model;
+using DeltaShare.Service;
 using DeltaShare.Util;
 
 namespace DeltaShare.ViewModel
 {
-    public partial class DownloadFileViewModel : BaseViewModel
+    public partial class DownloadFileViewModel(PoolUserClientService clientService) : BaseViewModel
     {
-        public static ObservableCollection<User> PoolUsers => StateManager.PoolUsers;
-        public DownloadFileViewModel()
-        {
-        }
+        private readonly PoolUserClientService clientService = clientService;
+        public ObservableCollection<User> PoolUsers => StateManager.PoolUsers;
+        public ObservableCollection<FileMetadata> PoolFiles => StateManager.PoolFiles;
 
         [RelayCommand]
         private static void ClickRefreshBtn()
@@ -26,36 +26,15 @@ namespace DeltaShare.ViewModel
         }
         private async Task UploadFiles()
         {
-            IEnumerable<FileResult> files = await PickFiles();
+            IEnumerable<FileResult> files = await FileHandler.PickFiles();
             if (files == null)
             {
                 return;
             }
-            foreach (FileResult file in files)
-            {
-                if (file != null)
-                {
-                    Debug.WriteLine($"File name: {file.FileName}");
-                }
-            }
+            ObservableCollection<FileMetadata> fileMetadata = await FileMetadata.FileResultsToFileMetadata(files);
+            clientService.AddFilesToPool(fileMetadata);
+            await clientService.SendFileInfoToPoolCreator(fileMetadata);
         }
 
-        private static async Task<IEnumerable<FileResult>> PickFiles()
-        {
-            try
-            {
-                PickOptions options = new()
-                {
-                    PickerTitle = "Please select a file",
-                };
-                IEnumerable<FileResult> result = await FilePicker.PickMultipleAsync(options);
-                return result;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-            }
-            return [];
-        }
     }
 }

@@ -26,7 +26,7 @@ namespace DeltaShare.ViewModel
         {
             serverService.StartListening();
 
-            bool status = await clientService.SendInfoToPoolCreator(PoolCodeInputText);
+            bool status = await clientService.SendUserInfoToPoolCreator(PoolCodeInputText);
             if (!status)
             {
                 await Shell.Current.DisplayAlert("Error", "Failed to join pool", "OK");

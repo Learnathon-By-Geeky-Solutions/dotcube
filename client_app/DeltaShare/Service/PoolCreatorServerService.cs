@@ -114,8 +114,8 @@ namespace DeltaShare.Service
                 foreach (var fileMetadata in allFileMetadata ?? [])
                 {
                     fileMetadata.OwnerIpAddress = clientIpAddress;
+                    StateManager.PoolFiles.Add(fileMetadata);
                 }
-                StateManager.PoolFiles[clientIpAddress] = new List<FileMetadata>(allFileMetadata ?? []);
                 MultipartParser.SendResponse(context, "success");
             }
             catch (Exception ex)
