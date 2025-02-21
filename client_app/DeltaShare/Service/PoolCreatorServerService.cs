@@ -25,6 +25,7 @@ namespace DeltaShare.Service
             StateManager.PoolCreatorIpAddress = Constants.PoolCreatorIpAddress;
             StateManager.IpAddress = Constants.PoolCreatorIpAddress;
             StateManager.IsPoolCreator = true;
+            StateManager.CurrentUser = currentUser;
             this.listener = listener;
         }
 
@@ -111,9 +112,20 @@ namespace DeltaShare.Service
                 var fileJsonStream = formParts[Constants.UserFilesJsonField].Content.Stream;
                 List<FileMetadata>? allFileMetadata = await JsonSerializer.DeserializeAsync<List<FileMetadata>>(fileJsonStream);
                 string clientIpAddress = context.Request.RemoteEndPoint.Address.ToString();
+
                 foreach (var fileMetadata in allFileMetadata ?? [])
                 {
+                    Stream thumbnailStream = formParts[fileMetadata.Uuid].Content.Stream;
+
+                    using var memoryStream = new MemoryStream();
+                    await thumbnailStream.CopyToAsync(memoryStream);
+                    ByteArrayContent thumbnailContent = new(memoryStream.ToArray());
+
+                    fileMetadata.ThumbnailContent = thumbnailContent;
+                    fileMetadata.ThumbnailContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(fileMetadata.ContentType);
+                    fileMetadata.ThumbnailSource = ImageSource.FromStream(() => thumbnailContent.ReadAsStream());
                     fileMetadata.OwnerIpAddress = clientIpAddress;
+                    fileMetadata.Owner = StateManager.IpUserPair[clientIpAddress];
                     StateManager.PoolFiles.Add(fileMetadata);
                 }
                 MultipartParser.SendResponse(context, "success");
@@ -144,6 +156,7 @@ namespace DeltaShare.Service
                 }
                 StateManager.PoolUsers.Add(newUser);
                 poolUsersIpHashSet.Add(newUser.IpAddress);
+                StateManager.IpUserPair[newUser.IpAddress] = newUser;
                 MultipartParser.SendResponse(context, $"success {newUser?.IpAddress}");
             }
             catch (Exception ex)

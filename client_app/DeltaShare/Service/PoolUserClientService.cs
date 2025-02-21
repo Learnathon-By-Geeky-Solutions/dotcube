@@ -41,6 +41,7 @@ namespace DeltaShare.Service
                 }
                 string ipAddress = responseBody.Split(" ")[1];
                 StateManager.IpAddress = ipAddress;
+                StateManager.CurrentUser = currentUser;
                 return true;
             }
             catch (Exception e)
@@ -67,11 +68,16 @@ namespace DeltaShare.Service
             {
                 { new StringContent(filesJson), Constants.UserFilesJsonField },
             };
+            foreach (FileMetadata file in fileMetadata)
+            {
+                form.Add(file.ThumbnailContent, file.Uuid, file.Filename);
+            }
             try
             {
+                Debug.WriteLine($"posting: http://{StateManager.PoolCreatorIpAddress}:{Constants.Port}{Constants.NewFileMetadataPath}");
                 HttpResponseMessage response = await client.PostAsync(
-                $"http://{StateManager.PoolCreatorIpAddress}:{Constants.Port}{Constants.NewFileMetadataPath}",
-                    //$"https://webhook.site/686e76ce-1f60-4924-b364-4ceb2e5823a1/newFiles",
+                    $"http://{StateManager.PoolCreatorIpAddress}:{Constants.Port}{Constants.NewFileMetadataPath}",
+                    //$"https://webhook.site/02e7186e-d565-4711-b0d1-2708817b802f/newFiles",
                     form);
                 string responseBody = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"response: {responseBody}");

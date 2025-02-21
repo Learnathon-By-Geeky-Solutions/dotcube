@@ -6,10 +6,10 @@ using ZXing.Net.Maui;
 
 namespace DeltaShare.ViewModel
 {
-    public partial class JoinPoolViewModel(PoolUserClientService clientService, PoolUserServerService serverService) : BaseViewModel
+    public partial class JoinPoolViewModel : BaseViewModel
     {
-        private readonly PoolUserServerService serverService = serverService;
-        private readonly PoolUserClientService clientService = clientService;
+        private readonly PoolUserServerService serverService;
+        private readonly PoolUserClientService clientService;
         [ObservableProperty]
         private string poolCodeInputText = string.Empty;
 
@@ -20,6 +20,12 @@ namespace DeltaShare.ViewModel
             AutoRotate = true,
             Multiple = false
         };
+
+        public JoinPoolViewModel(PoolUserClientService clientService, PoolUserServerService serverService)
+        {
+            this.clientService = clientService;
+            this.serverService = serverService;
+        }
 
         [RelayCommand]
         private async Task ClickJoinPoolBtn()

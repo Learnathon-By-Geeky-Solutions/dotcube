@@ -1,39 +1,69 @@
-﻿using System.Collections.ObjectModel;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace DeltaShare.Model
 {
-    public class FileMetadata(string uuid, string thumbnail, long size, string filename, string ownerIpAddress, Stream fileStream)
+    public class FileMetadata
     {
-        public string Uuid { get; set; } = uuid;
-        public string Thumbnail { get; set; } = thumbnail;
-        public long Size { get; set; } = size;
-        public string Filename { get; set; } = filename;
-        public string OwnerIpAddress { get; set; } = ownerIpAddress; // compute
+
         [JsonIgnore]
-        public Stream? FileStream { get; set; } = fileStream; // compute
+        public ByteArrayContent? ThumbnailContent { get; set; }
+
+        [JsonIgnore]
+        public ImageSource? ThumbnailSource { get; set; }
+
+        [JsonIgnore]
+        public Stream? FileStream { get; set; }
+
+        [JsonIgnore]
+        public User? Owner { get; set; }
+
+        [JsonIgnore]
+        public string FormattedSize
+        {
+            get
+            {
+                if (Size >= 1024 * 1024)
+                    return $"{Size / (1024 * 1024)} MB";
+                if (Size >= 1024)
+                    return $"{Size / 1024} KB";
+                return $"{Size} bytes";
+            }
+        }
+
+        public string Uuid { get; set; }
+        public long Size { get; set; }
+        public string Filename { get; set; }
+        public string OwnerIpAddress { get; set; } // compute on server
+        public string ContentType { get; set; }
+
+        [JsonConstructor]
+        public FileMetadata(string uuid, long size, string filename, string ownerIpAddress, string contentType)
+        {
+            Uuid = uuid;
+            Size = size;
+            Filename = filename;
+            OwnerIpAddress = ownerIpAddress;
+            ContentType = contentType;
+        }
+
+        public FileMetadata(string uuid, ByteArrayContent thumbnailContent, long size, string filename, string ownerIpAddress, string contentType, Stream fileStream)
+        {
+            Uuid = uuid;
+            ThumbnailContent = thumbnailContent;
+            ThumbnailContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+            byte[] imageBytes = ThumbnailContent.ReadAsByteArrayAsync().Result;
+            ThumbnailSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+            Size = size;
+            Filename = filename;
+            OwnerIpAddress = ownerIpAddress;
+            ContentType = contentType;
+            FileStream = fileStream;
+        }
 
         public override string ToString()
         {
-            return "Uuid: " + Uuid + ", Thumbnail (size): " + Thumbnail.Length + ", Size: " + Size + ", Filename: " + Filename + ", OwnerIpAddress: " + OwnerIpAddress;
-        }
-
-        public static async Task<ObservableCollection<FileMetadata>> FileResultsToFileMetadata(IEnumerable<FileResult> fileResults)
-        {
-            ObservableCollection<FileMetadata> files = new();
-            foreach (FileResult file in fileResults)
-            {
-                Stream fileStream = await file.OpenReadAsync();
-                files.Add(new FileMetadata(
-                    uuid: Guid.NewGuid().ToString(),
-                    thumbnail: "testbase64data",
-                    size: fileStream.Length,
-                    filename: file.FileName,
-                    ownerIpAddress: "null",
-                    fileStream: fileStream));
-            }
-
-            return files;
+            return $"Uuid: {Uuid}, Size: {Size}, Filename: {Filename}, OwnerIpAddress: {OwnerIpAddress}";
         }
     }
+
 }

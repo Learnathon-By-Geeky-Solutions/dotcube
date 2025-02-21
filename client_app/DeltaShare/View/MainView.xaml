@@ -38,7 +38,7 @@
             <Label
                 Style="{StaticResource PrevPoolLabel}"
                 Text="Learnathon resources 1"
-                TextColor="LightBlue">
+                TextColor="{StaticResource Primary}">
                 <Label.GestureRecognizers>
                     <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="123" />
                 </Label.GestureRecognizers>
@@ -46,7 +46,7 @@
             <Label
                 Style="{StaticResource PrevPoolLabel}"
                 Text="Learnathon resources 2"
-                TextColor="LightBlue">
+                TextColor="{StaticResource Primary}">
                 <Label.GestureRecognizers>
                     <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="456" />
                 </Label.GestureRecognizers>
@@ -54,7 +54,7 @@
             <Label
                 Style="{StaticResource PrevPoolLabel}"
                 Text="Learnathon resources 3"
-                TextColor="LightBlue">
+                TextColor="{StaticResource Primary}">
                 <Label.GestureRecognizers>
                     <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="789" />
                 </Label.GestureRecognizers>

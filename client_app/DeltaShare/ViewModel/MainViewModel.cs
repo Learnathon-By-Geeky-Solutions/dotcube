@@ -20,8 +20,8 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private async Task ClickSettingsBtn()
         {
-            await Shell.Current.GoToAsync(nameof(DownloadFileView));
-            //await Shell.Current.GoToAsync(nameof(SettingsView));
+            //await Shell.Current.GoToAsync(nameof(DownloadFileView));
+            await Shell.Current.GoToAsync(nameof(SettingsView));
         }
 
         private async Task<bool> RequestPermissions()

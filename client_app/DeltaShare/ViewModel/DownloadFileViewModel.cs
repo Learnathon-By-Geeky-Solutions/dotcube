@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Model;
 using DeltaShare.Service;
@@ -12,11 +13,17 @@ namespace DeltaShare.ViewModel
         private readonly PoolUserClientService clientService = clientService;
         public ObservableCollection<User> PoolUsers => StateManager.PoolUsers;
         public ObservableCollection<FileMetadata> PoolFiles => StateManager.PoolFiles;
+        [ObservableProperty]
+        private bool isDownloadEnabled = false;
 
         [RelayCommand]
         private static void ClickRefreshBtn()
         {
             Debug.WriteLine("Refresh button clicked");
+            foreach (FileMetadata file in StateManager.PoolFiles)
+            {
+                Debug.WriteLine(file.Filename);
+            }
         }
 
         [RelayCommand]
@@ -31,7 +38,7 @@ namespace DeltaShare.ViewModel
             {
                 return;
             }
-            ObservableCollection<FileMetadata> fileMetadata = await FileMetadata.FileResultsToFileMetadata(files);
+            ObservableCollection<FileMetadata> fileMetadata = await FileHandler.FileResultsToFileMetadata(files);
             clientService.AddFilesToPool(fileMetadata);
             await clientService.SendFileInfoToPoolCreator(fileMetadata);
         }
