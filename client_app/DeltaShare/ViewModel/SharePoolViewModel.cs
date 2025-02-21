@@ -17,7 +17,7 @@ namespace DeltaShare.ViewModel
         public SharePoolViewModel(PoolCreatorClientService clientService)
         {
             StateManager.PoolUsers.CollectionChanged += async (sender, e) => await clientService.SendAllUserInfoToAllUsers();
-            QrCodeData = Constants.PoolCreatorIpAddress;
+            QrCodeData = CodeHandler.GenerateQrCodeData(StateManager.IpAddress);
         }
 
         [RelayCommand]

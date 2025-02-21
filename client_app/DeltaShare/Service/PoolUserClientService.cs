@@ -10,9 +10,10 @@ namespace DeltaShare.Service
     {
         private readonly HttpClient client = client;
 
-        public async Task<bool> SendUserInfoToPoolCreator(string poolCode)
+        public async Task<bool> SendUserInfoToPoolCreator(string poolCreatorIpAddress)
         {
-            string url = $"http://{poolCode}:{Constants.Port}{Constants.NewClientPath}";
+            string url = $"http://{poolCreatorIpAddress}:{Constants.Port}{Constants.NewClientPath}";
+            Debug.WriteLine($"posting: {url}");
             User currentUser = new(
                 Preferences.Get(Constants.FullNameKey, ""),
                 "null",
@@ -31,7 +32,7 @@ namespace DeltaShare.Service
                 string responseBody = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"response: {responseBody}");
 
-                StateManager.PoolCreatorIpAddress = Constants.PoolCreatorIpAddress;
+                StateManager.PoolCreatorIpAddress = poolCreatorIpAddress;
                 StateManager.IsPoolCreator = false;
 
                 bool isSuccessful = responseBody.Contains("success");
