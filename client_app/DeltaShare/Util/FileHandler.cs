@@ -1,12 +1,52 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Net;
 using DeltaShare.Model;
+using MimeKit;
 using SkiaSharp;
 
 namespace DeltaShare.Util
 {
     public static class FileHandler
     {
+        public static async Task SaveFileInLocalStorage(Stream fileStream, string fileName)
+        {
+            string downloadFolderPath = String.Empty;
+#if WINDOWS
+            downloadFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+#endif
+#if ANDROID
+            downloadFolderPath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)!.AbsolutePath;
+#endif
+            string destinationPath = Path.Combine(downloadFolderPath, "DeltaShare");
+            Directory.CreateDirectory(destinationPath);
+            using FileStream destinationStream = new(Path.Combine(destinationPath, fileName), FileMode.Create);
+            await fileStream.CopyToAsync(destinationStream);
+        }
+
+        public static async Task ProcessFileDownloadRequest(HttpListenerContext context)
+        {
+            try
+            {
+                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, Constants.FileDownloadPath);
+                using StreamReader reader = new(formParts[Constants.FileUuidField].Content.Stream);
+                string fileUuid = await reader.ReadToEndAsync();
+                FileMetadata? fileMetadata = StateManager.PoolFiles.FirstOrDefault(file => file.Uuid == fileUuid);
+                if (fileMetadata == null)
+                {
+                    MultipartParser.SendResponse(context, "error");
+                    return;
+                }
+                Stream fileStream = await fileMetadata.FileRef!.OpenReadAsync();
+                await MultipartParser.SendResponse(context, fileStream ?? Stream.Null);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error processing request in server: {ex.Message}");
+                MultipartParser.SendResponse(context, "error");
+            }
+        }
+
         public static async Task<IEnumerable<FileResult>> PickFiles()
         {
             try
@@ -30,15 +70,17 @@ namespace DeltaShare.Util
             foreach (FileResult file in fileResults)
             {
                 Stream fileStream = await file.OpenReadAsync();
-                FileMetadata newFile = new FileMetadata(
+                FileMetadata newFile = new(
                     uuid: Guid.NewGuid().ToString(),
-                    thumbnailContent: await MakeThumbnailContent(fileStream, file.ContentType),
+                    thumbnailContent: await MakeThumbnailContent(file),
                     size: fileStream.Length,
                     filename: file.FileName,
                     ownerIpAddress: "null",
                     contentType: file.ContentType,
-                    fileStream: fileStream);
-                newFile.Owner = StateManager.CurrentUser;
+                    fileRef: file)
+                {
+                    Owner = StateManager.CurrentUser
+                };
                 files.Add(newFile);
             }
 
@@ -46,12 +88,13 @@ namespace DeltaShare.Util
         }
 
 
-        private static async Task<ByteArrayContent> MakeThumbnailContent(Stream fileStream, string contentType)
+        private static async Task<ByteArrayContent> MakeThumbnailContent(FileResult fileResult)
         {
             SKBitmap originalBitmap;
 
-            if (contentType.Contains("image"))
+            if (fileResult.ContentType.Contains("image"))
             {
+                Stream fileStream = await fileResult.OpenReadAsync();
                 originalBitmap = SKBitmap.Decode(SKCodec.Create(fileStream));
             }
             else

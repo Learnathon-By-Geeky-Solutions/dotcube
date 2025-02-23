@@ -20,7 +20,12 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private async Task ClickSettingsBtn()
         {
+            //var listener = new HttpListener();
+            //listener.Prefixes.Add($"http://+:{Constants.Port}/");
+            //PoolCreatorServerService serverService = new(listener);
+            //serverService.StartListening();
             //await Shell.Current.GoToAsync(nameof(DownloadFileView));
+
             await Shell.Current.GoToAsync(nameof(SettingsView));
         }
 

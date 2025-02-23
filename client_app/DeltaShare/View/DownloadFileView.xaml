@@ -47,6 +47,8 @@
         <CollectionView
             ItemsLayout="VerticalList"
             ItemsSource="{Binding PoolFiles}"
+            SelectedItems="{Binding SelectedFiles}"
+            SelectionChangedCommand="{Binding FileSelectionChangedCommand}"
             SelectionMode="Multiple">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:FileMetadata">
@@ -77,6 +79,21 @@
                                     FontSize="Small"
                                     Text="{Binding Owner.Username}" />
                             </HorizontalStackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Green" />
+                                            <Setter TargetName="seatNumber" Property="Label.TextColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
                         </VerticalStackLayout>
                     </HorizontalStackLayout>
                 </DataTemplate>
@@ -89,6 +106,7 @@
                 HorizontalOptions="Start"
                 Text="Add files" />
             <Button
+                Command="{Binding ClickDownloadBtnCommand}"
                 FontSize="Medium"
                 HorizontalOptions="End"
                 IsEnabled="{Binding IsDownloadEnabled}"

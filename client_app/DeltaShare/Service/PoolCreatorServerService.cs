@@ -102,9 +102,13 @@ namespace DeltaShare.Service
             {
                 await ProcessNewFileRequest(context);
             }
+            else if (context.Request.Url?.AbsolutePath == Constants.FileDownloadPath)
+            {
+                await FileHandler.ProcessFileDownloadRequest(context);
+            }
         }
 
-        private async Task ProcessNewFileRequest(HttpListenerContext context)
+        private static async Task ProcessNewFileRequest(HttpListenerContext context)
         {
             try
             {

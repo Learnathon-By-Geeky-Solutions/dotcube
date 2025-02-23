@@ -52,6 +52,35 @@ namespace DeltaShare.Service
             }
         }
 
+        public async Task SaveFilesFromPool(ObservableCollection<object> files)
+        {
+            foreach (FileMetadata file in files.Cast<FileMetadata>())
+            {
+                Debug.WriteLine($"Downloading {file.Filename}");
+                Stream fileStream = await GetRemoteFileStream(file);
+                await FileHandler.SaveFileInLocalStorage(fileStream, file.Filename);
+            }
+        }
+        public async Task<Stream> GetRemoteFileStream(FileMetadata fileMetadata)
+        {
+            string url = $"http://{fileMetadata.OwnerIpAddress}:{Constants.Port}{Constants.FileDownloadPath}";
+            using MultipartFormDataContent form = new()
+            {
+                { new StringContent(fileMetadata.Uuid), Constants.FileUuidField  }
+            };
+            try
+            {
+                HttpResponseMessage response = await client.PostAsync(url, form);
+                Stream fileStream = await response.Content.ReadAsStreamAsync();
+                return fileStream;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error: {e.Message}");
+                return Stream.Null;
+            }
+        }
+
         public void AddFilesToPool(ObservableCollection<FileMetadata> fileMetadata)
         {
             foreach (FileMetadata file in fileMetadata)
@@ -59,6 +88,7 @@ namespace DeltaShare.Service
                 StateManager.PoolFiles.Add(file);
             }
         }
+
 
         public async Task SendFileInfoToPoolCreator(ObservableCollection<FileMetadata> fileMetadata)
         {
@@ -71,7 +101,7 @@ namespace DeltaShare.Service
             };
             foreach (FileMetadata file in fileMetadata)
             {
-                form.Add(file.ThumbnailContent, file.Uuid, file.Filename);
+                form.Add(file.ThumbnailContent!, file.Uuid, file.Filename);
             }
             try
             {

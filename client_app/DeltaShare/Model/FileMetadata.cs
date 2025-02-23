@@ -12,7 +12,7 @@ namespace DeltaShare.Model
         public ImageSource? ThumbnailSource { get; set; }
 
         [JsonIgnore]
-        public Stream? FileStream { get; set; }
+        public FileResult? FileRef { get; set; }
 
         [JsonIgnore]
         public User? Owner { get; set; }
@@ -46,7 +46,7 @@ namespace DeltaShare.Model
             ContentType = contentType;
         }
 
-        public FileMetadata(string uuid, ByteArrayContent thumbnailContent, long size, string filename, string ownerIpAddress, string contentType, Stream fileStream)
+        public FileMetadata(string uuid, ByteArrayContent thumbnailContent, long size, string filename, string ownerIpAddress, string contentType, FileResult fileRef)
         {
             Uuid = uuid;
             ThumbnailContent = thumbnailContent;
@@ -57,7 +57,7 @@ namespace DeltaShare.Model
             Filename = filename;
             OwnerIpAddress = ownerIpAddress;
             ContentType = contentType;
-            FileStream = fileStream;
+            FileRef = fileRef;
         }
 
         public override string ToString()

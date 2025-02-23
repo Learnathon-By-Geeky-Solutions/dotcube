@@ -13,11 +13,13 @@ namespace DeltaShare.ViewModel
         private readonly PoolUserClientService clientService = clientService;
         public ObservableCollection<User> PoolUsers => StateManager.PoolUsers;
         public ObservableCollection<FileMetadata> PoolFiles => StateManager.PoolFiles;
+        public ObservableCollection<object> SelectedFiles { get; set; } = [];
+
         [ObservableProperty]
         private bool isDownloadEnabled = false;
 
         [RelayCommand]
-        private static void ClickRefreshBtn()
+        private void ClickRefreshBtn()
         {
             Debug.WriteLine("Refresh button clicked");
             foreach (FileMetadata file in StateManager.PoolFiles)
@@ -27,10 +29,30 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
+        private void FileSelectionChanged()
+        {
+            if (SelectedFiles.Count > 0)
+            {
+                IsDownloadEnabled = true;
+            }
+            else
+            {
+                IsDownloadEnabled = false;
+            }
+        }
+
+        [RelayCommand]
+        private async Task ClickDownloadBtn()
+        {
+            await clientService.SaveFilesFromPool(SelectedFiles);
+        }
+
+        [RelayCommand]
         private async Task ClickAddFilesBtn()
         {
             await UploadFiles();
         }
+
         private async Task UploadFiles()
         {
             IEnumerable<FileResult> files = await FileHandler.PickFiles();

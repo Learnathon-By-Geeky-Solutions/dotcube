@@ -81,6 +81,10 @@ namespace DeltaShare.Service
             {
                 await ProcessUserSyncRequest(context);
             }
+            else if (context.Request.Url?.AbsolutePath == Constants.FileDownloadPath)
+            {
+                await FileHandler.ProcessFileDownloadRequest(context);
+            }
         }
 
         private static async Task ProcessUserSyncRequest(HttpListenerContext context)
