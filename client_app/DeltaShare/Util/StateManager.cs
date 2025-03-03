@@ -11,6 +11,7 @@ namespace DeltaShare.Util
         public static User CurrentUser { get; set; } = new("", "", "", "", false);
         public static ObservableCollection<User> PoolUsers { get; set; } = new();
         public static Dictionary<string, User> IpUserPair { get; set; } = new();
+        public static Dictionary<string, FileMetadata> LocalUuidFilePair { get; set; } = new();
         public static ObservableCollection<FileMetadata> PoolFiles { get; set; } = [];
 
         public static void InitMock()

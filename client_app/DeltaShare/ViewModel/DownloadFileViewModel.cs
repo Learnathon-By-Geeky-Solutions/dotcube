@@ -61,6 +61,10 @@ namespace DeltaShare.ViewModel
                 return;
             }
             ObservableCollection<FileMetadata> fileMetadata = await FileHandler.FileResultsToFileMetadata(files);
+            foreach (FileMetadata file in fileMetadata)
+            {
+                StateManager.LocalUuidFilePair[file.Uuid] = file;
+            }
             clientService.AddFilesToPool(fileMetadata);
             await clientService.SendFileInfoToPoolCreator(fileMetadata);
         }

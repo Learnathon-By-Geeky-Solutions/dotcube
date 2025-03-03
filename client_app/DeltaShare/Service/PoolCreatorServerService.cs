@@ -13,9 +13,11 @@ namespace DeltaShare.Service
         private Task? listenTask;
         private readonly HashSet<string> poolUsersIpHashSet = [];
         private readonly HttpListener listener;
+        private readonly PoolCreatorClientService clientService;
 
-        public PoolCreatorServerService(HttpListener listener)
+        public PoolCreatorServerService(HttpListener listener, PoolCreatorClientService clientService)
         {
+            this.clientService = clientService;
             string username = Preferences.Get(Constants.UsernameKey, "");
             string fullname = Preferences.Get(Constants.FullNameKey, "");
             User currentUser = new(fullname, "", username, "", true);
@@ -108,7 +110,7 @@ namespace DeltaShare.Service
             }
         }
 
-        private static async Task ProcessNewFileRequest(HttpListenerContext context)
+        private async Task ProcessNewFileRequest(HttpListenerContext context)
         {
             try
             {
@@ -127,12 +129,13 @@ namespace DeltaShare.Service
 
                     fileMetadata.ThumbnailContent = thumbnailContent;
                     fileMetadata.ThumbnailContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(fileMetadata.ContentType);
-                    fileMetadata.ThumbnailSource = ImageSource.FromStream(() => thumbnailContent.ReadAsStream());
+                    fileMetadata.ThumbnailSource = ImageSource.FromStream(() => fileMetadata.ThumbnailContent!.ReadAsStream());
                     fileMetadata.OwnerIpAddress = clientIpAddress;
                     fileMetadata.Owner = StateManager.IpUserPair[clientIpAddress];
                     StateManager.PoolFiles.Add(fileMetadata);
                 }
                 MultipartParser.SendResponse(context, "success");
+                await clientService.SendAllFileInfoToAllUsers();
             }
             catch (Exception ex)
             {

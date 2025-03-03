@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
 using DeltaShare.Model;
@@ -81,9 +82,61 @@ namespace DeltaShare.Service
             {
                 await ProcessUserSyncRequest(context);
             }
+            else if (context.Request.Url?.AbsolutePath == Constants.FilesSyncPath)
+            {
+                await ProcessFilesSyncRequest(context);
+            }
             else if (context.Request.Url?.AbsolutePath == Constants.FileDownloadPath)
             {
                 await FileHandler.ProcessFileDownloadRequest(context);
+            }
+        }
+
+        private static async Task ProcessFilesSyncRequest(HttpListenerContext context)
+        {
+            try
+            {
+                Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, Constants.FilesSyncPath);
+                var fileListJsonStream = formParts[Constants.AllFilesJsonField].Content.Stream;
+                List<FileMetadata>? allFiles = await JsonSerializer.DeserializeAsync<List<FileMetadata>>(fileListJsonStream);
+                ObservableCollection<FileMetadata> newFiles = new();
+                foreach (FileMetadata fileMetadata in allFiles ?? [])
+                {
+                    if (fileMetadata.OwnerIpAddress == StateManager.IpAddress)
+                    {
+                        fileMetadata.ThumbnailContent = StateManager.LocalUuidFilePair[fileMetadata.Uuid].ThumbnailContent;
+                        fileMetadata.ThumbnailSource = StateManager.LocalUuidFilePair[fileMetadata.Uuid].ThumbnailSource;
+                        fileMetadata.FileRef = StateManager.LocalUuidFilePair[fileMetadata.Uuid].FileRef;
+                        fileMetadata.Owner = StateManager.CurrentUser;
+                        continue;
+                    }
+                    else
+                    {
+                        Stream thumbnailStream = formParts[fileMetadata.Uuid].Content.Stream;
+
+                        using var memoryStream = new MemoryStream();
+                        await thumbnailStream.CopyToAsync(memoryStream);
+                        ByteArrayContent thumbnailContent = new(memoryStream.ToArray());
+
+                        fileMetadata.ThumbnailContent = thumbnailContent;
+                        fileMetadata.ThumbnailContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(fileMetadata.ContentType);
+                        fileMetadata.ThumbnailSource = ImageSource.FromStream(() => fileMetadata.ThumbnailContent!.ReadAsStream());
+                        fileMetadata.Owner = StateManager.IpUserPair[fileMetadata.OwnerIpAddress];
+                    }
+                    newFiles.Add(fileMetadata);
+                }
+
+                StateManager.PoolFiles.Clear();
+                foreach (FileMetadata file in newFiles)
+                {
+                    StateManager.PoolFiles.Add(file);
+                }
+
+                MultipartParser.SendResponse(context, "success");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error processing request in server: {ex.Message}");
             }
         }
 

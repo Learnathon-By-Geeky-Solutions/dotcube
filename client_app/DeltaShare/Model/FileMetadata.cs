@@ -9,13 +9,13 @@ namespace DeltaShare.Model
         public ByteArrayContent? ThumbnailContent { get; set; }
 
         [JsonIgnore]
-        public ImageSource? ThumbnailSource { get; set; }
-
-        [JsonIgnore]
         public FileResult? FileRef { get; set; }
 
         [JsonIgnore]
         public User? Owner { get; set; }
+
+        [JsonIgnore]
+        public ImageSource ThumbnailSource { get; set; }
 
         [JsonIgnore]
         public string FormattedSize

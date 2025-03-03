@@ -5,12 +5,14 @@
         // App API routes
         public const string NewClientPath = "/new-client";
         public const string ClientsSyncPath = "/clients-sync";
+        public const string FilesSyncPath = "/files-sync";
         public const string NewFileMetadataPath = "/new-files";
         public const string FileDownloadPath = "/download-file";
 
         // App API form fields
         public const string UserJsonField = "UserJson";
         public const string AllUsersJsonField = "AllUsersJson";
+        public const string AllFilesJsonField = "AllFilesJson";
         public const string UserFilesJsonField = "UserFilesJson";
         public const string FileUuidField = "FileUuid";
 
@@ -23,7 +25,7 @@
         public const string FullNameKey = "FullName";
 
         // temporary creator values
-        public const string PoolCreatorIpAddress = "192.168.1.109";
+        public const string PoolCreatorIpAddress = "192.168.1.104";
         public const string Port = "9898";
 
         // window size
