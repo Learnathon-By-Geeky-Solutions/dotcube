@@ -7,12 +7,17 @@
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     Title="DeltaShare"
     x:DataType="viewmodel:DownloadFileViewModel">
-    <VerticalStackLayout Padding="30,0" Spacing="8">
+    <Grid
+        Padding="30,0"
+        RowDefinitions="Auto,Auto,Auto,*,Auto"
+        RowSpacing="4">
         <Button
+            Grid.Row="0"
             Command="{Binding ClickRefreshBtnCommand}"
             HorizontalOptions="End"
             Text="Refresh" />
         <CollectionView
+            Grid.Row="1"
             ItemsLayout="HorizontalList"
             ItemsSource="{Binding PoolUsers}"
             SelectionMode="None">
@@ -39,12 +44,14 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Label
+            Grid.Row="2"
             BackgroundColor="{StaticResource Secondary}"
             FontAttributes="Bold"
             FontSize="Medium"
             HorizontalOptions="FillAndExpand"
             Text="Shared Files" />
         <CollectionView
+            Grid.Row="3"
             ItemsLayout="VerticalList"
             ItemsSource="{Binding PoolFiles}"
             SelectedItems="{Binding SelectedFiles}"
@@ -99,18 +106,20 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <HorizontalStackLayout Spacing="10">
-            <Button
-                Command="{Binding ClickAddFilesBtnCommand}"
-                FontSize="Medium"
-                HorizontalOptions="Start"
-                Text="Add files" />
-            <Button
-                Command="{Binding ClickDownloadBtnCommand}"
-                FontSize="Medium"
-                HorizontalOptions="End"
-                IsEnabled="{Binding IsDownloadEnabled}"
-                Text="Download" />
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+        <Button
+            Grid.Row="4"
+            Margin="0,0,0,10"
+            Command="{Binding ClickAddFilesBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="Start"
+            Text="Add files" />
+        <Button
+            Grid.Row="4"
+            Margin="0,0,0,10"
+            Command="{Binding ClickDownloadBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="End"
+            IsEnabled="{Binding IsDownloadEnabled}"
+            Text="Download" />
+    </Grid>
 </ContentPage>

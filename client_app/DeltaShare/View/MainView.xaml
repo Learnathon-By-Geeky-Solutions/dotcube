@@ -6,90 +6,76 @@
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     x:DataType="viewmodel:MainViewModel">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="8">
-            <Button
-                Command="{Binding ClickSettingsBtnCommand}"
-                ContentLayout="Left, 10"
-                HorizontalOptions="End"
-                Text="">
-                <Button.ImageSource>
-                    <FontImageSource
-                        FontFamily="FASolid"
-                        Glyph="&#xf013;"
-                        Color="{AppThemeBinding Light={StaticResource White},
+    <Grid
+        Padding="30,0"
+        RowSpacing="10"
+        RowDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto">
+        <Button
+            Grid.Row="0"
+            Command="{Binding ClickSettingsBtnCommand}"
+            ContentLayout="Left, 10"
+            HorizontalOptions="End"
+            Text="">
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="FASolid"
+                    Glyph="&#xf013;"
+                    Color="{AppThemeBinding Light={StaticResource White},
                                                 Dark={StaticResource PrimaryDarkText}}" />
-                </Button.ImageSource>
-            </Button>
+            </Button.ImageSource>
+        </Button>
+        <Button
+        Grid.Row="1"
+            Command="{Binding ClickJoinPoolBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="Fill"
+            Text="Join a Pool" />
+        <Button
+        Grid.Row="2"
+            Command="{Binding ClickCreatePoolBtnCommand}"
+            FontSize="Medium"
+            VerticalOptions="Start"
+            HorizontalOptions="Fill"
+            Text="Create a Pool" />
+        <Button
+        Grid.Row="3"
+            Margin="0,90,0,0"
+            Command="{Binding ClickCloudStorageBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="Fill"
+            Text="Cloud Storage" />
+        <Label
+        Grid.Row="4"
+            FontSize="Subtitle"
+            HorizontalOptions="Center"
+            Text="To use cloud features" />
+        <Grid
+            Grid.Row="5"
+            ColumnSpacing="10"
+            ColumnDefinitions="*,*,*">
             <Button
-                Command="{Binding ClickJoinPoolBtnCommand}"
+            Grid.Column="0"
+                Command="{Binding ClickLoginBtnCommand}"
                 FontSize="Medium"
-                HorizontalOptions="Fill"
-                Text="Join a Pool" />
+                Text="Login" />
+            <Label
+            Grid.Column="1"
+            FontSize="Medium"
+                Text="or"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center" />
             <Button
-                Command="{Binding ClickCreatePoolBtnCommand}"
+            Grid.Column="2"
+                Command="{Binding ClickSignupBtnCommand}"
                 FontSize="Medium"
-                HorizontalOptions="Fill"
-                Text="Create a Pool" />
-            <Label
-                Margin="0,20,0,0"
-                FontSize="Subtitle"
-                Text="Previous Pools" />
-            <Label
-                Style="{StaticResource PrevPoolLabel}"
-                Text="Learnathon resources 1"
-                TextColor="{StaticResource Primary}">
-                <Label.GestureRecognizers>
-                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="123" />
-                </Label.GestureRecognizers>
-            </Label>
-            <Label
-                Style="{StaticResource PrevPoolLabel}"
-                Text="Learnathon resources 2"
-                TextColor="{StaticResource Primary}">
-                <Label.GestureRecognizers>
-                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="456" />
-                </Label.GestureRecognizers>
-            </Label>
-            <Label
-                Style="{StaticResource PrevPoolLabel}"
-                Text="Learnathon resources 3"
-                TextColor="{StaticResource Primary}">
-                <Label.GestureRecognizers>
-                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="789" />
-                </Label.GestureRecognizers>
-            </Label>
-
-            <Button
-                Command="{Binding ClickCloudStorageBtnCommand}"
-                FontSize="Medium"
-                HorizontalOptions="Fill"
-                Text="Cloud Storage" />
-            <Label
-                Margin="0,60,0,0"
-                FontSize="Subtitle"
-                HorizontalOptions="Center"
-                Text="To use cloud features" />
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
-                <Button
-                    Command="{Binding ClickLoginBtnCommand}"
-                    FontSize="Medium"
-                    Text="Login" />
-                <Label
-                    FontSize="Micro"
-                    Text="or"
-                    VerticalTextAlignment="Center" />
-                <Button
-                    Command="{Binding ClickSignupBtnCommand}"
-                    FontSize="Medium"
-                    Text="Sign up" />
-            </HorizontalStackLayout>
-            <Button
-                BackgroundColor="Red"
-                Command="{Binding ClearPreferencesBtnCommand}"
-                FontSize="Micro"
-                Text="Clear Preferences" />
-        </VerticalStackLayout>
-    </ScrollView>
-
+                Text="Sign up" />
+        </Grid>
+        <Button
+        Grid.Row="6"
+            Margin="0,50,0,50"
+            BackgroundColor="Red"
+            Command="{Binding ClearPreferencesBtnCommand}"
+            FontSize="Micro"
+            Text="Clear Preferences" />
+    </Grid>
 </ContentPage>

@@ -6,8 +6,9 @@ namespace DeltaShare.ViewModel
 {
     public partial class MainViewModel : BaseViewModel
     {
+        private readonly PoolCreatorServerService serverService;
         private readonly IPermissionService permissionService;
-        public MainViewModel(IPermissionService permissionService)
+        public MainViewModel(IPermissionService permissionService, PoolCreatorServerService serverService)
         {
             this.permissionService = permissionService;
             bool settingsShowed = Preferences.Get(Constants.SettingsShowedKey, false);
@@ -15,6 +16,7 @@ namespace DeltaShare.ViewModel
             {
                 Shell.Current.GoToAsync(nameof(SettingsView));
             }
+            this.serverService = serverService;
         }
 
         [RelayCommand]
@@ -59,7 +61,9 @@ namespace DeltaShare.ViewModel
             {
                 return;
             }
-            await Shell.Current.GoToAsync(nameof(CreatePoolView));
+            serverService.StartListening();
+            //await Shell.Current.GoToAsync(nameof(CreatePoolView));
+            await Shell.Current.GoToAsync(nameof(SharePoolView));
         }
 
         [RelayCommand]

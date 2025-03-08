@@ -1,21 +1,33 @@
 ﻿using System.Text.Json.Serialization;
+using DeltaShare.Util;
 
 namespace DeltaShare.Model
 {
     public class FileMetadata
     {
-
         [JsonIgnore]
         public ByteArrayContent? ThumbnailContent { get; set; }
-
-        [JsonIgnore]
-        public FileResult? FileRef { get; set; }
 
         [JsonIgnore]
         public User? Owner { get; set; }
 
         [JsonIgnore]
-        public ImageSource ThumbnailSource { get; set; }
+        public ImageSource ThumbnailSource
+        {
+            get
+            {
+                if (ThumbnailContent == null)
+                {
+                    FileResult fileResult = new("null")
+                    {
+                        ContentType = "generic"
+                    };
+                    ThumbnailContent = FileHandler.MakeThumbnailContent(fileResult).Result;
+                }
+                byte[] imageBytes = ThumbnailContent!.ReadAsByteArrayAsync().Result;
+                return ImageSource.FromStream(() => new MemoryStream(imageBytes));
+            }
+        }
 
         [JsonIgnore]
         public string FormattedSize
@@ -30,6 +42,7 @@ namespace DeltaShare.Model
             }
         }
 
+        public string FilePath { get; set; }
         public string Uuid { get; set; }
         public long Size { get; set; }
         public string Filename { get; set; }
@@ -37,32 +50,31 @@ namespace DeltaShare.Model
         public string ContentType { get; set; }
 
         [JsonConstructor]
-        public FileMetadata(string uuid, long size, string filename, string ownerIpAddress, string contentType)
+        public FileMetadata(string uuid, long size, string filename, string ownerIpAddress, string contentType, string filePath)
         {
             Uuid = uuid;
             Size = size;
             Filename = filename;
             OwnerIpAddress = ownerIpAddress;
             ContentType = contentType;
+            FilePath = filePath;
         }
 
-        public FileMetadata(string uuid, ByteArrayContent thumbnailContent, long size, string filename, string ownerIpAddress, string contentType, FileResult fileRef)
+        public FileMetadata(string uuid, ByteArrayContent thumbnailContent, long size, string filename, string ownerIpAddress, string contentType, string filePath)
         {
             Uuid = uuid;
             ThumbnailContent = thumbnailContent;
             ThumbnailContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
-            byte[] imageBytes = ThumbnailContent.ReadAsByteArrayAsync().Result;
-            ThumbnailSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
             Size = size;
             Filename = filename;
             OwnerIpAddress = ownerIpAddress;
             ContentType = contentType;
-            FileRef = fileRef;
+            FilePath = filePath;
         }
 
         public override string ToString()
         {
-            return $"Uuid: {Uuid}, Size: {Size}, Filename: {Filename}, OwnerIpAddress: {OwnerIpAddress}";
+            return $"Uuid: {Uuid}, Size: {Size}, Filename: {Filename}, OwnerIpAddress: {OwnerIpAddress}, Filepath: {FilePath}";
         }
     }
 

@@ -37,7 +37,7 @@ namespace DeltaShare.Util
                     MultipartParser.SendResponse(context, "error");
                     return;
                 }
-                Stream fileStream = await fileMetadata.FileRef!.OpenReadAsync();
+                using FileStream fileStream = File.OpenRead(fileMetadata.FilePath);
                 await MultipartParser.SendResponse(context, fileStream ?? Stream.Null);
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ namespace DeltaShare.Util
         }
         public static async Task<ObservableCollection<FileMetadata>> FileResultsToFileMetadata(IEnumerable<FileResult> fileResults)
         {
-            ObservableCollection<FileMetadata> files = new();
+            ObservableCollection<FileMetadata> files = [];
             foreach (FileResult file in fileResults)
             {
                 Stream fileStream = await file.OpenReadAsync();
@@ -77,18 +77,14 @@ namespace DeltaShare.Util
                     filename: file.FileName,
                     ownerIpAddress: "null",
                     contentType: file.ContentType,
-                    fileRef: file)
-                {
-                    Owner = StateManager.CurrentUser
-                };
+                    filePath: file.FullPath);
                 files.Add(newFile);
             }
 
             return files;
         }
 
-
-        private static async Task<ByteArrayContent> MakeThumbnailContent(FileResult fileResult)
+        public static async Task<ByteArrayContent> MakeThumbnailContent(FileResult fileResult)
         {
             SKBitmap originalBitmap;
 

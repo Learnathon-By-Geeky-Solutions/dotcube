@@ -12,8 +12,6 @@ namespace DeltaShare.Service
 
         public async Task<bool> SendUserInfoToPoolCreator(string poolCreatorIpAddress)
         {
-            string url = $"http://{poolCreatorIpAddress}:{Constants.Port}{Constants.NewClientPath}";
-            Debug.WriteLine($"posting: {url}");
             User currentUser = new(
                 Preferences.Get(Constants.FullNameKey, ""),
                 "null",
@@ -28,7 +26,9 @@ namespace DeltaShare.Service
 
             try
             {
-                HttpResponseMessage response = await client.PostAsync(url, form);
+                HttpResponseMessage response = await client.PostAsync(
+                     $"http://{poolCreatorIpAddress}:{Constants.Port}{Constants.NewClientPath}",
+                     form);
                 string responseBody = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"response: {responseBody}");
 
@@ -70,7 +70,9 @@ namespace DeltaShare.Service
             };
             try
             {
-                HttpResponseMessage response = await client.PostAsync(url, form);
+                HttpResponseMessage response = await client.PostAsync(
+                    $"http://{fileMetadata.OwnerIpAddress}:{Constants.Port}{Constants.FileDownloadPath}",
+                    form);
                 Stream fileStream = await response.Content.ReadAsStreamAsync();
                 return fileStream;
             }
@@ -101,14 +103,15 @@ namespace DeltaShare.Service
             };
             foreach (FileMetadata file in fileMetadata)
             {
-                form.Add(file.ThumbnailContent!, file.Uuid, file.Filename);
+                ByteArrayContent thumbnailContent = new(await file.ThumbnailContent!.ReadAsByteArrayAsync());
+                form.Add(thumbnailContent, file.Uuid, file.Filename);
             }
             try
             {
                 Debug.WriteLine($"posting: http://{StateManager.PoolCreatorIpAddress}:{Constants.Port}{Constants.NewFileMetadataPath}");
                 HttpResponseMessage response = await client.PostAsync(
                     $"http://{StateManager.PoolCreatorIpAddress}:{Constants.Port}{Constants.NewFileMetadataPath}",
-                    //$"https://webhook.site/02e7186e-d565-4711-b0d1-2708817b802f/newFiles",
+                    //$"https://webhook.site/4d020842-8d4d-4b4f-be34-5a406022f6ac/newfiles",
                     form);
                 string responseBody = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"response: {responseBody}");

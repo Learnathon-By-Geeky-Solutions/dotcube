@@ -26,6 +26,7 @@ namespace DeltaShare.Service
             StateManager.PoolUsers.Add(currentUser);
             StateManager.PoolCreatorIpAddress = Constants.PoolCreatorIpAddress;
             StateManager.IpAddress = Constants.PoolCreatorIpAddress;
+            currentUser.IpAddress = Constants.PoolCreatorIpAddress;
             StateManager.IsPoolCreator = true;
             StateManager.CurrentUser = currentUser;
             this.listener = listener;
@@ -48,6 +49,8 @@ namespace DeltaShare.Service
 
         public void StartListening()
         {
+            StateManager.PoolUsers.CollectionChanged += async (sender, e) => await clientService.SendAllUserInfoToAllUsers();
+            StateManager.IpToUserMap[StateManager.IpAddress] = StateManager.CurrentUser;
             cancellationTokenSource = new CancellationTokenSource();
             listenTask = Task.Run(() => Listen(cancellationTokenSource.Token));
         }
@@ -125,28 +128,26 @@ namespace DeltaShare.Service
 
                     using var memoryStream = new MemoryStream();
                     await thumbnailStream.CopyToAsync(memoryStream);
-                    ByteArrayContent thumbnailContent = new(memoryStream.ToArray());
 
-                    fileMetadata.ThumbnailContent = thumbnailContent;
+                    fileMetadata.ThumbnailContent = new(memoryStream.ToArray());
                     fileMetadata.ThumbnailContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(fileMetadata.ContentType);
-                    fileMetadata.ThumbnailSource = ImageSource.FromStream(() => fileMetadata.ThumbnailContent!.ReadAsStream());
                     fileMetadata.OwnerIpAddress = clientIpAddress;
-                    fileMetadata.Owner = StateManager.IpUserPair[clientIpAddress];
+                    fileMetadata.Owner = StateManager.IpToUserMap[clientIpAddress];
                     StateManager.PoolFiles.Add(fileMetadata);
                 }
                 MultipartParser.SendResponse(context, "success");
-                await clientService.SendAllFileInfoToAllUsers();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error processing request in server: {ex.Message}");
                 MultipartParser.SendResponse(context, "error");
             }
+            await clientService.SendAllFileInfoToAllUsers();
         }
 
         private async Task ProcessNewUserRequest(HttpListenerContext context)
         {
-            User? newUser = new("", "", "", "", false);
+            User? newUser;
             try
             {
                 Dictionary<string, MimePart> formParts = await MultipartParser.Parse(context, Constants.NewClientPath);
@@ -163,7 +164,7 @@ namespace DeltaShare.Service
                 }
                 StateManager.PoolUsers.Add(newUser);
                 poolUsersIpHashSet.Add(newUser.IpAddress);
-                StateManager.IpUserPair[newUser.IpAddress] = newUser;
+                StateManager.IpToUserMap[newUser.IpAddress] = newUser;
                 MultipartParser.SendResponse(context, $"success {newUser?.IpAddress}");
             }
             catch (Exception ex)

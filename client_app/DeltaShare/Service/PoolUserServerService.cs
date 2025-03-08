@@ -102,27 +102,15 @@ namespace DeltaShare.Service
                 ObservableCollection<FileMetadata> newFiles = new();
                 foreach (FileMetadata fileMetadata in allFiles ?? [])
                 {
-                    if (fileMetadata.OwnerIpAddress == StateManager.IpAddress)
-                    {
-                        fileMetadata.ThumbnailContent = StateManager.LocalUuidFilePair[fileMetadata.Uuid].ThumbnailContent;
-                        fileMetadata.ThumbnailSource = StateManager.LocalUuidFilePair[fileMetadata.Uuid].ThumbnailSource;
-                        fileMetadata.FileRef = StateManager.LocalUuidFilePair[fileMetadata.Uuid].FileRef;
-                        fileMetadata.Owner = StateManager.CurrentUser;
-                        continue;
-                    }
-                    else
-                    {
-                        Stream thumbnailStream = formParts[fileMetadata.Uuid].Content.Stream;
+                    Stream thumbnailStream = formParts[fileMetadata.Uuid].Content.Stream;
 
-                        using var memoryStream = new MemoryStream();
-                        await thumbnailStream.CopyToAsync(memoryStream);
-                        ByteArrayContent thumbnailContent = new(memoryStream.ToArray());
+                    using var memoryStream = new MemoryStream();
+                    await thumbnailStream.CopyToAsync(memoryStream);
+                    ByteArrayContent thumbnailContent = new(memoryStream.ToArray());
 
-                        fileMetadata.ThumbnailContent = thumbnailContent;
-                        fileMetadata.ThumbnailContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(fileMetadata.ContentType);
-                        fileMetadata.ThumbnailSource = ImageSource.FromStream(() => fileMetadata.ThumbnailContent!.ReadAsStream());
-                        fileMetadata.Owner = StateManager.IpUserPair[fileMetadata.OwnerIpAddress];
-                    }
+                    fileMetadata.Owner = StateManager.IpToUserMap[fileMetadata.OwnerIpAddress];
+                    fileMetadata.ThumbnailContent = thumbnailContent;
+                    fileMetadata.ThumbnailContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(fileMetadata.ContentType);
                     newFiles.Add(fileMetadata);
                 }
 
@@ -151,6 +139,7 @@ namespace DeltaShare.Service
                 foreach (User user in allUsers ?? [])
                 {
                     StateManager.PoolUsers.Add(user);
+                    StateManager.IpToUserMap[user.IpAddress] = user;
                 }
                 MultipartParser.SendResponse(context, "success");
             }
