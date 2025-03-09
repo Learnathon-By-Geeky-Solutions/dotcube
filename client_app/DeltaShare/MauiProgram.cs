@@ -58,8 +58,12 @@ namespace DeltaShare
             builder.Services.AddSingleton<PoolCreatorClientService>();
             builder.Services.AddSingleton<PoolUserServerService>();
             builder.Services.AddSingleton<PoolUserClientService>();
-            builder.Services.AddSingleton<HttpClient>();
-            var listener = new HttpListener();
+            HttpClient client = new()
+            {
+                Timeout = Timeout.InfiniteTimeSpan
+            };
+            builder.Services.AddSingleton(client);
+            HttpListener listener = new();
             listener.Prefixes.Add($"http://+:{Constants.Port}/");
             builder.Services.AddSingleton(listener);
 

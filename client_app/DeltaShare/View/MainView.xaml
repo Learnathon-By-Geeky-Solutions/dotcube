@@ -8,8 +8,8 @@
 
     <Grid
         Padding="30,0"
-        RowSpacing="10"
-        RowDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto">
+        RowDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto"
+        RowSpacing="10">
         <Button
             Grid.Row="0"
             Command="{Binding ClickSettingsBtnCommand}"
@@ -21,57 +21,57 @@
                     FontFamily="FASolid"
                     Glyph="&#xf013;"
                     Color="{AppThemeBinding Light={StaticResource White},
-                                                Dark={StaticResource PrimaryDarkText}}" />
+                                            Dark={StaticResource PrimaryDarkText}}" />
             </Button.ImageSource>
         </Button>
         <Button
-        Grid.Row="1"
+            Grid.Row="1"
             Command="{Binding ClickJoinPoolBtnCommand}"
             FontSize="Medium"
             HorizontalOptions="Fill"
             Text="Join a Pool" />
         <Button
-        Grid.Row="2"
+            Grid.Row="2"
             Command="{Binding ClickCreatePoolBtnCommand}"
             FontSize="Medium"
-            VerticalOptions="Start"
             HorizontalOptions="Fill"
-            Text="Create a Pool" />
+            Text="Create a Pool"
+            VerticalOptions="Start" />
         <Button
-        Grid.Row="3"
+            Grid.Row="3"
             Margin="0,90,0,0"
             Command="{Binding ClickCloudStorageBtnCommand}"
             FontSize="Medium"
             HorizontalOptions="Fill"
             Text="Cloud Storage" />
         <Label
-        Grid.Row="4"
+            Grid.Row="4"
             FontSize="Subtitle"
             HorizontalOptions="Center"
             Text="To use cloud features" />
         <Grid
             Grid.Row="5"
-            ColumnSpacing="10"
-            ColumnDefinitions="*,*,*">
+            ColumnDefinitions="*,*,*"
+            ColumnSpacing="10">
             <Button
-            Grid.Column="0"
+                Grid.Column="0"
                 Command="{Binding ClickLoginBtnCommand}"
                 FontSize="Medium"
                 Text="Login" />
             <Label
-            Grid.Column="1"
-            FontSize="Medium"
-                Text="or"
+                Grid.Column="1"
+                FontSize="Medium"
                 HorizontalTextAlignment="Center"
+                Text="or"
                 VerticalTextAlignment="Center" />
             <Button
-            Grid.Column="2"
+                Grid.Column="2"
                 Command="{Binding ClickSignupBtnCommand}"
                 FontSize="Medium"
                 Text="Sign up" />
         </Grid>
         <Button
-        Grid.Row="6"
+            Grid.Row="6"
             Margin="0,50,0,50"
             BackgroundColor="Red"
             Command="{Binding ClearPreferencesBtnCommand}"

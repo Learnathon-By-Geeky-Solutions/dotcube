@@ -85,7 +85,7 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
-        private void ClickSignupBtn()
+        private async Task ClickSignupBtn()
         {
             ShowDebugMsg("sign up button clicked");
         }

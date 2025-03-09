@@ -24,9 +24,6 @@ namespace DeltaShare.Service
             poolUsersIpHashSet.Add(currentUser.IpAddress);
 
             StateManager.PoolUsers.Add(currentUser);
-            StateManager.PoolCreatorIpAddress = Constants.PoolCreatorIpAddress;
-            StateManager.IpAddress = Constants.PoolCreatorIpAddress;
-            currentUser.IpAddress = Constants.PoolCreatorIpAddress;
             StateManager.IsPoolCreator = true;
             StateManager.CurrentUser = currentUser;
             this.listener = listener;
@@ -50,7 +47,6 @@ namespace DeltaShare.Service
         public void StartListening()
         {
             StateManager.PoolUsers.CollectionChanged += async (sender, e) => await clientService.SendAllUserInfoToAllUsers();
-            StateManager.IpToUserMap[StateManager.IpAddress] = StateManager.CurrentUser;
             cancellationTokenSource = new CancellationTokenSource();
             listenTask = Task.Run(() => Listen(cancellationTokenSource.Token));
         }
@@ -155,6 +151,18 @@ namespace DeltaShare.Service
                 newUser = await JsonSerializer.DeserializeAsync<User>(newUserJsonStream);
                 newUser!.IpAddress = context.Request.RemoteEndPoint.Address.ToString();
                 newUser!.IsAdmin = false;
+
+                if (!StateManager.IsSavedPoolCreatorIp)
+                {
+                    string creatorIpAddress = MultipartParser.GetContentAsString(formParts[Constants.PoolCreatorIpField]).Result;
+                    StateManager.PoolCreatorIpAddress = creatorIpAddress;
+                    StateManager.IpAddress = creatorIpAddress;
+                    StateManager.CurrentUser.IpAddress = creatorIpAddress;
+                    StateManager.IpToUserMap[creatorIpAddress] = StateManager.CurrentUser;
+
+                    StateManager.IsSavedPoolCreatorIp = true;
+                }
+
 
                 Debug.WriteLine($"Received new user: {newUser}");
                 if (poolUsersIpHashSet.Contains(newUser.IpAddress))

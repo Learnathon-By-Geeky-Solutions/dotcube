@@ -52,5 +52,12 @@ namespace DeltaShare.Util
             return formParts;
         }
 
+        public static async Task<string> GetContentAsString(MimePart part)
+        {
+            using var memoryStream = new MemoryStream();
+            await part.Content.DecodeToAsync(memoryStream);
+            return System.Text.Encoding.UTF8.GetString(memoryStream.ToArray());
+        }
+
     }
 }

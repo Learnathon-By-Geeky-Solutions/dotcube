@@ -16,7 +16,7 @@ namespace DeltaShare.ViewModel
 
         public SharePoolViewModel(PoolCreatorClientService clientService)
         {
-            QrCodeData = CodeHandler.GenerateQrCodeData(StateManager.IpAddress);
+            QrCodeData = PoolCodeHandler.GenerateQrCodeData();
         }
 
         [RelayCommand]

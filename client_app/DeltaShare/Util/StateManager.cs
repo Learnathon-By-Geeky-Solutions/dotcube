@@ -5,6 +5,7 @@ namespace DeltaShare.Util
 {
     public static class StateManager
     {
+        public static bool IsSavedPoolCreatorIp { get; set; } = false;
         public static string PoolCreatorIpAddress { get; set; } = String.Empty;
         public static bool IsPoolCreator { get; set; } = false;
         public static string IpAddress { get; set; } = String.Empty;

@@ -22,6 +22,7 @@ namespace DeltaShare.Service
             using var form = new MultipartFormDataContent
             {
                 { new StringContent(currentUserJson), Constants.UserJsonField },
+                { new StringContent(poolCreatorIpAddress), Constants.PoolCreatorIpField },
             };
 
             try
@@ -31,15 +32,15 @@ namespace DeltaShare.Service
                      form);
                 string responseBody = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine($"response: {responseBody}");
-
-                StateManager.PoolCreatorIpAddress = poolCreatorIpAddress;
-                StateManager.IsPoolCreator = false;
-
                 bool isSuccessful = responseBody.Contains("success");
                 if (!isSuccessful)
                 {
                     return false;
                 }
+
+                StateManager.PoolCreatorIpAddress = poolCreatorIpAddress;
+                StateManager.IsPoolCreator = false;
+
                 string ipAddress = responseBody.Split(" ")[1];
                 StateManager.IpAddress = ipAddress;
                 StateManager.CurrentUser = currentUser;
@@ -82,15 +83,6 @@ namespace DeltaShare.Service
                 return Stream.Null;
             }
         }
-
-        public void AddFilesToPool(ObservableCollection<FileMetadata> fileMetadata)
-        {
-            foreach (FileMetadata file in fileMetadata)
-            {
-                StateManager.PoolFiles.Add(file);
-            }
-        }
-
 
         public async Task SendFileInfoToPoolCreator(ObservableCollection<FileMetadata> fileMetadata)
         {

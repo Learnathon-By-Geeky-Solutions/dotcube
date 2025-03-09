@@ -33,17 +33,29 @@ namespace DeltaShare.ViewModel
             await ProcessQrCode();
         }
 
+        private static async Task ShowFailedMsg(string msg)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Shell.Current.DisplayAlert("Error", msg, "OK");
+            });
+        }
+
         private async Task ProcessQrCode()
         {
             serverService.StartListening();
-            string poolCreatorIpAddress = CodeHandler.ExtractIpAddressFromQrCodeData(PoolCodeInputText);
-            bool status = await clientService.SendUserInfoToPoolCreator(poolCreatorIpAddress);
-            if (!status)
+            IEnumerable<string> probableCreatorIps = PoolCodeHandler.DecodePoolCodeData(PoolCodeInputText);
+            string? poolCreatorIp = NetworkHandler.GetReachableIp(probableCreatorIps, int.Parse(Constants.Port), 1);
+            if (poolCreatorIp == null)
             {
-                await MainThread.InvokeOnMainThreadAsync(async () =>
-                {
-                    await Shell.Current.DisplayAlert("Error", "Failed to join pool", "OK");
-                });
+                await ShowFailedMsg("Network error. Make sure you are on the same network");
+                return;
+            }
+
+            bool connected = await clientService.SendUserInfoToPoolCreator(poolCreatorIp);
+            if (!connected)
+            {
+                await ShowFailedMsg("Failed to connect to pool creator");
                 return;
             }
             await MainThread.InvokeOnMainThreadAsync(async () =>
