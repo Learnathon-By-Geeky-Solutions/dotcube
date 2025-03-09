@@ -6,8 +6,9 @@ namespace DeltaShare.ViewModel
 {
     public partial class MainViewModel : BaseViewModel
     {
+        private readonly PoolCreatorServerService serverService;
         private readonly IPermissionService permissionService;
-        public MainViewModel(IPermissionService permissionService)
+        public MainViewModel(IPermissionService permissionService, PoolCreatorServerService serverService)
         {
             this.permissionService = permissionService;
             bool settingsShowed = Preferences.Get(Constants.SettingsShowedKey, false);
@@ -15,11 +16,18 @@ namespace DeltaShare.ViewModel
             {
                 Shell.Current.GoToAsync(nameof(SettingsView));
             }
+            this.serverService = serverService;
         }
 
         [RelayCommand]
         private async Task ClickSettingsBtn()
         {
+            //var listener = new HttpListener();
+            //listener.Prefixes.Add($"http://+:{Constants.Port}/");
+            //PoolCreatorServerService serverService = new(listener);
+            //serverService.StartListening();
+            //await Shell.Current.GoToAsync(nameof(DownloadFileView));
+
             await Shell.Current.GoToAsync(nameof(SettingsView));
         }
 
@@ -53,7 +61,9 @@ namespace DeltaShare.ViewModel
             {
                 return;
             }
-            await Shell.Current.GoToAsync(nameof(CreatePoolView));
+            serverService.StartListening();
+            //await Shell.Current.GoToAsync(nameof(CreatePoolView));
+            await Shell.Current.GoToAsync(nameof(SharePoolView));
         }
 
         [RelayCommand]
@@ -75,7 +85,7 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
-        private void ClickSignupBtn()
+        private async Task ClickSignupBtn()
         {
             ShowDebugMsg("sign up button clicked");
         }

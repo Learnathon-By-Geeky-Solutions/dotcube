@@ -6,8 +6,8 @@ namespace DeltaShare.ViewModel
 {
     public partial class CreatePoolViewModel : BaseViewModel
     {
-        private PoolCreatorServerService serverService;
-        private IWifiDirectService wifiDirectService;
+        private readonly PoolCreatorServerService serverService;
+        private readonly IWifiDirectService wifiDirectService;
 
         public CreatePoolViewModel(PoolCreatorServerService serverService, IWifiDirectService wifiDirectService)
         {

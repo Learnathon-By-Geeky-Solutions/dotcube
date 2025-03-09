@@ -1,6 +1,6 @@
-using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DeltaShare.Util;
 
 namespace DeltaShare.ViewModel;
 
@@ -16,19 +16,13 @@ public partial class SettingsViewModel : BaseViewModel
     private async Task ClickSaveBtn()
     {
         SaveSettings();
-#if WINDOWS
-        await Shell.Current.DisplayAlert("DeltaShare", "Settings saved", "OK");
-#endif
-#if ANDROID
-        var toast = Toast.Make("Saved");
-        await toast.Show();
-#endif
+        await Alert.Show("Settings saved");
         await Shell.Current.GoToAsync("..");
     }
 
     public SettingsViewModel()
     {
-        LoadSettings();
+        Task.Run(LoadSettings);
     }
 
     private async Task LoadSettings()

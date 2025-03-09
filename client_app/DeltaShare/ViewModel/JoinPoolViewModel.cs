@@ -1,15 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Service;
+using DeltaShare.Util;
 using DeltaShare.View;
 using ZXing.Net.Maui;
 
 namespace DeltaShare.ViewModel
 {
-    public partial class JoinPoolViewModel : BaseViewModel
+    public partial class JoinPoolViewModel(PoolUserClientService clientService, PoolUserServerService serverService) : BaseViewModel
     {
-        private readonly PoolUserServerService serverService;
-        private readonly PoolUserClientService clientService;
+        private readonly PoolUserServerService serverService = serverService;
+        private readonly PoolUserClientService clientService = clientService;
         [ObservableProperty]
         private string poolCodeInputText = string.Empty;
 
@@ -21,29 +22,53 @@ namespace DeltaShare.ViewModel
             Multiple = false
         };
 
-        public JoinPoolViewModel(PoolUserClientService clientService, PoolUserServerService serverService)
+        partial void OnPoolCodeInputTextChanged(string value)
         {
-            this.clientService = clientService;
-            this.serverService = serverService;
+            _ = ProcessQrCode();
         }
 
         [RelayCommand]
         private async Task ClickJoinPoolBtn()
         {
-            serverService.StartListening();
+            await ProcessQrCode();
+        }
 
-            bool status = await clientService.SendInfoToPoolCreator(PoolCodeInputText);
-            if (!status)
+        private static async Task ShowFailedMsg(string msg)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
             {
+                await Shell.Current.DisplayAlert("Error", msg, "OK");
+            });
+        }
+
+        private async Task ProcessQrCode()
+        {
+            serverService.StartListening();
+            IEnumerable<string> probableCreatorIps = PoolCodeHandler.DecodePoolCodeData(PoolCodeInputText);
+            string? poolCreatorIp = NetworkHandler.GetReachableIp(probableCreatorIps, int.Parse(Constants.Port), 1);
+            if (poolCreatorIp == null)
+            {
+                await ShowFailedMsg("Network error. Make sure you are on the same network");
                 return;
             }
-            await Shell.Current.GoToAsync(nameof(DownloadFileView));
+
+            bool connected = await clientService.SendUserInfoToPoolCreator(poolCreatorIp);
+            if (!connected)
+            {
+                await ShowFailedMsg("Failed to connect to pool creator");
+                return;
+            }
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                await Shell.Current.GoToAsync("../");
+                await Shell.Current.GoToAsync(nameof(DownloadFileView));
+            });
         }
 
         [RelayCommand]
-        private async Task BarcodeDetected(List<string> barcodes)
+        private void BarcodeDetected(List<string> barcodes)
         {
-            if (barcodes.Any())
+            if (barcodes.Count > 0)
             {
                 PoolCodeInputText = barcodes[0];
             }

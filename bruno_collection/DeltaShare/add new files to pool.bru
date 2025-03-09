@@ -1,0 +1,15 @@
+meta {
+  name: add new files to pool
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{client_ip}}:9898/new-files
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  AllUsersJson: 
+}

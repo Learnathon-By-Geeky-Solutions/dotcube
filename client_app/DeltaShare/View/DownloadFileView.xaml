@@ -7,9 +7,17 @@
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     Title="DeltaShare"
     x:DataType="viewmodel:DownloadFileViewModel">
-    <VerticalStackLayout Padding="30,0" Spacing="8">
-        <Button Command="{Binding ClickRefreshBtnCommand}" Text="Refresh" />
+    <Grid
+        Padding="30,0"
+        RowDefinitions="Auto,Auto,Auto,*,Auto"
+        RowSpacing="4">
+        <Button
+            Grid.Row="0"
+            Command="{Binding ClickRefreshBtnCommand}"
+            HorizontalOptions="End"
+            Text="Refresh" />
         <CollectionView
+            Grid.Row="1"
             ItemsLayout="HorizontalList"
             ItemsSource="{Binding PoolUsers}"
             SelectionMode="None">
@@ -19,36 +27,99 @@
                         <Border
                             Margin="0,0,0,0"
                             Background="Transparent"
-                            HeightRequest="58"
+                            HeightRequest="60"
                             Stroke="SkyBlue"
                             StrokeShape="RoundRectangle 20,20,20,20"
                             StrokeThickness="4"
-                            WidthRequest="58">
-                            <Image
-                                Aspect="AspectFit"
-                                HeightRequest="48"
-                                Source="user.png"
-                                WidthRequest="48" />
+                            WidthRequest="60">
+                            <Image Aspect="AspectFit" Source="user.png" />
                         </Border>
                         <Label
                             Margin="4,0,4,0"
                             HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
                             Text="{Binding ViewableUsername}" />
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Label
+            Grid.Row="2"
+            BackgroundColor="{StaticResource Secondary}"
+            FontAttributes="Bold"
             FontSize="Medium"
-            HorizontalOptions="Center"
+            HorizontalOptions="FillAndExpand"
             Text="Shared Files" />
+        <CollectionView
+            Grid.Row="3"
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding PoolFiles}"
+            SelectedItems="{Binding SelectedFiles}"
+            SelectionChangedCommand="{Binding FileSelectionChangedCommand}"
+            SelectionMode="Multiple">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:FileMetadata">
+                    <HorizontalStackLayout Spacing="10">
+                        <Image
+                            HeightRequest="50"
+                            Source="{Binding ThumbnailSource}"
+                            WidthRequest="50" />
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontSize="Medium" Text="{Binding Filename}" />
+                            <HorizontalStackLayout>
+                                <Label
+                                    FontSize="Small"
+                                    Text="{Binding FormattedSize}"
+                                    WidthRequest="80" />
+                                <Border
+                                    Margin="20,0,0,0"
+                                    Background="Transparent"
+                                    HeightRequest="30"
+                                    Stroke="SkyBlue"
+                                    StrokeShape="RoundRectangle 20,20,20,20"
+                                    StrokeThickness="3"
+                                    WidthRequest="30">
+                                    <Image Aspect="AspectFit" Source="user.png" />
+                                </Border>
+                                <Label
+                                    BackgroundColor="{StaticResource Secondary}"
+                                    FontSize="Small"
+                                    Text="{Binding Owner.Username}" />
+                            </HorizontalStackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Green" />
+                                            <Setter TargetName="seatNumber" Property="Label.TextColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <Button
-            FontSize="Medium"
-            HorizontalOptions="Center"
-            Text="Download" />
-        <Button
+            Grid.Row="4"
+            Margin="0,0,0,10"
             Command="{Binding ClickAddFilesBtnCommand}"
-            HorizontalOptions="Center"
+            FontSize="Medium"
+            HorizontalOptions="Start"
             Text="Add files" />
-    </VerticalStackLayout>
+        <Button
+            Grid.Row="4"
+            Margin="0,0,0,10"
+            Command="{Binding ClickDownloadBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="End"
+            IsEnabled="{Binding IsDownloadEnabled}"
+            Text="Download" />
+    </Grid>
 </ContentPage>
