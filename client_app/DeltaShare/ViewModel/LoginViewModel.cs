@@ -16,31 +16,31 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
-        void ClickForgotPasswordBtn()
+        private static void ClickForgotPasswordBtn()
         {
             ShowDebugMsg("Forgot Password Clicked");
         }
 
         [RelayCommand]
-        void ClickGoogleSignInBtn()
+        private static void ClickGoogleSignInBtn()
         {
             ShowDebugMsg("Google Sign In Clicked");
         }
 
         [RelayCommand]
-        void ClickFacebookSignInBtn()
+        private static void ClickFacebookSignInBtn()
         {
             ShowDebugMsg("Facebook Sign In Clicked");
         }
 
         [RelayCommand]
-        void ClickSignUpBtn()
+        private static void ClickSignUpBtn()
         {
             ShowDebugMsg("Sign Up Clicked");
         }
 
         [RelayCommand]
-        void ClickLoginBtn()
+        private void ClickLoginBtn()
         {
             ShowDebugMsg($"login with\nemail: {EmailInputText}\npassword: {PasswordInputText}");
         }

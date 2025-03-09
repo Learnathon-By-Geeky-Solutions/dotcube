@@ -6,90 +6,76 @@
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     x:DataType="viewmodel:MainViewModel">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="30,0" Spacing="8">
+    <Grid
+        Padding="30,0"
+        RowDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto"
+        RowSpacing="10">
+        <Button
+            Grid.Row="0"
+            Command="{Binding ClickSettingsBtnCommand}"
+            ContentLayout="Left, 10"
+            HorizontalOptions="End"
+            Text="">
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="FASolid"
+                    Glyph="&#xf013;"
+                    Color="{AppThemeBinding Light={StaticResource White},
+                                            Dark={StaticResource PrimaryDarkText}}" />
+            </Button.ImageSource>
+        </Button>
+        <Button
+            Grid.Row="1"
+            Command="{Binding ClickJoinPoolBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="Fill"
+            Text="Join a Pool" />
+        <Button
+            Grid.Row="2"
+            Command="{Binding ClickCreatePoolBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="Fill"
+            Text="Create a Pool"
+            VerticalOptions="Start" />
+        <Button
+            Grid.Row="3"
+            Margin="0,90,0,0"
+            Command="{Binding ClickCloudStorageBtnCommand}"
+            FontSize="Medium"
+            HorizontalOptions="Fill"
+            Text="Cloud Storage" />
+        <Label
+            Grid.Row="4"
+            FontSize="Subtitle"
+            HorizontalOptions="Center"
+            Text="To use cloud features" />
+        <Grid
+            Grid.Row="5"
+            ColumnDefinitions="*,*,*"
+            ColumnSpacing="10">
             <Button
-                Command="{Binding ClickSettingsBtnCommand}"
-                ContentLayout="Left, 10"
-                HorizontalOptions="End"
-                Text="">
-                <Button.ImageSource>
-                    <FontImageSource
-                        FontFamily="FASolid"
-                        Glyph="&#xf013;"
-                        Color="{AppThemeBinding Light={StaticResource White},
-                                                Dark={StaticResource PrimaryDarkText}}" />
-                </Button.ImageSource>
-            </Button>
-            <Button
-                Command="{Binding ClickJoinPoolBtnCommand}"
+                Grid.Column="0"
+                Command="{Binding ClickLoginBtnCommand}"
                 FontSize="Medium"
-                HorizontalOptions="Fill"
-                Text="Join a Pool" />
-            <Button
-                Command="{Binding ClickCreatePoolBtnCommand}"
+                Text="Login" />
+            <Label
+                Grid.Column="1"
                 FontSize="Medium"
-                HorizontalOptions="Fill"
-                Text="Create a Pool" />
-            <Label
-                Margin="0,20,0,0"
-                FontSize="Subtitle"
-                Text="Previous Pools" />
-            <Label
-                Style="{StaticResource PrevPoolLabel}"
-                Text="Learnathon resources 1"
-                TextColor="LightBlue">
-                <Label.GestureRecognizers>
-                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="123" />
-                </Label.GestureRecognizers>
-            </Label>
-            <Label
-                Style="{StaticResource PrevPoolLabel}"
-                Text="Learnathon resources 2"
-                TextColor="LightBlue">
-                <Label.GestureRecognizers>
-                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="456" />
-                </Label.GestureRecognizers>
-            </Label>
-            <Label
-                Style="{StaticResource PrevPoolLabel}"
-                Text="Learnathon resources 3"
-                TextColor="LightBlue">
-                <Label.GestureRecognizers>
-                    <PointerGestureRecognizer PointerPressedCommand="{Binding ClickPrevPoolLabelCommand}" PointerPressedCommandParameter="789" />
-                </Label.GestureRecognizers>
-            </Label>
-
+                HorizontalTextAlignment="Center"
+                Text="or"
+                VerticalTextAlignment="Center" />
             <Button
-                Command="{Binding ClickCloudStorageBtnCommand}"
+                Grid.Column="2"
+                Command="{Binding ClickSignupBtnCommand}"
                 FontSize="Medium"
-                HorizontalOptions="Fill"
-                Text="Cloud Storage" />
-            <Label
-                Margin="0,60,0,0"
-                FontSize="Subtitle"
-                HorizontalOptions="Center"
-                Text="To use cloud features" />
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
-                <Button
-                    Command="{Binding ClickLoginBtnCommand}"
-                    FontSize="Medium"
-                    Text="Login" />
-                <Label
-                    FontSize="Micro"
-                    Text="or"
-                    VerticalTextAlignment="Center" />
-                <Button
-                    Command="{Binding ClickSignupBtnCommand}"
-                    FontSize="Medium"
-                    Text="Sign up" />
-            </HorizontalStackLayout>
-            <Button
-                BackgroundColor="Red"
-                Command="{Binding ClearPreferencesBtnCommand}"
-                FontSize="Micro"
-                Text="Clear Preferences" />
-        </VerticalStackLayout>
-    </ScrollView>
-
+                Text="Sign up" />
+        </Grid>
+        <Button
+            Grid.Row="6"
+            Margin="0,50,0,50"
+            BackgroundColor="Red"
+            Command="{Binding ClearPreferencesBtnCommand}"
+            FontSize="Micro"
+            Text="Clear Preferences" />
+    </Grid>
 </ContentPage>

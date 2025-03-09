@@ -14,6 +14,15 @@ namespace DeltaShare.Util
             response.OutputStream.Close();
         }
 
+        public static async Task SendResponse(HttpListenerContext ctx, Stream fileStream)
+        {
+            HttpListenerResponse response = ctx.Response;
+            response.ContentLength64 = fileStream.Length;
+            await fileStream.CopyToAsync(response.OutputStream);
+            await response.OutputStream.FlushAsync();
+            await response.OutputStream.DisposeAsync();
+        }
+
         public static async Task<Dictionary<string, MimePart>> Parse(HttpListenerContext ctx, string requestPath)
         {
             // check request type and path
@@ -41,6 +50,13 @@ namespace DeltaShare.Util
             }
 
             return formParts;
+        }
+
+        public static async Task<string> GetContentAsString(MimePart part)
+        {
+            using var memoryStream = new MemoryStream();
+            await part.Content.DecodeToAsync(memoryStream);
+            return System.Text.Encoding.UTF8.GetString(memoryStream.ToArray());
         }
 
     }

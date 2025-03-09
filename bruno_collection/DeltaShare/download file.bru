@@ -1,0 +1,15 @@
+meta {
+  name: download file
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{client_ip}}:9898/download-file
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  FileUuid: 2d23d900-f82d-4423-b23f-133657833871
+}

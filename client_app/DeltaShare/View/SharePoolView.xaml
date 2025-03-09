@@ -19,20 +19,17 @@
                         <Border
                             Margin="0,0,0,0"
                             Background="Transparent"
-                            HeightRequest="58"
+                            HeightRequest="60"
                             Stroke="SkyBlue"
                             StrokeShape="RoundRectangle 20,20,20,20"
                             StrokeThickness="4"
-                            WidthRequest="58">
-                            <Image
-                                Aspect="AspectFit"
-                                HeightRequest="48"
-                                Source="user.png"
-                                WidthRequest="48" />
+                            WidthRequest="60">
+                            <Image Aspect="AspectFit" Source="user.png" />
                         </Border>
                         <Label
                             Margin="4,0,4,0"
                             HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
                             Text="{Binding ViewableUsername}" />
                     </VerticalStackLayout>
                 </DataTemplate>
