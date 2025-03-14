@@ -39,9 +39,17 @@ namespace DeltaShare.ViewModel
             //    [
             //    new("uuid1", 1000, "file1", "1.1.1.1", "video/mp4", "/some/path1"),
             //    new("uuid2", 2000, "file2", "1.1.1.2", "video/mp4", "/some/path2"),
-            //    new("uuid3", 3000, "file3", "1.1.1.3", "video/mp4", "/some/path3"),
+            //    new("uuid3", 3000, "file3", "1.1.1.3", "video/mp4", "/some/path3") {
+            //        IsDownloading = true,
+            //        DownloadedSize = 1000,
+            //        Size = 2000
+            //    },
             //    new("uuid4", 4000, "file4", "1.1.1.4", "video/mp4", "/some/path4"),
-            //    new("uuid5", 5000, "file5", "1.1.1.5", "video/mp4", "/some/path5"),
+            //    new("uuid5", 5000, "file5", "1.1.1.5", "video/mp4", "/some/path5") {
+            //        IsDownloading = true,
+            //        DownloadedSize = 2000,
+            //        Size = 5000
+            //    },
             //    new("uuid6", 6000, "file6", "1.1.1.6", "video/mp4", "/some/path6"),
             //    new("uuid7", 7000, "file7", "1.1.1.7", "video/mp4", "/some/path7"),
             //    new("uuid8", 8000, "file8", "1.1.1.8", "video/mp4", "/some/path8"),
@@ -76,9 +84,9 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
-        private async Task ClickDownloadBtn()
+        private void ClickDownloadBtn()
         {
-            await clientService.SaveFilesFromPool(SelectedFiles);
+            _ = Task.Run(() => clientService.SaveFilesFromPool(SelectedFiles));
         }
 
         [RelayCommand]

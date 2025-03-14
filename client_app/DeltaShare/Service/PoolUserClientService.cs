@@ -55,16 +55,26 @@ namespace DeltaShare.Service
 
         public async Task SaveFilesFromPool(ObservableCollection<object> files)
         {
-            foreach (FileMetadata file in files.Cast<FileMetadata>())
+            ObservableCollection<object> selectedFiles = new(files);
+
+            foreach (FileMetadata file in selectedFiles.Cast<FileMetadata>())
             {
                 Debug.WriteLine($"Downloading {file.Filename}");
                 HttpContent? content = await GetRemoteFileContent(file);
                 if (content == null)
                 {
-                    await Alert.Show($"content null for {file.Filename}");
+
+                    await MainThread.InvokeOnMainThreadAsync(async () =>
+                    {
+                        await Alert.Show($"content null for {file.Filename}");
+                    });
+                    continue;
                 }
-                await FileHandler.SaveFileInLocalStorage(content, file.Filename);
-                await Alert.Show($"Downloaded {file.Filename}");
+                await FileHandler.SaveFileInLocalStorage(content, file);
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    await Alert.Show($"Downloaded {file.Filename}");
+                });
             }
         }
         public async Task<HttpContent?> GetRemoteFileContent(FileMetadata fileMetadata)

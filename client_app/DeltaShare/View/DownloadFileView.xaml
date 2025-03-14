@@ -85,6 +85,11 @@
                                     BackgroundColor="{StaticResource Secondary}"
                                     FontSize="Small"
                                     Text="{Binding Owner.Username}" />
+                                <Label
+                                    FontSize="Small"
+                                    IsVisible="{Binding IsDownloading}"
+                                    Text="{Binding FormattedDownloadedSize}"
+                                    VerticalOptions="Center" />
                             </HorizontalStackLayout>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup>

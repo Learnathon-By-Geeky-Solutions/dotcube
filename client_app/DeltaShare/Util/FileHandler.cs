@@ -9,7 +9,7 @@ namespace DeltaShare.Util
 {
     public static class FileHandler
     {
-        public static async Task SaveFileInLocalStorage(HttpContent content, string fileName)
+        public static async Task SaveFileInLocalStorage(HttpContent content, FileMetadata file)
         {
             string downloadFolderPath = String.Empty;
 #if WINDOWS
@@ -20,29 +20,28 @@ namespace DeltaShare.Util
 #endif
             string destinationPath = Path.Combine(downloadFolderPath, "DeltaShare");
             Directory.CreateDirectory(destinationPath);
-            using FileStream destinationStream = new(Path.Combine(destinationPath, fileName), FileMode.Create);
-
-            //long? totalBytes = content.Headers.ContentLength;
+            using FileStream destinationStream = new(Path.Combine(destinationPath, file.Filename), FileMode.Create);
 
             using Stream contentStream = await content.ReadAsStreamAsync();
-            //byte[] buffer = new byte[8192];
-            //long totalRead = 0;
-            //int read;
-            //Stopwatch stopwatch = Stopwatch.StartNew();
+            byte[] buffer = new byte[8192];
+            long totalRead = 0;
+            int read;
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
-            //while ((read = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-            //{
-            //    await destinationStream.WriteAsync(buffer.AsMemory(0, read));
-            //    totalRead += read;
+            file.IsDownloading = true;
+            while ((read = await contentStream.ReadAsync(buffer)) > 0)
+            {
+                await destinationStream.WriteAsync(buffer.AsMemory(0, read));
+                totalRead += read;
+                file.DownloadedSize = totalRead;
 
-            //    double percentage = totalBytes.HasValue ? (totalRead * 100.0 / totalBytes.Value) : 0;
-            //    double speedInKbps = totalRead / stopwatch.Elapsed.TotalSeconds / 1024;
+                //double speedInKbps = totalRead / stopwatch.Elapsed.TotalSeconds / 1024;
 
-            //    Debug.WriteLine($"Downloaded: {totalRead / 1024} KB / {totalBytes / 1024} KB | {percentage:F2}% | {speedInKbps:F2} KB/s");
-            //}
+                //Debug.WriteLine($"Downloaded: {totalRead / 1024} KB / {totalBytes / 1024} KB | {percentage:F2}% | {speedInKbps:F2} KB/s format:{file.FormattedDownloadedSize}");
+            }
+            file.IsDownloading = false;
 
-            //stopwatch.Stop();
-            await contentStream.CopyToAsync(destinationStream);
+            stopwatch.Stop();
         }
 
         public static async Task ProcessFileDownloadRequest(HttpListenerContext context)
