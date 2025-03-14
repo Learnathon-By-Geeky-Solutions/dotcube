@@ -9,7 +9,7 @@ namespace DeltaShare.Util
 {
     public static class FileHandler
     {
-        public static async Task SaveFileInLocalStorage(Stream fileStream, string fileName)
+        public static async Task SaveFileInLocalStorage(HttpContent content, string fileName)
         {
             string downloadFolderPath = String.Empty;
 #if WINDOWS
@@ -21,7 +21,28 @@ namespace DeltaShare.Util
             string destinationPath = Path.Combine(downloadFolderPath, "DeltaShare");
             Directory.CreateDirectory(destinationPath);
             using FileStream destinationStream = new(Path.Combine(destinationPath, fileName), FileMode.Create);
-            await fileStream.CopyToAsync(destinationStream);
+
+            //long? totalBytes = content.Headers.ContentLength;
+
+            using Stream contentStream = await content.ReadAsStreamAsync();
+            //byte[] buffer = new byte[8192];
+            //long totalRead = 0;
+            //int read;
+            //Stopwatch stopwatch = Stopwatch.StartNew();
+
+            //while ((read = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+            //{
+            //    await destinationStream.WriteAsync(buffer.AsMemory(0, read));
+            //    totalRead += read;
+
+            //    double percentage = totalBytes.HasValue ? (totalRead * 100.0 / totalBytes.Value) : 0;
+            //    double speedInKbps = totalRead / stopwatch.Elapsed.TotalSeconds / 1024;
+
+            //    Debug.WriteLine($"Downloaded: {totalRead / 1024} KB / {totalBytes / 1024} KB | {percentage:F2}% | {speedInKbps:F2} KB/s");
+            //}
+
+            //stopwatch.Stop();
+            await contentStream.CopyToAsync(destinationStream);
         }
 
         public static async Task ProcessFileDownloadRequest(HttpListenerContext context)

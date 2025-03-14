@@ -22,6 +22,7 @@ namespace DeltaShare.ViewModel
         private void ClickRefreshBtn()
         {
             Debug.WriteLine("Refresh button clicked");
+            Debug.WriteLine(StateManager.PoolFiles);
             //User[] demoUsers =
             //[
             //    new("Alice", "", "alice", "1.1.1", true),
