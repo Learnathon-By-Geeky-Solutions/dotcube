@@ -1,12 +1,24 @@
-﻿using System.Text;
+﻿using System.Net;
 
 namespace DeltaShare.Util
 {
     public static class PoolCodeHandler
     {
-        public static string GenerateQrCodeData()
+        private static uint IpToInt(string ip)
         {
-            IEnumerable<string> localIps = NetworkHandler.GetLocalIps();
+            byte[] bytes = IPAddress.Parse(ip).GetAddressBytes();
+            Array.Reverse(bytes);
+            return BitConverter.ToUInt32(bytes, 0);
+        }
+
+        private static string IntToIp(uint ip)
+        {
+            byte[] bytes = BitConverter.GetBytes(ip);
+            Array.Reverse(bytes);
+            return new IPAddress(bytes).ToString();
+        }
+        public static string GenerateQrCodeData(IEnumerable<string> localIps)
+        {
             List<string> result = [];
             foreach (string ip in localIps)
             {
@@ -14,26 +26,20 @@ namespace DeltaShare.Util
                 {
                     continue;
                 }
-                result.Add(ip);
+                result.Add(IpToInt(ip).ToString());
             }
-            string base64PoolCode = Convert.ToBase64String(
-                Encoding.UTF8.GetBytes(
-                    string.Join(" ", result)
-                )
-            );
-
-            return $"ds://{base64PoolCode}";
+            return string.Join(" ", result);
         }
 
         public static IEnumerable<string> DecodePoolCodeData(string qrCodeData)
         {
-            if (!qrCodeData.StartsWith("ds://"))
-                throw new ArgumentException("Invalid QR code data");
 
-            string base64 = qrCodeData.Substring(5);
-            string poolCode = Encoding.UTF8.GetString(Convert.FromBase64String(base64));
-
-            return poolCode.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            List<string> result = [];
+            foreach (string ip in qrCodeData.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+            {
+                result.Add(IntToIp(uint.Parse(ip)));
+            }
+            return result;
         }
     }
 }
