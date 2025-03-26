@@ -1,5 +1,7 @@
 using AvantiPoint.MobileAuth;
 using DeltaShareApi.Data;
+using DeltaShareApi.Util;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -21,6 +23,9 @@ builder.AddMobileAuth(auth =>
 
     auth.AddMobileAuthClaimsHandler<CustomClaimsHandler>();
 });
+
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<UserContext>();
 
 // Swagger auth setup
 builder.Services.AddSwaggerGen(options =>
@@ -50,5 +55,6 @@ app.UseAuthentication();
 
 app.MapControllers();
 app.MapDefaultMobileAuthRoutes();
+app.MapIdentityApi<IdentityUser>();
 
 app.Run();
