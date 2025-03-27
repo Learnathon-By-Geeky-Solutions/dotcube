@@ -7,15 +7,19 @@
     x:DataType="viewmodel:MainViewModel">
     <Shell.TitleView>
         <Grid
-            RowDefinitions="*,Auto">
+            RowDefinitions="*"
+            ColumnDefinitions="*,Auto">
             <Image
+                Grid.Column="0"
+                Margin="12,0,0,0"
                 Aspect="AspectFit"
                 HeightRequest="40"
                 HorizontalOptions="Start"
                 Source="logo.png"
                 VerticalOptions="Center" />
             <Button
-                Margin="0,4,16,0"
+                Grid.Column="1"
+                Margin="0,4,0,0"
                 Padding="10"
                 Command="{Binding ClickSettingsBtnCommand}"
                 HorizontalOptions="End"
@@ -49,7 +53,7 @@
             Grid.Row="1"
             Grid.Column="0"
             Command="{Binding ClickJoinPoolBtnCommand}"
-            FontSize="Large"
+            FontSize="24"
             HeightRequest="120"
             HorizontalOptions="Start"
             LineBreakMode="WordWrap"
@@ -79,7 +83,7 @@
             Grid.Row="1"
             Grid.Column="1"
             Command="{Binding ClickCreatePoolBtnCommand}"
-            FontSize="Large"
+            FontSize="24"
             HeightRequest="120"
             HorizontalOptions="End"
             LineBreakMode="WordWrap"
