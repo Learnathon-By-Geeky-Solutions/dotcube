@@ -7,33 +7,78 @@
     Title="Login - DeltaShare"
     x:DataType="viewmodel:LoginViewModel">
     <VerticalStackLayout Padding="30,0" Spacing="8">
-        <Entry Placeholder="Email address" Text="{Binding EmailInputText}" />
-        <Entry Placeholder="Password" Text="{Binding PasswordInputText}" />
+        <Label 
+            Text="DeltaShare"
+            FontSize="24"
+            FontAttributes="Bold"
+            TextColor="BlueViolet"
+            HorizontalOptions="Center" />
+        <Label 
+            Text="Email"
+            FontSize="20"
+            FontAttributes="Bold"
+            TextColor="Black" />
+        <Frame
+            BorderColor="LightGrey"
+            BackgroundColor="LightGray"
+            HasShadow="False"
+            HeightRequest="40">
+            <Entry 
+                   Placeholder="Email address" 
+                   Text="{Binding EmailInputText}"/>
+        </Frame>
+           
+        <Label 
+            Text="Password"
+            FontSize="20"
+            FontAttributes="Bold"
+            TextColor="Black"/>
+        <Frame
+            BorderColor="Gray"
+            BackgroundColor="LightGray"
+            HasShadow="False"
+            HeightRequest="40">
+            <Entry Placeholder="Password" 
+                   Text="{Binding PasswordInputText}"/>
+        </Frame>
+        <Button
+            Command="{Binding ClickForgotPasswordBtnCommand}"
+            FontSize="Small"
+            Text="Forgot your password?"
+            TextColor="Blue"
+            BackgroundColor="Transparent"
+            HorizontalOptions="End"/>
         <Button
             Command="{Binding ClickLoginBtnCommand}"
             FontSize="Medium"
-            HorizontalOptions="End"
+            HorizontalOptions="Fill"
             Text="Login" />
-        <Button
-            Command="{Binding ClickForgotPasswordBtnCommand}"
-            FontSize="Micro"
-            HorizontalOptions="Start"
-            Text="Forgot your password?" />
+        
         <Label
             Margin="0,40,0,0"
-            FontSize="Micro"
+            FontSize="Medium"
             HorizontalOptions="Center"
-            Text="Or," />
-        <Button
-            Command="{Binding ClickGoogleSignInBtnCommand}"
-            FontSize="Medium"
-            HorizontalOptions="Fill"
-            Text="Continue with Google" />
-        <Button
-            Command="{Binding ClickFacebookSignInBtnCommand}"
-            FontSize="Medium"
-            HorizontalOptions="Fill"
-            Text="Continue with Facebook" />
+            Text="Or continue with" />
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Button
+                Command="{Binding ClickGoogleSignInBtnCommand}"
+                FontSize="Medium">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="G"
+                        Color="{AppThemeBinding Light={StaticResource White},
+                                Dark={StaticResource PrimaryDarkText}}" />
+                </Button.ImageSource>
+            </Button>
+            <Button
+                Command="{Binding ClickFacebookSignInBtnCommand}"
+                FontSize="Medium"></Button>
+            <Button
+                Command="{Binding ClickFacebookSignInBtnCommand}"
+                FontSize="Medium"></Button>
+        </HorizontalStackLayout>
+        
         <HorizontalStackLayout Margin="0,30,0,0" HorizontalOptions="End">
             <Label
                 Margin="0,0,20,0"
