@@ -6,10 +6,44 @@
     xmlns:model="clr-namespace:DeltaShare.Model"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
-    Title="SharePoolView"
+    Title=""
     x:DataType="viewmodel:SharePoolViewModel">
-    <VerticalStackLayout>
+    <Grid
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+        ColumnDefinitions="Auto,*">
+        <Image
+            Grid.ColumnSpan="2"
+            Grid.Row="0"
+            HeightRequest="30"
+            Aspect="AspectFit"
+            VerticalOptions="Center"
+            HorizontalOptions="CenterAndExpand"
+            Source="join_pool_label.png" />
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Text="Pool users"
+            FontSize="Medium" />
+        <Border
+            HeightRequest="10"
+            VerticalOptions="Center"
+            BackgroundColor="Red"
+            Grid.Row="1"
+            Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop
+                        Offset="0"
+                        Color="{StaticResource Grad1}" />
+                    <GradientStop
+                        Offset="1"
+                        Color="{StaticResource Grad2}" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
         <CollectionView
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
             ItemsLayout="HorizontalList"
             ItemsSource="{Binding PoolUsers}"
             SelectionMode="None">
@@ -30,12 +64,15 @@
                             Margin="4,0,4,0"
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="Center"
+                            FontAttributes="Bold"
                             Text="{Binding ViewableUsername}" />
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
         <zxing:BarcodeGeneratorView
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
             Margin="3"
             ForegroundColor="DarkBlue"
             Format="QrCode"
@@ -43,10 +80,35 @@
             WidthRequest="110"
             Value="{Binding QrCodeData}" />
         <Button
-            Margin="0,10,0,0"
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Margin="10,10,10,0"
             Command="{Binding ClickViewSharedFilesBtnCommand}"
             FontSize="Medium"
             HorizontalOptions="Fill"
-            Text="View Shared Files" />
+            Text="View Shared Files">
+            <Button.Background>
+                <LinearGradientBrush>
+                    <GradientStop
+                        Offset="0"
+                        Color="{StaticResource Grad1}" />
+                    <GradientStop
+                        Offset="1"
+                        Color="{StaticResource Grad2}" />
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="FASolid"
+                    Glyph="&#xf055;"
+                    Color="{AppThemeBinding Light={StaticResource White},
+                                                Dark={StaticResource PrimaryDarkText}}" />
+            </Button.ImageSource>
+        </Button>
+        
+    </Grid>
+            <!--
+    <VerticalStackLayout>
     </VerticalStackLayout>
+    -->
 </ContentPage>
