@@ -11,6 +11,7 @@ using DeltaShare.Service;
 using DeltaShare.View;
 using DeltaShare.ViewModel;
 using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using ZXing.Net.Maui.Controls;
 
 namespace DeltaShare
@@ -22,6 +23,7 @@ namespace DeltaShare
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseSkiaSharp()
                 .UseMauiCommunityToolkit()
                 .UseBarcodeReader()
                 .ConfigureFonts(fonts =>
@@ -38,6 +40,7 @@ namespace DeltaShare
             // Dependency Injection - Views
             builder.Services.AddSingleton<MainView>();
             builder.Services.AddSingleton<LoginView>();
+            builder.Services.AddSingleton<SignupView>();
             builder.Services.AddSingleton<SharePoolView>();
             builder.Services.AddSingleton<CreatePoolView>();
             builder.Services.AddSingleton<SettingsView>();
@@ -47,6 +50,7 @@ namespace DeltaShare
             // Dependency Injection - ViewModels
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<LoginViewModel>();
+            builder.Services.AddSingleton<SignupViewModel>();
             builder.Services.AddSingleton<SharePoolViewModel>();
             builder.Services.AddSingleton<CreatePoolViewModel>();
             builder.Services.AddSingleton<SettingsViewModel>();
