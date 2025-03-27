@@ -4,14 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
-    Shell.ForegroundColor="{StaticResource Grad1}"
     Title=""
-    x:DataType="viewmodel:LoginViewModel">
-    <VerticalStackLayout
-        Padding="30,0"
-        Spacing="8">
-        <Grid
-            ColumnDefinitions="Auto,*">
+    x:DataType="viewmodel:LoginViewModel"
+    Shell.ForegroundColor="{StaticResource Grad1}">
+    <VerticalStackLayout Padding="30,0" Spacing="8">
+        <Grid ColumnDefinitions="Auto,*">
             <Label
                 Grid.Column="0"
                 FontAttributes="Bold"
@@ -28,8 +25,7 @@
                 Text="{Binding EmailInputText}"
                 VerticalOptions="Center" />
         </Grid>
-        <Grid
-            ColumnDefinitions="Auto,*">
+        <Grid ColumnDefinitions="Auto,*">
             <Label
                 Grid.Column="0"
                 FontAttributes="Bold"
@@ -47,12 +43,12 @@
                 VerticalOptions="Center" />
         </Grid>
         <Button
+            BackgroundColor="Transparent"
             Command="{Binding ClickForgotPasswordBtnCommand}"
             FontSize="Small"
-            BackgroundColor="Transparent"
-            TextColor="{StaticResource Grad1}"
             HorizontalOptions="End"
-            Text="Forgot password?" />
+            Text="Forgot password?"
+            TextColor="{StaticResource Grad1}" />
         <Button
             Command="{Binding ClickLoginBtnCommand}"
             FontSize="Medium"
@@ -60,12 +56,8 @@
             Text="Login">
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
             <Button.ImageSource>
@@ -87,9 +79,7 @@
             FontSize="Subtitle"
             HorizontalOptions="Center"
             Text="Or continue with" />
-        <HorizontalStackLayout
-            HorizontalOptions="Center"
-            Spacing="20">
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
             <ImageButton
                 BackgroundColor="Transparent"
                 Command="{Binding ClickGoogleSignInBtnCommand}"

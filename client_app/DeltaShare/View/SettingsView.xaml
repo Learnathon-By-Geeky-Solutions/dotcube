@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     Title=""
-    x:DataType="viewmodel:SettingsViewModel">
+    x:DataType="viewmodel:SettingsViewModel"
+    Shell.ForegroundColor="{StaticResource Grad1}">
     <VerticalStackLayout Padding="30,0" Spacing="10">
         <Border
             Margin="0,0,0,0"

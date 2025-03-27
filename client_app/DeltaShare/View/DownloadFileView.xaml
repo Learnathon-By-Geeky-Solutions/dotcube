@@ -137,12 +137,12 @@
             Grid.Row="4"
             Margin="0,0,0,10"
             Command="{Binding ClickDownloadBtnCommand}"
-            FontSize="Small"
+            FontSize="15"
             HorizontalOptions="Start"
             IsEnabled="{Binding IsDownloadEnabled}"
             Text="Save"
             TextColor="White"
-            WidthRequest="200">
+            WidthRequest="140">
             <Button.Background>
                 <LinearGradientBrush>
                     <GradientStop Offset="0" Color="{StaticResource Grad1}" />
@@ -161,12 +161,12 @@
         <Button
             Grid.Row="4"
             Margin="0,0,0,10"
-            FontSize="Small"
+            FontSize="15"
             HorizontalOptions="End"
             IsEnabled="false"
             Text="Save to cloud"
             TextColor="White"
-            WidthRequest="200">
+            WidthRequest="160">
             <Button.Background>
                 <LinearGradientBrush>
                     <GradientStop Offset="0" Color="{StaticResource Grad1}" />
@@ -186,11 +186,11 @@
             Grid.Row="5"
             Margin="0,0,0,10"
             Command="{Binding ClickAddFilesBtnCommand}"
-            FontSize="Small"
+            FontSize="15"
             HorizontalOptions="Start"
             Text="Add files"
             TextColor="White"
-            WidthRequest="200">
+            WidthRequest="140">
             <Button.Background>
                 <LinearGradientBrush>
                     <GradientStop Offset="0" Color="{StaticResource Grad1}" />
@@ -209,12 +209,12 @@
         <Button
             Grid.Row="5"
             Margin="0,0,0,10"
-            FontSize="Small"
+            FontSize="15"
             HorizontalOptions="End"
             IsEnabled="False"
             Text="Invite others"
             TextColor="White"
-            WidthRequest="200">
+            WidthRequest="160">
             <Button.Background>
                 <LinearGradientBrush>
                     <GradientStop Offset="0" Color="{StaticResource Grad1}" />

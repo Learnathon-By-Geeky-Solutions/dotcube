@@ -4,12 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     x:DataType="viewmodel:MainViewModel">
     <Shell.TitleView>
-        <Grid ColumnDefinitions="*,Auto" RowDefinitions="*">
+        <Grid
+            ColumnDefinitions="Auto,*"
+            RowDefinitions="*">
             <Image
                 Grid.Column="0"
-                Margin="12,0,0,0"
+                Margin="0,0,0,0"
                 Aspect="AspectFit"
                 HeightRequest="40"
                 HorizontalOptions="Start"
@@ -17,15 +20,19 @@
                 VerticalOptions="Center" />
             <Button
                 Grid.Column="1"
-                Margin="0,4,0,0"
+                Margin="0,4,16,0"
                 Padding="10"
                 Command="{Binding ClickSettingsBtnCommand}"
                 HorizontalOptions="End"
                 Text="">
                 <Button.Background>
                     <LinearGradientBrush>
-                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                        <GradientStop
+                            Offset="0"
+                            Color="{StaticResource Grad1}" />
+                        <GradientStop
+                            Offset="1"
+                            Color="{StaticResource Grad2}" />
                     </LinearGradientBrush>
                 </Button.Background>
                 <Button.ImageSource>
@@ -41,10 +48,10 @@
     <Grid
         Padding="16,16"
         ColumnDefinitions="*,*"
-        RowDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto"
-        RowSpacing="10">
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+        RowSpacing="30">
         <Button
-            Grid.Row="1"
+            Grid.Row="0"
             Grid.Column="0"
             Command="{Binding ClickJoinPoolBtnCommand}"
             FontSize="24"
@@ -64,13 +71,17 @@
             </Button.ImageSource>
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                    <GradientStop
+                        Offset="0"
+                        Color="{StaticResource Grad1}" />
+                    <GradientStop
+                        Offset="1"
+                        Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
         <Button
-            Grid.Row="1"
+            Grid.Row="0"
             Grid.Column="1"
             Command="{Binding ClickCreatePoolBtnCommand}"
             FontSize="24"
@@ -90,13 +101,17 @@
             </Button.ImageSource>
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                    <GradientStop
+                        Offset="0"
+                        Color="{StaticResource Grad1}" />
+                    <GradientStop
+                        Offset="1"
+                        Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
         <Button
-            Grid.Row="3"
+            Grid.Row="2"
             Grid.ColumnSpan="2"
             Margin="0,90,0,0"
             Command="{Binding ClickCloudStorageBtnCommand}"
@@ -112,20 +127,24 @@
             </Button.ImageSource>
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                    <GradientStop
+                        Offset="0"
+                        Color="{StaticResource Grad1}" />
+                    <GradientStop
+                        Offset="1"
+                        Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
         <Label
-            Grid.Row="4"
+            Grid.Row="3"
             Grid.ColumnSpan="2"
             FontAttributes="Bold"
             FontSize="Subtitle"
             HorizontalOptions="Center"
             Text="To use cloud features" />
         <Grid
-            Grid.Row="5"
+            Grid.Row="4"
             Grid.ColumnSpan="2"
             Margin="0,0,0,30"
             ColumnDefinitions="Auto,*,Auto"
@@ -133,6 +152,7 @@
             <Button
                 Grid.Column="0"
                 Command="{Binding ClickLoginBtnCommand}"
+                WidthRequest="150"
                 FontSize="Medium"
                 Text="Login">
                 <Button.ImageSource>
@@ -144,8 +164,12 @@
                 </Button.ImageSource>
                 <Button.Background>
                     <LinearGradientBrush>
-                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                        <GradientStop
+                            Offset="0"
+                            Color="{StaticResource Grad1}" />
+                        <GradientStop
+                            Offset="1"
+                            Color="{StaticResource Grad2}" />
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
@@ -160,6 +184,7 @@
                 Grid.Column="2"
                 Command="{Binding ClickSignupBtnCommand}"
                 FontSize="Medium"
+                WidthRequest="150"
                 Text="Sign up">
                 <Button.ImageSource>
                     <FontImageSource
@@ -170,8 +195,12 @@
                 </Button.ImageSource>
                 <Button.Background>
                     <LinearGradientBrush>
-                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                        <GradientStop
+                            Offset="0"
+                            Color="{StaticResource Grad1}" />
+                        <GradientStop
+                            Offset="1"
+                            Color="{StaticResource Grad2}" />
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
