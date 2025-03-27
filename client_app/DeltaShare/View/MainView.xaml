@@ -6,9 +6,7 @@
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     x:DataType="viewmodel:MainViewModel">
     <Shell.TitleView>
-        <Grid
-            RowDefinitions="*"
-            ColumnDefinitions="*,Auto">
+        <Grid ColumnDefinitions="*,Auto" RowDefinitions="*">
             <Image
                 Grid.Column="0"
                 Margin="12,0,0,0"
@@ -26,12 +24,8 @@
                 Text="">
                 <Button.Background>
                     <LinearGradientBrush>
-                        <GradientStop
-                            Offset="0"
-                            Color="{StaticResource Grad1}" />
-                        <GradientStop
-                            Offset="1"
-                            Color="{StaticResource Grad2}" />
+                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                     </LinearGradientBrush>
                 </Button.Background>
                 <Button.ImageSource>
@@ -70,12 +64,8 @@
             </Button.ImageSource>
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
@@ -100,12 +90,8 @@
             </Button.ImageSource>
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
@@ -126,12 +112,8 @@
             </Button.ImageSource>
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
@@ -162,12 +144,8 @@
                 </Button.ImageSource>
                 <Button.Background>
                     <LinearGradientBrush>
-                        <GradientStop
-                            Offset="0"
-                            Color="{StaticResource Grad1}" />
-                        <GradientStop
-                            Offset="1"
-                            Color="{StaticResource Grad2}" />
+                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
@@ -192,12 +170,8 @@
                 </Button.ImageSource>
                 <Button.Background>
                     <LinearGradientBrush>
-                        <GradientStop
-                            Offset="0"
-                            Color="{StaticResource Grad1}" />
-                        <GradientStop
-                            Offset="1"
-                            Color="{StaticResource Grad2}" />
+                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>

@@ -7,29 +7,30 @@
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
     Title=""
+    Shell.ForegroundColor="{StaticResource Grad1}"
     x:DataType="viewmodel:SharePoolViewModel">
     <Grid
-        RowDefinitions="Auto,Auto,Auto,Auto,Auto"
-        ColumnDefinitions="Auto,*">
+        ColumnDefinitions="Auto,*"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto">
         <Image
-            Grid.ColumnSpan="2"
             Grid.Row="0"
-            HeightRequest="30"
+            Grid.ColumnSpan="2"
             Aspect="AspectFit"
-            VerticalOptions="Center"
+            HeightRequest="30"
             HorizontalOptions="CenterAndExpand"
-            Source="join_pool_label.png" />
+            Source="join_pool_label.png"
+            VerticalOptions="Center" />
         <Label
             Grid.Row="1"
+            Margin="16,0,0,0"
             Grid.Column="0"
-            Text="Pool users"
-            FontSize="Medium" />
+            FontSize="Medium"
+            Text="Pool users" />
         <Border
-            HeightRequest="10"
-            VerticalOptions="Center"
-            BackgroundColor="Red"
             Grid.Row="1"
-            Grid.Column="1">
+            Grid.Column="1"
+            HeightRequest="10"
+            VerticalOptions="Center">
             <Border.Background>
                 <LinearGradientBrush>
                     <GradientStop
@@ -42,13 +43,15 @@
             </Border.Background>
         </Border>
         <CollectionView
+            Margin="16,0,0,0"
             Grid.Row="2"
             Grid.ColumnSpan="2"
             ItemsLayout="HorizontalList"
             ItemsSource="{Binding PoolUsers}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:User">
+                <DataTemplate
+                    x:DataType="model:User">
                     <VerticalStackLayout>
                         <Border
                             Margin="0,0,0,0"
@@ -58,13 +61,15 @@
                             StrokeShape="RoundRectangle 20,20,20,20"
                             StrokeThickness="4"
                             WidthRequest="60">
-                            <Image Aspect="AspectFit" Source="user.png" />
+                            <Image
+                                Aspect="AspectFit"
+                                Source="user.png" />
                         </Border>
                         <Label
                             Margin="4,0,4,0"
+                            FontAttributes="Bold"
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="Center"
-                            FontAttributes="Bold"
                             Text="{Binding ViewableUsername}" />
                     </VerticalStackLayout>
                 </DataTemplate>
@@ -76,8 +81,8 @@
             Margin="3"
             ForegroundColor="DarkBlue"
             Format="QrCode"
-            HeightRequest="110"
-            WidthRequest="110"
+            WidthRequest="300"
+            HeightRequest="300"
             Value="{Binding QrCodeData}" />
         <Button
             Grid.Row="4"
@@ -100,15 +105,11 @@
             <Button.ImageSource>
                 <FontImageSource
                     FontFamily="FASolid"
-                    Glyph="&#xf055;"
+                    Glyph="&#xf15b;"
                     Color="{AppThemeBinding Light={StaticResource White},
-                                                Dark={StaticResource PrimaryDarkText}}" />
+                                            Dark={StaticResource PrimaryDarkText}}" />
             </Button.ImageSource>
         </Button>
-        
+
     </Grid>
-            <!--
-    <VerticalStackLayout>
-    </VerticalStackLayout>
-    -->
 </ContentPage>

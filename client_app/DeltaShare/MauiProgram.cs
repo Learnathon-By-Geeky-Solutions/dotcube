@@ -40,6 +40,7 @@ namespace DeltaShare
             // Dependency Injection - Views
             builder.Services.AddSingleton<MainView>();
             builder.Services.AddSingleton<LoginView>();
+            builder.Services.AddSingleton<SignupView>();
             builder.Services.AddSingleton<SharePoolView>();
             builder.Services.AddSingleton<CreatePoolView>();
             builder.Services.AddSingleton<SettingsView>();
@@ -49,6 +50,7 @@ namespace DeltaShare
             // Dependency Injection - ViewModels
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<LoginViewModel>();
+            builder.Services.AddSingleton<SignupViewModel>();
             builder.Services.AddSingleton<SharePoolViewModel>();
             builder.Services.AddSingleton<CreatePoolViewModel>();
             builder.Services.AddSingleton<SettingsViewModel>();

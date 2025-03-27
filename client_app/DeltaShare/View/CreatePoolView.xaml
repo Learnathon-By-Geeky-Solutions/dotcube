@@ -3,6 +3,7 @@
     x:Class="DeltaShare.View.CreatePoolView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Shell.ForegroundColor="{StaticResource Grad1}"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     Title="CreatePoolView"
     x:DataType="viewmodel:CreatePoolViewModel">
@@ -11,7 +12,9 @@
             HorizontalOptions="Center"
             Text="Please allow the required permissions!"
             VerticalOptions="Center" />
-        <HorizontalStackLayout Margin="0,10,0,0" HorizontalOptions="Center">
+        <HorizontalStackLayout
+            Margin="0,10,0,0"
+            HorizontalOptions="Center">
             <Label
                 HorizontalOptions="Start"
                 MinimumWidthRequest="100"
@@ -23,8 +26,12 @@
                 Text="Turn On"
                 VerticalOptions="Center" />
         </HorizontalStackLayout>
-        <Label FontSize="Medium" Text="wifi direct status" />
-        <Label FontSize="Medium" Text="-------------------" />
+        <Label
+            FontSize="Medium"
+            Text="wifi direct status" />
+        <Label
+            FontSize="Medium"
+            Text="-------------------" />
         <Button
             Margin="0,30,0,0"
             Command="{Binding ClickSharePoolBtnCommand}"
