@@ -3,11 +3,11 @@
     x:Class="DeltaShare.View.DownloadFileView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Shell.ForegroundColor="{StaticResource Grad1}"
     xmlns:model="clr-namespace:DeltaShare.Model"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     Title=""
-    x:DataType="viewmodel:DownloadFileViewModel">
+    x:DataType="viewmodel:DownloadFileViewModel"
+    Shell.ForegroundColor="{StaticResource Grad1}">
     <Grid
         Padding="30,0"
         RowDefinitions="Auto,Auto,Auto,*,Auto,Auto"
@@ -19,12 +19,8 @@
             Text="">
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
             <Button.ImageSource>
@@ -32,7 +28,7 @@
                     FontFamily="FASolid"
                     Glyph="&#xf2f9;"
                     Color="{AppThemeBinding Light={StaticResource White},
-                                                Dark={StaticResource PrimaryDarkText}}" />
+                                            Dark={StaticResource PrimaryDarkText}}" />
             </Button.ImageSource>
         </Button>
         <CollectionView
@@ -41,8 +37,7 @@
             ItemsSource="{Binding PoolUsers}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
-                <DataTemplate
-                    x:DataType="model:User">
+                <DataTemplate x:DataType="model:User">
                     <VerticalStackLayout>
                         <Border
                             Margin="0,0,0,0"
@@ -52,9 +47,7 @@
                             StrokeShape="RoundRectangle 20,20,20,20"
                             StrokeThickness="4"
                             WidthRequest="60">
-                            <Image
-                                Aspect="AspectFit"
-                                Source="user.png" />
+                            <Image Aspect="AspectFit" Source="user.png" />
                         </Border>
                         <Label
                             Margin="4,0,4,0"
@@ -69,17 +62,13 @@
             Grid.Row="2"
             FontAttributes="Bold"
             FontSize="Medium"
-            TextColor="White"
             HorizontalOptions="FillAndExpand"
-            Text="Shared Files">
+            Text="Shared Files"
+            TextColor="White">
             <Label.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Label.Background>
         </Label>
@@ -91,19 +80,14 @@
             SelectionChangedCommand="{Binding FileSelectionChangedCommand}"
             SelectionMode="Multiple">
             <CollectionView.ItemTemplate>
-                <DataTemplate
-                    x:DataType="model:FileMetadata">
-                    <HorizontalStackLayout
-                        Spacing="10">
+                <DataTemplate x:DataType="model:FileMetadata">
+                    <HorizontalStackLayout Spacing="10">
                         <Image
                             HeightRequest="50"
                             Source="{Binding ThumbnailSource}"
                             WidthRequest="50" />
-                        <VerticalStackLayout
-                            Spacing="5">
-                            <Label
-                                FontSize="Medium"
-                                Text="{Binding Filename}" />
+                        <VerticalStackLayout Spacing="5">
+                            <Label FontSize="Medium" Text="{Binding Filename}" />
                             <HorizontalStackLayout>
                                 <Label
                                     FontSize="Small"
@@ -117,9 +101,7 @@
                                     StrokeShape="RoundRectangle 20,20,20,20"
                                     StrokeThickness="3"
                                     WidthRequest="30">
-                                    <Image
-                                        Aspect="AspectFit"
-                                        Source="user.png" />
+                                    <Image Aspect="AspectFit" Source="user.png" />
                                 </Border>
                                 <Label
                                     BackgroundColor="{StaticResource Secondary}"
@@ -133,24 +115,15 @@
                             </HorizontalStackLayout>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup>
-                                    <VisualState
-                                        Name="Selected">
+                                    <VisualState Name="Selected">
                                         <VisualState.Setters>
-                                            <Setter
-                                                Property="BackgroundColor"
-                                                Value="Green" />
-                                            <Setter
-                                                TargetName="seatNumber"
-                                                Property="Label.TextColor"
-                                                Value="White" />
+                                            <Setter Property="BackgroundColor" Value="Green" />
+                                            <Setter TargetName="seatNumber" Property="Label.TextColor" Value="White" />
                                         </VisualState.Setters>
                                     </VisualState>
-                                    <VisualState
-                                        Name="Normal">
+                                    <VisualState Name="Normal">
                                         <VisualState.Setters>
-                                            <Setter
-                                                Property="BackgroundColor"
-                                                Value="White" />
+                                            <Setter Property="BackgroundColor" Value="White" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -164,113 +137,97 @@
             Grid.Row="4"
             Margin="0,0,0,10"
             Command="{Binding ClickDownloadBtnCommand}"
-            IsEnabled="{Binding IsDownloadEnabled}"
-            TextColor="White"
             FontSize="Small"
-            WidthRequest="200"
             HorizontalOptions="Start"
-            Text="Save">
+            IsEnabled="{Binding IsDownloadEnabled}"
+            Text="Save"
+            TextColor="White"
+            WidthRequest="200">
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
             <Button.ImageSource>
                 <FontImageSource
                     FontFamily="FASolid"
-                    Size="20"
                     Glyph="&#xf019;"
+                    Size="20"
                     Color="{AppThemeBinding Light={StaticResource White},
-                                                Dark={StaticResource PrimaryDarkText}}" />
+                                            Dark={StaticResource PrimaryDarkText}}" />
             </Button.ImageSource>
         </Button>
         <Button
             Grid.Row="4"
-            TextColor="White"
             Margin="0,0,0,10"
             FontSize="Small"
-            WidthRequest="200"
             HorizontalOptions="End"
             IsEnabled="false"
-            Text="Save to cloud">
+            Text="Save to cloud"
+            TextColor="White"
+            WidthRequest="200">
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
             <Button.ImageSource>
                 <FontImageSource
                     FontFamily="FASolid"
-                    Size="20"
                     Glyph="&#xf0ed;"
+                    Size="20"
                     Color="{AppThemeBinding Light={StaticResource White},
-                                                Dark={StaticResource PrimaryDarkText}}" />
+                                            Dark={StaticResource PrimaryDarkText}}" />
             </Button.ImageSource>
         </Button>
         <Button
             Grid.Row="5"
             Margin="0,0,0,10"
-            WidthRequest="200"
             Command="{Binding ClickAddFilesBtnCommand}"
-            TextColor="White"
             FontSize="Small"
             HorizontalOptions="Start"
-            Text="Add files">
+            Text="Add files"
+            TextColor="White"
+            WidthRequest="200">
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
             <Button.ImageSource>
                 <FontImageSource
                     FontFamily="FASolid"
-                    Size="20"
                     Glyph="&#xe494;"
+                    Size="20"
                     Color="{AppThemeBinding Light={StaticResource White},
-                                                Dark={StaticResource PrimaryDarkText}}" />
+                                            Dark={StaticResource PrimaryDarkText}}" />
             </Button.ImageSource>
         </Button>
         <Button
             Grid.Row="5"
-            TextColor="White"
-            WidthRequest="200"
             Margin="0,0,0,10"
             FontSize="Small"
             HorizontalOptions="End"
             IsEnabled="False"
-            Text="Invite others">
+            Text="Invite others"
+            TextColor="White"
+            WidthRequest="200">
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
             <Button.ImageSource>
                 <FontImageSource
                     FontFamily="FASolid"
-                    Size="20"
                     Glyph="&#xf029;"
+                    Size="20"
                     Color="{AppThemeBinding Light={StaticResource White},
-                                                Dark={StaticResource PrimaryDarkText}}" />
+                                            Dark={StaticResource PrimaryDarkText}}" />
             </Button.ImageSource>
         </Button>
     </Grid>

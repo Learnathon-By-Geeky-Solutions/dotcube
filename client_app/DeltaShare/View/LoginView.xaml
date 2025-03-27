@@ -4,46 +4,129 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
-    Title="Login - DeltaShare"
+    Shell.ForegroundColor="{StaticResource Grad1}"
+    Title=""
     x:DataType="viewmodel:LoginViewModel">
-    <VerticalStackLayout Padding="30,0" Spacing="8">
-        <Entry Placeholder="Email address" Text="{Binding EmailInputText}" />
-        <Entry Placeholder="Password" Text="{Binding PasswordInputText}" />
+    <VerticalStackLayout
+        Padding="30,0"
+        Spacing="8">
+        <Grid
+            ColumnDefinitions="Auto,*">
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                FontSize="Small"
+                Text="Email"
+                TextColor="{StaticResource Grad1}"
+                VerticalOptions="Center"
+                WidthRequest="100" />
+            <Entry
+                Grid.Column="1"
+                HorizontalOptions="FillAndExpand"
+                Placeholder="Enter your email"
+                PlaceholderColor="#77000000"
+                Text="{Binding EmailInputText}"
+                VerticalOptions="Center" />
+        </Grid>
+        <Grid
+            ColumnDefinitions="Auto,*">
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                FontSize="Small"
+                Text="Password"
+                TextColor="{StaticResource Grad1}"
+                VerticalOptions="Center"
+                WidthRequest="100" />
+            <Entry
+                Grid.Column="1"
+                HorizontalOptions="FillAndExpand"
+                Placeholder="Enter password"
+                PlaceholderColor="#77000000"
+                Text="{Binding EmailInputText}"
+                VerticalOptions="Center" />
+        </Grid>
+        <Button
+            Command="{Binding ClickForgotPasswordBtnCommand}"
+            FontSize="Small"
+            BackgroundColor="Transparent"
+            TextColor="{StaticResource Grad1}"
+            HorizontalOptions="End"
+            Text="Forgot password?" />
         <Button
             Command="{Binding ClickLoginBtnCommand}"
             FontSize="Medium"
-            HorizontalOptions="End"
-            Text="Login" />
-        <Button
-            Command="{Binding ClickForgotPasswordBtnCommand}"
-            FontSize="Micro"
-            HorizontalOptions="Start"
-            Text="Forgot your password?" />
+            HorizontalOptions="FillAndExpand"
+            Text="Login">
+            <Button.Background>
+                <LinearGradientBrush>
+                    <GradientStop
+                        Offset="0"
+                        Color="{StaticResource Grad1}" />
+                    <GradientStop
+                        Offset="1"
+                        Color="{StaticResource Grad2}" />
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="FASolid"
+                    Glyph="&#xf2f6;"
+                    Color="{AppThemeBinding Light={StaticResource White},
+                                            Dark={StaticResource PrimaryDarkText}}" />
+            </Button.ImageSource>
+        </Button>
+
+
+
+
+
         <Label
-            Margin="0,40,0,0"
-            FontSize="Micro"
+            Margin="0,50,0,0"
+            FontAttributes="Bold"
+            FontSize="Subtitle"
             HorizontalOptions="Center"
-            Text="Or," />
-        <Button
-            Command="{Binding ClickGoogleSignInBtnCommand}"
-            FontSize="Medium"
-            HorizontalOptions="Fill"
-            Text="Continue with Google" />
-        <Button
-            Command="{Binding ClickFacebookSignInBtnCommand}"
-            FontSize="Medium"
-            HorizontalOptions="Fill"
-            Text="Continue with Facebook" />
-        <HorizontalStackLayout Margin="0,30,0,0" HorizontalOptions="End">
-            <Label
-                Margin="0,0,20,0"
-                FontSize="Micro"
-                Text="New to DeltaShare?"
-                VerticalOptions="Center" />
-            <Button
-                Command="{Binding ClickSignUpBtnCommand}"
-                FontSize="Medium"
-                Text="Sign up" />
+            Text="Or continue with" />
+        <HorizontalStackLayout
+            HorizontalOptions="Center"
+            Spacing="20">
+            <ImageButton
+                BackgroundColor="Transparent"
+                Command="{Binding ClickGoogleSignInBtnCommand}"
+                HeightRequest="40"
+                Source="google.png"
+                WidthRequest="40" />
+            <ImageButton
+                BackgroundColor="Transparent"
+                Command="{Binding ClickFacebookSignInBtnCommand}"
+                HeightRequest="40"
+                Source="facebook.png"
+                WidthRequest="40" />
+            <ImageButton
+                BackgroundColor="Transparent"
+                Command="{Binding ClickMicrosoftSignInBtnCommand}"
+                HeightRequest="40"
+                Source="microsoft.png"
+                WidthRequest="40" />
         </HorizontalStackLayout>
+
+        <Label
+            Margin="0,50,0,0"
+            FontAttributes="Bold"
+            FontSize="Subtitle"
+            HorizontalOptions="Center"
+            Text="No account?"
+            VerticalOptions="End" />
+        <Button
+            Margin="0"
+            Padding="0"
+            BackgroundColor="Transparent"
+            Command="{Binding ClickSignInBtnCommand}"
+            FontAttributes="Bold"
+            FontSize="Medium"
+            HorizontalOptions="Center"
+            Text="Sign Up"
+            TextColor="{StaticResource Grad1}"
+            VerticalOptions="Start" />
     </VerticalStackLayout>
 </ContentPage>

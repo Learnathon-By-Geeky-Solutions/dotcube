@@ -7,11 +7,9 @@
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
     Title=""
-    Shell.ForegroundColor="{StaticResource Grad1}"
-    x:DataType="viewmodel:SharePoolViewModel">
-    <Grid
-        ColumnDefinitions="Auto,*"
-        RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+    x:DataType="viewmodel:SharePoolViewModel"
+    Shell.ForegroundColor="{StaticResource Grad1}">
+    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
         <Image
             Grid.Row="0"
             Grid.ColumnSpan="2"
@@ -22,8 +20,8 @@
             VerticalOptions="Center" />
         <Label
             Grid.Row="1"
-            Margin="16,0,0,0"
             Grid.Column="0"
+            Margin="16,0,0,0"
             FontSize="Medium"
             Text="Pool users" />
         <Border
@@ -33,25 +31,20 @@
             VerticalOptions="Center">
             <Border.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
         <CollectionView
-            Margin="16,0,0,0"
             Grid.Row="2"
             Grid.ColumnSpan="2"
+            Margin="16,0,0,0"
             ItemsLayout="HorizontalList"
             ItemsSource="{Binding PoolUsers}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
-                <DataTemplate
-                    x:DataType="model:User">
+                <DataTemplate x:DataType="model:User">
                     <VerticalStackLayout>
                         <Border
                             Margin="0,0,0,0"
@@ -61,9 +54,7 @@
                             StrokeShape="RoundRectangle 20,20,20,20"
                             StrokeThickness="4"
                             WidthRequest="60">
-                            <Image
-                                Aspect="AspectFit"
-                                Source="user.png" />
+                            <Image Aspect="AspectFit" Source="user.png" />
                         </Border>
                         <Label
                             Margin="4,0,4,0"
@@ -81,8 +72,8 @@
             Margin="3"
             ForegroundColor="DarkBlue"
             Format="QrCode"
-            WidthRequest="300"
             HeightRequest="300"
+            WidthRequest="300"
             Value="{Binding QrCodeData}" />
         <Button
             Grid.Row="4"
@@ -94,12 +85,8 @@
             Text="View Shared Files">
             <Button.Background>
                 <LinearGradientBrush>
-                    <GradientStop
-                        Offset="0"
-                        Color="{StaticResource Grad1}" />
-                    <GradientStop
-                        Offset="1"
-                        Color="{StaticResource Grad2}" />
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                 </LinearGradientBrush>
             </Button.Background>
             <Button.ImageSource>
