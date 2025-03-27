@@ -5,23 +5,60 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
-    Title="JoinPoolView"
+    Title=""
+    Shell.ForegroundColor="{StaticResource Grad1}"
     x:DataType="viewmodel:JoinPoolViewModel">
-    <VerticalStackLayout Padding="30,0" Spacing="8">
+
+    <VerticalStackLayout
+        Padding="30,0"
+        Spacing="8">
+        <Image
+            HeightRequest="30"
+            Aspect="AspectFit"
+            VerticalOptions="Center"
+            HorizontalOptions="CenterAndExpand"
+            Source="join_pool_label.png" />
+
         <Label
             FontSize="Medium"
             HorizontalOptions="Center"
+            FontAttributes="Bold"
             Text="Scan Pool QR Code" />
-        <zxing:CameraBarcodeReaderView x:Name="cameraBarcodeReaderView" Options="{Binding ReaderOptions}" />
+        <zxing:CameraBarcodeReaderView
+            x:Name="cameraBarcodeReaderView"
+            Options="{Binding ReaderOptions}" />
         <Label
-            FontSize="Micro"
+            FontSize="Medium"
             HorizontalOptions="Center"
+            FontAttributes="Bold"
             Text="Or" />
-        <Entry Placeholder="pool code" Text="{Binding PoolCodeInputText}" />
+        <Entry
+            FontAttributes="Bold"
+            PlaceholderColor="#77000000"
+            Placeholder="Join with pool code"
+            Text="{Binding PoolCodeInputText}" />
         <Button
             Command="{Binding ClickJoinPoolBtnCommand}"
             FontSize="Medium"
             HorizontalOptions="Fill"
-            Text="Join Pool" />
+            Text="Join Pool">
+            <Button.Background>
+                <LinearGradientBrush>
+                    <GradientStop
+                        Offset="0"
+                        Color="{StaticResource Grad1}" />
+                    <GradientStop
+                        Offset="1"
+                        Color="{StaticResource Grad2}" />
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="FASolid"
+                    Glyph="&#xf0c0;"
+                    Color="{AppThemeBinding Light={StaticResource White},
+                                                Dark={StaticResource PrimaryDarkText}}" />
+            </Button.ImageSource>
+        </Button>
     </VerticalStackLayout>
 </ContentPage>
