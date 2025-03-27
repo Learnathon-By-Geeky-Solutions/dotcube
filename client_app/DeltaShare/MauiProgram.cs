@@ -11,6 +11,7 @@ using DeltaShare.Service;
 using DeltaShare.View;
 using DeltaShare.ViewModel;
 using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using ZXing.Net.Maui.Controls;
 
 namespace DeltaShare
@@ -22,6 +23,7 @@ namespace DeltaShare
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseSkiaSharp()
                 .UseMauiCommunityToolkit()
                 .UseBarcodeReader()
                 .ConfigureFonts(fonts =>
