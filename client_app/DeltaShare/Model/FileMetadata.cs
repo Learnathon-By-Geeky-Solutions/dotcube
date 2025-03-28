@@ -1,10 +1,20 @@
 ﻿using System.Text.Json.Serialization;
+using CommunityToolkit.Mvvm.ComponentModel;
 using DeltaShare.Util;
 
 namespace DeltaShare.Model
 {
-    public class FileMetadata
+    public partial class FileMetadata : ObservableObject
     {
+        [ObservableProperty]
+        [JsonIgnore]
+        private bool isDownloading = false;
+
+        [ObservableProperty]
+        [JsonIgnore]
+        [NotifyPropertyChangedFor(nameof(FormattedDownloadedSize))]
+        private long downloadedSize = 0;
+
         [JsonIgnore]
         public ByteArrayContent? ThumbnailContent { get; set; }
 
@@ -26,6 +36,30 @@ namespace DeltaShare.Model
                 }
                 byte[] imageBytes = ThumbnailContent!.ReadAsByteArrayAsync().Result;
                 return ImageSource.FromStream(() => new MemoryStream(imageBytes));
+            }
+        }
+
+        [JsonIgnore]
+        public string FormattedDownloadedSize
+        {
+            get
+            {
+                if (DownloadedSize >= 1024 * 1024)
+                    return $"{DownloadedSize / (1024 * 1024)} MB";
+                if (DownloadedSize >= 1024)
+                    return $"{DownloadedSize / 1024} KB";
+                return $"{DownloadedSize} bytes";
+            }
+        }
+
+        [JsonIgnore]
+        public double DownloadPercentage
+        {
+            get
+            {
+                if (Size == 0)
+                    return 0;
+                return DownloadedSize * 100.0 / Size;
             }
         }
 

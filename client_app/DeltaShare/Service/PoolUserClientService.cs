@@ -55,17 +55,31 @@ namespace DeltaShare.Service
 
         public async Task SaveFilesFromPool(ObservableCollection<object> files)
         {
-            foreach (FileMetadata file in files.Cast<FileMetadata>())
+            ObservableCollection<object> selectedFiles = new(files);
+
+            foreach (FileMetadata file in selectedFiles.Cast<FileMetadata>())
             {
                 Debug.WriteLine($"Downloading {file.Filename}");
-                Stream fileStream = await GetRemoteFileStream(file);
-                await FileHandler.SaveFileInLocalStorage(fileStream, file.Filename);
+                HttpContent? content = await GetRemoteFileContent(file);
+                if (content == null)
+                {
+
+                    await MainThread.InvokeOnMainThreadAsync(async () =>
+                    {
+                        await Alert.Show($"content null for {file.Filename}");
+                    });
+                    continue;
+                }
+                await FileHandler.SaveFileInLocalStorage(content, file);
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    await Alert.Show($"Downloaded {file.Filename}");
+                });
             }
         }
-        public async Task<Stream> GetRemoteFileStream(FileMetadata fileMetadata)
+        public async Task<HttpContent?> GetRemoteFileContent(FileMetadata fileMetadata)
         {
-            string url = $"http://{fileMetadata.OwnerIpAddress}:{Constants.Port}{Constants.FileDownloadPath}";
-            using MultipartFormDataContent form = new()
+            MultipartFormDataContent form = new()
             {
                 { new StringContent(fileMetadata.Uuid), Constants.FileUuidField  }
             };
@@ -74,13 +88,12 @@ namespace DeltaShare.Service
                 HttpResponseMessage response = await client.PostAsync(
                     $"http://{fileMetadata.OwnerIpAddress}:{Constants.Port}{Constants.FileDownloadPath}",
                     form);
-                Stream fileStream = await response.Content.ReadAsStreamAsync();
-                return fileStream;
+                return response.Content;
             }
             catch (Exception e)
             {
                 Debug.WriteLine($"Error: {e.Message}");
-                return Stream.Null;
+                return null;
             }
         }
 

@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="DeltaShare.View.LoginView"
+    x:Class="DeltaShare.View.SignupView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     Title=""
-    x:DataType="viewmodel:LoginViewModel"
-    Shell.ForegroundColor="{StaticResource Grad1}">
+    x:DataType="viewmodel:SignupViewModel">
     <VerticalStackLayout Padding="30,0" Spacing="8">
         <Grid ColumnDefinitions="Auto,*">
             <Label
                 Grid.Column="0"
                 FontAttributes="Bold"
                 FontSize="Small"
-                Text="Email"
+                Text="Full Name:"
                 TextColor="{StaticResource Grad1}"
                 VerticalOptions="Center"
-                WidthRequest="100" />
+                WidthRequest="180" />
             <Entry
                 Grid.Column="1"
                 HorizontalOptions="FillAndExpand"
-                Placeholder="Enter your email"
+                Placeholder="Enter your full name"
                 PlaceholderColor="#77000000"
-                Text="{Binding EmailInputText}"
+                Text="{Binding FullName}"
                 VerticalOptions="Center" />
         </Grid>
         <Grid ColumnDefinitions="Auto,*">
@@ -30,30 +29,67 @@
                 Grid.Column="0"
                 FontAttributes="Bold"
                 FontSize="Small"
-                Text="Password"
+                Text="Email:"
                 TextColor="{StaticResource Grad1}"
                 VerticalOptions="Center"
-                WidthRequest="100" />
+                WidthRequest="180" />
             <Entry
                 Grid.Column="1"
-                HorizontalOptions="FillAndExpand"
-                Placeholder="Enter password"
+                Placeholder="Enter your email"
                 PlaceholderColor="#77000000"
-                Text="{Binding EmailInputText}"
+                Text="{Binding Email}"
                 VerticalOptions="Center" />
         </Grid>
+        <Grid ColumnDefinitions="Auto,*">
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                FontSize="Small"
+                Text="Username:"
+                TextColor="{StaticResource Grad1}"
+                VerticalOptions="Center"
+                WidthRequest="180" />
+            <Entry
+                Grid.Column="1"
+                Placeholder="Enter your username"
+                PlaceholderColor="#77000000"
+                Text="{Binding Username}" />
+        </Grid>
+        <Grid ColumnDefinitions="Auto,*">
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                FontSize="Small"
+                Text="Password:"
+                TextColor="{StaticResource Grad1}"
+                VerticalOptions="Center"
+                WidthRequest="180" />
+            <Entry
+                Grid.Column="1"
+                Placeholder="Enter your password"
+                PlaceholderColor="#77000000"
+                Text="{Binding Password}" />
+        </Grid>
+        <Grid ColumnDefinitions="Auto,*">
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                FontSize="Small"
+                Text="Confirm Password:"
+                TextColor="{StaticResource Grad1}"
+                VerticalOptions="Center"
+                WidthRequest="180" />
+            <Entry
+                Grid.Column="1"
+                Placeholder="Confirm your password"
+                PlaceholderColor="#77000000"
+                Text="{Binding ConfirmPassword}" />
+        </Grid>
         <Button
-            BackgroundColor="Transparent"
-            Command="{Binding ClickForgotPasswordBtnCommand}"
-            FontSize="Small"
-            HorizontalOptions="End"
-            Text="Forgot password?"
-            TextColor="{StaticResource Grad1}" />
-        <Button
-            Command="{Binding ClickLoginBtnCommand}"
+            Command="{Binding ClickSignUpBtnCommand}"
             FontSize="Medium"
-            HorizontalOptions="FillAndExpand"
-            Text="Login">
+            HorizontalOptions="Fill"
+            Text="Sign up">
             <Button.Background>
                 <LinearGradientBrush>
                     <GradientStop Offset="0" Color="{StaticResource Grad1}" />
@@ -63,15 +99,11 @@
             <Button.ImageSource>
                 <FontImageSource
                     FontFamily="FASolid"
-                    Glyph="&#xf2f6;"
+                    Glyph="&#xf234;"
                     Color="{AppThemeBinding Light={StaticResource White},
                                             Dark={StaticResource PrimaryDarkText}}" />
             </Button.ImageSource>
         </Button>
-
-
-
-
 
         <Label
             Margin="0,50,0,0"
@@ -105,7 +137,7 @@
             FontAttributes="Bold"
             FontSize="Subtitle"
             HorizontalOptions="Center"
-            Text="No account?"
+            Text="Already have an account?"
             VerticalOptions="End" />
         <Button
             Margin="0"
@@ -115,7 +147,7 @@
             FontAttributes="Bold"
             FontSize="Medium"
             HorizontalOptions="Center"
-            Text="Sign Up"
+            Text="Sign In"
             TextColor="{StaticResource Grad1}"
             VerticalOptions="Start" />
     </VerticalStackLayout>

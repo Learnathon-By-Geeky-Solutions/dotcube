@@ -4,8 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
-    Title="Settings"
-    x:DataType="viewmodel:SettingsViewModel">
+    Title=""
+    x:DataType="viewmodel:SettingsViewModel"
+    Shell.ForegroundColor="{StaticResource Grad1}">
     <VerticalStackLayout Padding="30,0" Spacing="10">
         <Border
             Margin="0,0,0,0"
@@ -24,16 +25,20 @@
             <Label
                 Grid.Row="0"
                 Margin="0,0,10,0"
+                FontAttributes="Bold"
                 FontSize="Small"
                 HorizontalOptions="Start"
                 Text="Full Name:"
+                TextColor="{StaticResource Grad1}"
                 VerticalTextAlignment="Center" />
 
             <Entry
                 Grid.Row="0"
                 Grid.Column="1"
+                FontAttributes="Bold"
                 HorizontalOptions="Fill"
                 Placeholder="Full Name"
+                PlaceholderColor="#77000000"
                 Text="{Binding FullName}"
                 VerticalTextAlignment="Center" />
 
@@ -43,20 +48,37 @@
                 FontSize="Small"
                 HorizontalOptions="Start"
                 Text="Username:"
+                TextColor="{StaticResource Grad1}"
                 VerticalTextAlignment="Center" />
 
             <Entry
                 Grid.Row="1"
                 Grid.Column="1"
+                FontAttributes="Bold"
                 HorizontalOptions="Fill"
                 Placeholder="Username"
+                PlaceholderColor="#77000000"
                 Text="{Binding Username}"
                 VerticalTextAlignment="Center" />
         </Grid>
         <Button
             Command="{Binding ClickSaveBtnCommand}"
             HorizontalOptions="End"
-            Text="Save" />
+            Text="Save">
+            <Button.Background>
+                <LinearGradientBrush>
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                </LinearGradientBrush>
+            </Button.Background>
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="FASolid"
+                    Glyph="&#xf0c7;"
+                    Color="{AppThemeBinding Light={StaticResource White},
+                                            Dark={StaticResource PrimaryDarkText}}" />
+            </Button.ImageSource>
+        </Button>
     </VerticalStackLayout>
 
 </ContentPage>

@@ -87,7 +87,7 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private async Task ClickSignupBtn()
         {
-            ShowDebugMsg("sign up button clicked");
+            await Shell.Current.GoToAsync(nameof(SignupView));
         }
 
         [RelayCommand]
