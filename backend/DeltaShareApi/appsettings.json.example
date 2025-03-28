@@ -1,0 +1,29 @@
+{
+    "ConnectionStrings": {
+        "DefaultConnection": ""
+    },
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+        }
+    },
+    "AllowedHosts": "*",
+    "OAuth": {
+        "CallbackScheme": "deltashare",
+        "JwtKey": "<input_long_key>",
+        "Apple": {
+            "ServiceId": "",
+            "KeyId": "",
+            "TeamId": ""
+        },
+        "Google": {
+            "ClientId": "<input_client_id>",
+            "ClientSecret": "<input_client_secret>"
+        },
+        "Microsoft": {
+            "ClientId": "",
+            "ClientSecret": ""
+        }
+    }
+}
