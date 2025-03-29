@@ -73,45 +73,59 @@
             </Label.Background>
         </Label>
         <CollectionView
+            x:Name="fileCollection"
             Grid.Row="3"
-            ItemsLayout="VerticalList"
             ItemsSource="{Binding PoolFiles}"
             SelectedItems="{Binding SelectedFiles}"
             SelectionChangedCommand="{Binding FileSelectionChangedCommand}"
             SelectionMode="Multiple">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    Orientation="Vertical"
+                    Span="4"
+                    HorizontalItemSpacing="10"
+                    VerticalItemSpacing="10"
+                     />
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:FileMetadata">
                     <HorizontalStackLayout Spacing="10">
                         <Image
-                            HeightRequest="50"
+                            HeightRequest="60"
                             Source="{Binding ThumbnailSource}"
-                            WidthRequest="50" />
-                        <VerticalStackLayout Spacing="5">
-                            <Label FontSize="Medium" Text="{Binding Filename}" />
+                            WidthRequest="60" />
+                        <VerticalStackLayout>
+                            <Label WidthRequest="100" LineBreakMode="TailTruncation" HorizontalOptions="Start" FontSize="20" Text="{Binding Filename}" />
                             <HorizontalStackLayout>
                                 <Label
-                                    FontSize="Small"
+                                    HorizontalOptions="Start"
+                                    FontSize="12"
                                     Text="{Binding FormattedSize}"
                                     WidthRequest="80" />
-                                <Border
-                                    Margin="20,0,0,0"
-                                    Background="Transparent"
-                                    HeightRequest="30"
-                                    Stroke="SkyBlue"
-                                    StrokeShape="RoundRectangle 20,20,20,20"
-                                    StrokeThickness="3"
-                                    WidthRequest="30">
-                                    <Image Aspect="AspectFit" Source="user.png" />
-                                </Border>
                                 <Label
-                                    BackgroundColor="{StaticResource Secondary}"
-                                    FontSize="Small"
-                                    Text="{Binding Owner.Username}" />
-                                <Label
-                                    FontSize="Small"
+                                    FontSize="12"
+                                    HorizontalOptions="Start"
                                     IsVisible="{Binding IsDownloading}"
                                     Text="{Binding FormattedDownloadedSize}"
                                     VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout HorizontalOptions="Start">
+                                <Border
+                                    Background="Transparent"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Start"
+                                    Stroke="SkyBlue"
+                                    StrokeShape="RoundRectangle 25"
+                                    StrokeThickness="3"
+                                    WidthRequest="25">
+                                    <Image Aspect="AspectFit" Source="user.png" />
+                                </Border>
+                                <Label
+                                    HorizontalOptions="Start"
+                                    BackgroundColor="{StaticResource Secondary}"
+                                    FontSize="12"
+                                    WidthRequest="120"
+                                    Text="{Binding Owner.Username}" />
                             </HorizontalStackLayout>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup>

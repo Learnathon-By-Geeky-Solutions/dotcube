@@ -115,6 +115,8 @@
 
 	<ItemGroup>
 	  <Folder Include="Platforms\Android\Util\" />
+	  <Folder Include="Platforms\Desktop\View\" />
+	  <Folder Include="Platforms\Phone\View\" />
 	  <Folder Include="Platforms\Windows\Util\" />
 	</ItemGroup>
 

@@ -26,9 +26,9 @@ namespace DeltaShare.ViewModel
             //listener.Prefixes.Add($"http://+:{Constants.Port}/");
             //PoolCreatorServerService serverService = new(listener);
             //serverService.StartListening();
-            //await Shell.Current.GoToAsync(nameof(DownloadFileView));
+            await Shell.Current.GoToAsync(nameof(DownloadFileView));
 
-            await Shell.Current.GoToAsync(nameof(SettingsView));
+            //await Shell.Current.GoToAsync(nameof(SettingsView));
         }
 
         private async Task<bool> RequestPermissions()
