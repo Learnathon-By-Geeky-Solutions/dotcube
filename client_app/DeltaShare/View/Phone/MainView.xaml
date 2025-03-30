@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DeltaShare.View.Phone.MainView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+    xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
+    x:DataType="viewmodel:MainViewModel">
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="*">
+            <Image
+                Grid.Column="0"
+                Margin="0,0,0,0"
+                Aspect="AspectFit"
+                HeightRequest="40"
+                HorizontalOptions="Start"
+                Source="logo.png"
+                VerticalOptions="Center" />
+            <Button
+                Grid.Column="1"
+                Margin="0,4,16,0"
+                Padding="10"
+                Command="{Binding ClickSettingsBtnCommand}"
+                HorizontalOptions="End"
+                Text="">
+                <Button.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xf013;"
+                        Color="{AppThemeBinding Light={StaticResource White},
+                                                Dark={StaticResource PrimaryDarkText}}" />
+                </Button.ImageSource>
+            </Button>
+        </Grid>
+    </Shell.TitleView>
+    <Grid
+        Padding="16,16"
+        ColumnDefinitions="*,*"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+        RowSpacing="30">
+        <Button
+            Grid.Row="0"
+            Grid.Column="0"
+            Command="{Binding ClickJoinPoolBtnCommand}"
+            FontSize="24"
+            HeightRequest="120"
+            HorizontalOptions="Start"
+            LineBreakMode="WordWrap"
+            Text="Join Pool"
+            VerticalOptions="Center"
+            WidthRequest="160">
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="FASolid"
+                    Glyph="&#xf0c0;"
+                    Size="40"
+                    Color="{AppThemeBinding Light={StaticResource White},
+                                            Dark={StaticResource PrimaryDarkText}}" />
+            </Button.ImageSource>
+            <Button.Background>
+                <LinearGradientBrush>
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button
+            Grid.Row="0"
+            Grid.Column="1"
+            Command="{Binding ClickCreatePoolBtnCommand}"
+            FontSize="24"
+            HeightRequest="120"
+            HorizontalOptions="End"
+            LineBreakMode="WordWrap"
+            Text="Create Pool"
+            VerticalOptions="Center"
+            WidthRequest="160">
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="FASolid"
+                    Glyph="&#xf055;"
+                    Size="40"
+                    Color="{AppThemeBinding Light={StaticResource White},
+                                            Dark={StaticResource PrimaryDarkText}}" />
+            </Button.ImageSource>
+            <Button.Background>
+                <LinearGradientBrush>
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Margin="0,90,0,0"
+            Command="{Binding ClickCloudStorageBtnCommand}"
+            FontSize="Large"
+            HorizontalOptions="Fill"
+            Text="Cloud Storage">
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="FASolid"
+                    Glyph="&#xf0c2;"
+                    Color="{AppThemeBinding Light={StaticResource White},
+                                            Dark={StaticResource PrimaryDarkText}}" />
+            </Button.ImageSource>
+            <Button.Background>
+                <LinearGradientBrush>
+                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            FontAttributes="Bold"
+            FontSize="Subtitle"
+            HorizontalOptions="Center"
+            Text="To use cloud features" />
+        <Grid
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Margin="0,0,0,30"
+            ColumnDefinitions="Auto,*,Auto"
+            ColumnSpacing="10">
+            <Button
+                Grid.Column="0"
+                Command="{Binding ClickLoginBtnCommand}"
+                FontSize="Medium"
+                Text="Login"
+                WidthRequest="150">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xf2f6;"
+                        Color="{AppThemeBinding Light={StaticResource White},
+                                                Dark={StaticResource PrimaryDarkText}}" />
+                </Button.ImageSource>
+                <Button.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                HorizontalTextAlignment="Center"
+                Text="or"
+                VerticalTextAlignment="Center" />
+            <Button
+                Grid.Column="2"
+                Command="{Binding ClickSignupBtnCommand}"
+                FontSize="Medium"
+                Text="Sign up"
+                WidthRequest="150">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xf234;"
+                        Color="{AppThemeBinding Light={StaticResource White},
+                                                Dark={StaticResource PrimaryDarkText}}" />
+                </Button.ImageSource>
+                <Button.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </Grid>
+    </Grid>
+</ContentPage>

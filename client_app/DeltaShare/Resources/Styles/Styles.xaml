@@ -2,6 +2,16 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+
+    <LinearGradientBrush x:Key="NormalGradient">
+        <GradientStop Offset="0.0" Color="#A100FE" />
+        <GradientStop Offset="1.0" Color="#1400FE" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="HoverGradient">
+        <GradientStop Offset="1.0" Color="#A100FE" />
+        <GradientStop Offset="0.0" Color="#1400FE" />
+    </LinearGradientBrush>
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>

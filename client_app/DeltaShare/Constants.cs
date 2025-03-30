@@ -29,7 +29,7 @@
         public const string Port = "9898";
 
         // window size
-        public const int WindowWidth = 500;
+        public const int WindowWidth = 800;
         public const int WindowHeight = 800;
     }
 }

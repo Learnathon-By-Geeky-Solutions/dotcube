@@ -5,12 +5,4 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:view="clr-namespace:DeltaShare.View"
     Title="DeltaShare"
-    Shell.FlyoutBehavior="Disabled">
-
-    <ShellContent
-        Title="DeltaShare"
-        ContentTemplate="{DataTemplate view:MainView}"
-        Route="MainView" />
-
-
-</Shell>
+    Shell.FlyoutBehavior="Disabled" />
