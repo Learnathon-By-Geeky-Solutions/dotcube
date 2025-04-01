@@ -71,6 +71,7 @@ namespace DeltaShare.Service
                     continue;
                 }
                 await FileHandler.SaveFileInLocalStorage(content, file);
+                file.IsDownloaded = true;
                 await MainThread.InvokeOnMainThreadAsync(async () =>
                 {
                     await Alert.Show($"Downloaded {file.Filename}");

@@ -12,7 +12,11 @@ namespace DeltaShare.Model
 
         [ObservableProperty]
         [JsonIgnore]
-        [NotifyPropertyChangedFor(nameof(FormattedDownloadedSize))]
+        private bool isDownloaded = false;
+
+        [ObservableProperty]
+        [JsonIgnore]
+        [NotifyPropertyChangedFor(nameof(FormattedDownloadedSize), nameof(DownloadProgress))]
         private long downloadedSize = 0;
 
         [JsonIgnore]
@@ -53,13 +57,13 @@ namespace DeltaShare.Model
         }
 
         [JsonIgnore]
-        public double DownloadPercentage
+        public double DownloadProgress
         {
             get
             {
                 if (Size == 0)
-                    return 0;
-                return DownloadedSize * 100.0 / Size;
+                    return 0f;
+                return (double)DownloadedSize / Size;
             }
         }
 

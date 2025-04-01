@@ -7,16 +7,16 @@
     Title=""
     x:DataType="viewmodel:SettingsViewModel"
     Shell.ForegroundColor="{StaticResource Grad1}">
-    <VerticalStackLayout Padding="30,0" Spacing="10">
+    <VerticalStackLayout Padding="30,30" Spacing="10">
         <Border
             Margin="0,0,0,0"
             Background="Transparent"
             HeightRequest="200"
-            Stroke="SkyBlue"
+            Stroke="{StaticResource Grad1}"
             StrokeShape="RoundRectangle 66.66"
             StrokeThickness="8"
             WidthRequest="200">
-            <Image Aspect="AspectFill" Source="user.png" />
+            <Image Aspect="AspectFit" Source="user.png" />
         </Border>
         <Grid
             ColumnDefinitions="Auto, *"
@@ -61,24 +61,21 @@
                 Text="{Binding Username}"
                 VerticalTextAlignment="Center" />
         </Grid>
-        <Button
-            Command="{Binding ClickSaveBtnCommand}"
-            HorizontalOptions="End"
-            Text="Save">
-            <Button.Background>
-                <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
-                </LinearGradientBrush>
-            </Button.Background>
-            <Button.ImageSource>
-                <FontImageSource
-                    FontFamily="FASolid"
-                    Glyph="&#xf0c7;"
-                    Color="{AppThemeBinding Light={StaticResource White},
-                                            Dark={StaticResource PrimaryDarkText}}" />
-            </Button.ImageSource>
-        </Button>
+        <Grid ColumnDefinitions="*,*">
+            <Button
+                x:Name="saveBtn"
+                Grid.Row="0"
+                Grid.Column="1"
+                Command="{Binding ClickSaveBtnCommand}"
+                Text="Save">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xf0c7;"
+                        Color="White" />
+                </Button.ImageSource>
+            </Button>
+        </Grid>
     </VerticalStackLayout>
 
 </ContentPage>

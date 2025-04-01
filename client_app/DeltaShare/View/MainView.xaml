@@ -1,22 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="DeltaShare.View.Desktop.MainView"
+    x:Class="DeltaShare.View.MainView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
-    Shell.ForegroundColor="{StaticResource Grad1}"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
-    x:DataType="viewmodel:MainViewModel">
+    x:DataType="viewmodel:MainViewModel"
+    Shell.ForegroundColor="{StaticResource Grad1}">
     <Shell.TitleView>
-        <Grid
-            ColumnDefinitions="*,*"
-            RowDefinitions="*">
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*">
             <Button
+                x:Name="settingsBtn"
                 Grid.Row="0"
                 Grid.Column="1"
-                Margin="40,4,16,0"
+                Margin="16,4,16,0"
                 Padding="16,0,16,0"
-                x:Name="settingsBtn"
                 Command="{Binding ClickSettingsBtnCommand}"
                 Text="Settings">
                 <Button.ImageSource>
@@ -55,11 +53,11 @@
             </Button.ImageSource>
         </Button>
         <Button
+            x:Name="createPoolBtn"
             Grid.Row="0"
             Grid.Column="1"
             Command="{Binding ClickCreatePoolBtnCommand}"
             FontSize="24"
-            x:Name="createPoolBtn"
             HeightRequest="120"
             LineBreakMode="WordWrap"
             Text="Create Pool"
@@ -74,29 +72,28 @@
             </Button.ImageSource>
         </Button>
         <Image
+            x:Name="logoImg"
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Margin="0,0,0,30"
             Aspect="AspectFit"
-            HeightRequest="40"
             HorizontalOptions="Center"
             Source="logo.png"
             VerticalOptions="Center" />
         <skia:SKLottieView
+            x:Name="animationView"
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            HeightRequest="200"
             RepeatCount="2"
-            Source="share_animation.json"
-            WidthRequest="600" />
+            Source="share_animation.json" />
         <Button
+            x:Name="cloudStorageBtn"
             Grid.Row="2"
             Grid.ColumnSpan="2"
             Margin="0,0,0,0"
             Command="{Binding ClickCloudStorageBtnCommand}"
             FontSize="24"
             HeightRequest="120"
-            x:Name="cloudStorageBtn"
             HorizontalOptions="Fill"
             Text="Cloud Storage">
             <Button.ImageSource>
@@ -121,9 +118,9 @@
             ColumnDefinitions="*,Auto,*"
             ColumnSpacing="10">
             <Button
+                x:Name="loginBtn"
                 Grid.Column="0"
                 Command="{Binding ClickLoginBtnCommand}"
-                x:Name="loginBtn"
                 FontSize="24"
                 Text="Login">
                 <Button.ImageSource>
@@ -142,10 +139,10 @@
                 Text="or"
                 VerticalTextAlignment="Center" />
             <Button
+                x:Name="signupBtn"
                 Grid.Column="2"
                 Command="{Binding ClickSignupBtnCommand}"
                 FontSize="24"
-                x:Name="signupBtn"
                 Text="Sign up">
                 <Button.ImageSource>
                     <FontImageSource

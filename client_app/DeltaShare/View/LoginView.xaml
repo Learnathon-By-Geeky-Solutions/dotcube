@@ -7,7 +7,7 @@
     Title=""
     x:DataType="viewmodel:LoginViewModel"
     Shell.ForegroundColor="{StaticResource Grad1}">
-    <VerticalStackLayout Padding="30,0" Spacing="8">
+    <VerticalStackLayout Padding="30,30" Spacing="8">
         <Grid ColumnDefinitions="Auto,*">
             <Label
                 Grid.Column="0"

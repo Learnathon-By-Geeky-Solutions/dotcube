@@ -1,23 +1,18 @@
-﻿#if ANDROID || IOS
-using DeltaShare.View.Phone;
-#else
-using DeltaShare.View.Desktop;
-#endif
+﻿using DeltaShare.View;
 
-namespace DeltaShare
+namespace DeltaShare;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
+        Items.Add(new ShellContent
         {
-            Items.Add(new ShellContent
-            {
-                Title = "DeltaShare",
-                ContentTemplate = new DataTemplate(typeof(MainView)),
-                Route = nameof(MainView)
-            });
+            Title = "DeltaShare",
+            ContentTemplate = new DataTemplate(typeof(MainView)),
+            Route = nameof(MainView)
+        });
 
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

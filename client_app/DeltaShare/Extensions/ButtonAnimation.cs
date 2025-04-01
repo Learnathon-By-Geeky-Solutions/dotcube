@@ -30,8 +30,25 @@ public static class ButtonExtensions
             button.ScaleTo(1.0, 250, Easing.SinOut);
             AnimateGradient(false, button);
         };
-        button.GestureRecognizers.Add(pointerGesture);
 
+        TapGestureRecognizer tapGesture = new();
+        tapGesture.Tapped += (s, e) =>
+        {
+            button.Command?.Execute(null);
+        };
+
+        button.GestureRecognizers.Add(pointerGesture);
+        button.GestureRecognizers.Add(tapGesture);
+
+        button.Pressed += async (s, e) =>
+        {
+            await button.ScaleTo(0.95, 50, Easing.SinOut);
+        };
+
+        button.Released += async (s, e) =>
+        {
+            await button.ScaleTo(1.0, 50, Easing.SinOut);
+        };
     }
     private static void AnimateGradient(bool isHovered, Button button)
     {

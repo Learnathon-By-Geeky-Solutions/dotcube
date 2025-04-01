@@ -7,11 +7,6 @@ using DeltaShare.Platforms.Android.Service;
 #if WINDOWS
 using DeltaShare.Platforms.Windows.Service;
 #endif
-#if ANDROID || IOS
-using DeltaShare.View.Phone;
-#else
-using DeltaShare.View.Desktop;
-#endif
 using DeltaShare.Service;
 using DeltaShare.View;
 using DeltaShare.ViewModel;

@@ -108,7 +108,7 @@
 	  <Compile Update="View\LoginView.xaml.cs">
 	    <DependentUpon>LoginView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\Desktop\MainView.xaml.cs">
+	  <Compile Update="View\MainView.xaml.cs">
 	    <DependentUpon>MainView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
@@ -116,7 +116,6 @@
 	<ItemGroup>
 	  <Folder Include="Platforms\Android\Util\" />
 	  <Folder Include="Platforms\Windows\Util\" />
-	  <Folder Include="View\Phone\" />
 	</ItemGroup>
 
 </Project>

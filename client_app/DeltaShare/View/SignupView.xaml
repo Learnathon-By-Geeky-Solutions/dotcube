@@ -6,7 +6,7 @@
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     Title=""
     x:DataType="viewmodel:SignupViewModel">
-    <VerticalStackLayout Padding="30,0" Spacing="8">
+    <VerticalStackLayout Padding="30,30" Spacing="8">
         <Grid ColumnDefinitions="Auto,*">
             <Label
                 Grid.Column="0"
