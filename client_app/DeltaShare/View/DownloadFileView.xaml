@@ -9,7 +9,9 @@
     x:DataType="viewmodel:DownloadFileViewModel"
     Shell.ForegroundColor="{StaticResource Grad1}">
     <Shell.TitleView>
-        <Grid ColumnDefinitions="*,Auto" RowDefinitions="*">
+        <Grid
+            ColumnDefinitions="*,Auto"
+            RowDefinitions="*">
             <Button
                 x:Name="inviteBtn"
                 Grid.Row="0"
@@ -61,7 +63,8 @@
             ItemsSource="{Binding PoolUsers}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:User">
+                <DataTemplate
+                    x:DataType="model:User">
                     <VerticalStackLayout>
                         <Border
                             Margin="0,0,0,0"
@@ -71,7 +74,9 @@
                             StrokeShape="RoundRectangle 20,20,20,20"
                             StrokeThickness="4"
                             WidthRequest="60">
-                            <Image Aspect="AspectFit" Source="user.png" />
+                            <Image
+                                Aspect="AspectFit"
+                                Source="user.png" />
                         </Border>
                         <Label
                             Margin="4,0,4,0"
@@ -83,7 +88,9 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Grid Grid.Row="1" ColumnDefinitions="Auto,*">
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="Auto,*">
             <Label
                 Grid.Column="0"
                 FontAttributes="Bold"
@@ -100,8 +107,12 @@
                 VerticalOptions="Center">
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
+                        <GradientStop
+                            Offset="0"
+                            Color="{StaticResource Grad1}" />
+                        <GradientStop
+                            Offset="1"
+                            Color="{StaticResource Grad2}" />
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
@@ -109,10 +120,10 @@
         <CollectionView
             x:Name="fileCollection"
             Grid.Row="2"
+            ItemsSource="{Binding PoolFiles}"
             SelectedItems="{Binding SelectedFiles}"
             SelectionChangedCommand="{Binding FileSelectionChangedCommand}"
-            SelectionMode="Multiple"
-            ItemsSource="{Binding PoolFiles}">
+            SelectionMode="Multiple">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout
                     HorizontalItemSpacing="10"
@@ -121,7 +132,8 @@
                     VerticalItemSpacing="10" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:FileMetadata">
+                <DataTemplate
+                    x:DataType="model:FileMetadata">
                     <Grid
                         ColumnDefinitions="Auto,Auto,*"
                         RowDefinitions="Auto,Auto,Auto"
@@ -167,7 +179,9 @@
                                 StrokeShape="RoundRectangle 25"
                                 StrokeThickness="3"
                                 WidthRequest="25">
-                                <Image Aspect="AspectFit" Source="user.png" />
+                                <Image
+                                    Aspect="AspectFit"
+                                    Source="user.png" />
                             </Border>
                             <Label
                                 FontSize="12"
@@ -186,8 +200,12 @@
                             StrokeShape="RoundRectangle 10">
                             <Border.Background>
                                 <LinearGradientBrush>
-                                    <GradientStop Offset="0" Color="{StaticResource Grad1Back}" />
-                                    <GradientStop Offset="1" Color="{StaticResource Grad2Back}" />
+                                    <GradientStop
+                                        Offset="0"
+                                        Color="{StaticResource Grad1Back}" />
+                                    <GradientStop
+                                        Offset="1"
+                                        Color="{StaticResource Grad2Back}" />
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
@@ -202,8 +220,12 @@
                             StrokeShape="RoundRectangle 10">
                             <Border.Background>
                                 <LinearGradientBrush>
-                                    <GradientStop Offset="0" Color="{StaticResource Grad1Fade}" />
-                                    <GradientStop Offset="1" Color="{StaticResource Grad2Fade}" />
+                                    <GradientStop
+                                        Offset="0"
+                                        Color="{StaticResource Grad1Fade}" />
+                                    <GradientStop
+                                        Offset="1"
+                                        Color="{StaticResource Grad2Fade}" />
                                 </LinearGradientBrush>
                             </Border.Background>
                         </Border>
@@ -231,16 +253,16 @@
                             VerticalOptions="Center"
                             WidthRequest="20"
                             Source="check.png" />
+                        -->
                         <Image
                             x:Name="downloadIndicator"
                             IsVisible="{Binding IsDownloaded}"
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            HorizontalOptions="End"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalOptions="Start"
                             VerticalOptions="Center"
                             WidthRequest="20"
                             Source="download.png" />
-                        -->
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

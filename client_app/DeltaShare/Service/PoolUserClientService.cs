@@ -60,41 +60,7 @@ namespace DeltaShare.Service
             foreach (FileMetadata file in selectedFiles.Cast<FileMetadata>())
             {
                 Debug.WriteLine($"Downloading {file.Filename}");
-                HttpContent? content = await GetRemoteFileContent(file);
-                if (content == null)
-                {
-
-                    await MainThread.InvokeOnMainThreadAsync(async () =>
-                    {
-                        await Alert.Show($"content null for {file.Filename}");
-                    });
-                    continue;
-                }
-                await FileHandler.SaveFileInLocalStorage(content, file);
-                file.IsDownloaded = true;
-                await MainThread.InvokeOnMainThreadAsync(async () =>
-                {
-                    await Alert.Show($"Downloaded {file.Filename}");
-                });
-            }
-        }
-        public async Task<HttpContent?> GetRemoteFileContent(FileMetadata fileMetadata)
-        {
-            MultipartFormDataContent form = new()
-            {
-                { new StringContent(fileMetadata.Uuid), Constants.FileUuidField  }
-            };
-            try
-            {
-                HttpResponseMessage response = await client.PostAsync(
-                    $"http://{fileMetadata.OwnerIpAddress}:{Constants.Port}{Constants.FileDownloadPath}",
-                    form);
-                return response.Content;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"Error: {e.Message}");
-                return null;
+                await FileHandler.SaveFileInLocalStorage(client, file);
             }
         }
 

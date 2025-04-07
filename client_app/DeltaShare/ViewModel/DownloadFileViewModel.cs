@@ -36,7 +36,7 @@ namespace DeltaShare.ViewModel
             //];
             //FileMetadata[] metadata =
             //    [
-            //    new("uuid1", 1000, "file1", "1.1.1.1", "video/mp4", "/some/path1"),
+            //    new("uuid1", 10485760, "file1", "1.1.1.1", "video/mp4", "/some/path1"),
             //    new("uuid2", 2000, "file2", "1.1.1.2", "video/mp4", "/some/path2"),
             //    new("uuid3", 3000, "file3", "1.1.1.3", "video/mp4", "/some/path3") {
             //        IsDownloading = true,
@@ -83,9 +83,11 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
-        private void ClickDownloadBtn()
+        private async void ClickDownloadBtn()
         {
-            _ = Task.Run(() => clientService.SaveFilesFromPool(SelectedFiles));
+            Debug.WriteLine("Download button clicked");
+            //_ = Task.Run(() => clientService.SaveFilesFromPool(SelectedFiles));
+            await clientService.SaveFilesFromPool(SelectedFiles);
         }
 
         [RelayCommand]

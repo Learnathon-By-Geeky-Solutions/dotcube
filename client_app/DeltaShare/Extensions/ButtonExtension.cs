@@ -1,6 +1,6 @@
 ﻿namespace DeltaShare.Extensions;
 
-public static class ButtonExtensions
+public static class ButtonExtension
 {
     public static void AddButtonTheme(this Button button)
     {
@@ -38,7 +38,9 @@ public static class ButtonExtensions
         };
 
         button.GestureRecognizers.Add(pointerGesture);
+#if ANDROID || IOS
         button.GestureRecognizers.Add(tapGesture);
+#endif
 
         button.Pressed += async (s, e) =>
         {

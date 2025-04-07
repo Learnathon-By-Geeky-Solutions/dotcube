@@ -9,8 +9,29 @@ namespace DeltaShare.Util
 {
     public static class FileHandler
     {
-        public static async Task SaveFileInLocalStorage(HttpContent content, FileMetadata file)
+        public static async Task SaveFileInLocalStorage(HttpClient client, FileMetadata file)
         {
+            MultipartFormDataContent form = new()
+            {
+                { new StringContent(file.Uuid), Constants.FileUuidField  }
+            };
+            HttpResponseMessage response = new();
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Post, $"http://{file.OwnerIpAddress}:{Constants.Port}{Constants.FileDownloadPath}")
+                {
+                    Content = form
+                };
+                response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, CancellationToken.None);
+                //response = await client.GetAsync("http://212.183.159.230/10MB.zip", HttpCompletionOption.ResponseHeadersRead);
+                response.EnsureSuccessStatusCode();
+            }
+
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error: {e.Message}");
+            }
+
             string downloadFolderPath = String.Empty;
 #if WINDOWS
             downloadFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
@@ -22,26 +43,36 @@ namespace DeltaShare.Util
             Directory.CreateDirectory(destinationPath);
             using FileStream destinationStream = new(Path.Combine(destinationPath, file.Filename), FileMode.Create);
 
-            using Stream contentStream = await content.ReadAsStreamAsync();
+            using Stream contentStream = await response.Content.ReadAsStreamAsync();
             byte[] buffer = new byte[8192];
             long totalRead = 0;
             int read;
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            file.IsDownloading = true;
-            while ((read = await contentStream.ReadAsync(buffer)) > 0)
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                file.IsDownloading = true;
+            });
+            while ((read = await contentStream.ReadAsync(buffer.AsMemory(0, buffer.Length))) > 0)
             {
                 await destinationStream.WriteAsync(buffer.AsMemory(0, read));
                 totalRead += read;
-                file.DownloadedSize = totalRead;
+                await MainThread.InvokeOnMainThreadAsync(() =>
+                    {
+                        file.DownloadedSize = totalRead;
+                    });
 
                 //double speedInKbps = totalRead / stopwatch.Elapsed.TotalSeconds / 1024;
 
                 //Debug.WriteLine($"Downloaded: {totalRead / 1024} KB / {totalBytes / 1024} KB | {percentage:F2}% | {speedInKbps:F2} KB/s format:{file.FormattedDownloadedSize}");
             }
-            file.IsDownloading = false;
-
             stopwatch.Stop();
+
+            await MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                file.IsDownloading = false;
+                file.IsDownloaded = true;
+            });
         }
 
         public static async Task ProcessFileDownloadRequest(HttpListenerContext context)
