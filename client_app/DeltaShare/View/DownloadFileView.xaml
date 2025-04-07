@@ -18,9 +18,9 @@
                 Grid.Column="0"
                 Margin="0,4,16,0"
                 Padding="16,0,16,0"
+                Command="{Binding ClickInviteOthersBtnCommand}"
                 FontSize="15"
                 HorizontalOptions="End"
-                IsEnabled="False"
                 Text="Invite others"
                 TextColor="White"
                 WidthRequest="160">
@@ -256,13 +256,13 @@
                         -->
                         <Image
                             x:Name="downloadIndicator"
-                            IsVisible="{Binding IsDownloaded}"
                             Grid.Row="0"
                             Grid.Column="0"
                             HorizontalOptions="Start"
+                            IsVisible="{Binding IsDownloaded}"
+                            Source="download.png"
                             VerticalOptions="Center"
-                            WidthRequest="20"
-                            Source="download.png" />
+                            WidthRequest="20" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

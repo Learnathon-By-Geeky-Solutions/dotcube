@@ -70,6 +70,12 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
+        private async Task ClickInviteOthersBtn()
+        {
+            await Shell.Current.GoToAsync("../");
+        }
+
+        [RelayCommand]
         private void FileSelectionChanged()
         {
             if (SelectedFiles.Count > 0)
@@ -83,11 +89,11 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
-        private async void ClickDownloadBtn()
+        private async Task ClickDownloadBtn()
         {
-            Debug.WriteLine("Download button clicked");
             //_ = Task.Run(() => clientService.SaveFilesFromPool(SelectedFiles));
             await clientService.SaveFilesFromPool(SelectedFiles);
+            SelectedFiles.Clear();
         }
 
         [RelayCommand]

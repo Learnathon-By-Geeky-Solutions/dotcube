@@ -74,7 +74,7 @@
         <Grid Grid.Row="3" HeightRequest="400">
             <zxing:BarcodeGeneratorView
                 Margin="3"
-                ForegroundColor="{StaticResource Grad1}"
+                ForegroundColor="{StaticResource Grad2}"
                 Format="QrCode"
                 Value="{Binding QrCodeData}" />
         </Grid>
@@ -98,6 +98,7 @@
             Command="{Binding ClickViewSharedFilesBtnCommand}"
             FontSize="24"
             HorizontalOptions="Fill"
+            IsEnabled="{Binding IsViewSharedFilesBtnEnabled}"
             Text="View Shared Files">
             <Button.ImageSource>
                 <FontImageSource
