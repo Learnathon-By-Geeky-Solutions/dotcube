@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Model;
 using DeltaShare.Service;
 using DeltaShare.Util;
+using DeltaShare.View;
 
 namespace DeltaShare.ViewModel
 {
@@ -72,7 +73,7 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private async Task ClickInviteOthersBtn()
         {
-            await Shell.Current.GoToAsync("../");
+            await Shell.Current.GoToAsync(nameof(InviteOthersView));
         }
 
         [RelayCommand]

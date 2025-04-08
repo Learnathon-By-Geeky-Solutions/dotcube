@@ -46,6 +46,7 @@ namespace DeltaShare
             builder.Services.AddSingleton<SettingsView>();
             builder.Services.AddSingleton<JoinPoolView>();
             builder.Services.AddSingleton<DownloadFileView>();
+            builder.Services.AddTransient<InviteOthersView>();
 
             // Dependency Injection - ViewModels
             builder.Services.AddSingleton<MainViewModel>();
@@ -56,6 +57,7 @@ namespace DeltaShare
             builder.Services.AddSingleton<SettingsViewModel>();
             builder.Services.AddSingleton<JoinPoolViewModel>();
             builder.Services.AddSingleton<DownloadFileViewModel>();
+            builder.Services.AddTransient<InviteOthersViewModel>();
 
             // Dependency Injection - Services
             builder.Services.AddSingleton<PoolCreatorServerService>();

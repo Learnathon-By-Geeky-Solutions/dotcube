@@ -25,4 +25,21 @@ public partial class DownloadFileView : ContentPage
 #endif
         }
     }
+    protected override bool OnBackButtonPressed()
+    {
+        Dispatcher.Dispatch(async () =>
+        {
+            bool result = await DisplayAlert(
+                "Confirm Exit",
+                "Are you sure you want to go back? This pool will be closed.",
+                "Yes",
+                "No"
+            );
+
+            if (result)
+                await Navigation.PopAsync();
+        });
+
+        return true;
+    }
 }

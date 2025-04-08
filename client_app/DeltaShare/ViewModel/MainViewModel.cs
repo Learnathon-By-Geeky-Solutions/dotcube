@@ -27,9 +27,20 @@ namespace DeltaShare.ViewModel
             //PoolCreatorServerService serverService = new(listener);
             //serverService.StartListening();
             //await Shell.Current.GoToAsync(nameof(DownloadFileView));
+            //testFunc();
 
             await Shell.Current.GoToAsync(nameof(SettingsView));
         }
+
+        //private void testFunc()
+        //{
+        //    string[] test = { "192.168.1.101", "172.27.27.84", "196.27.8.1" };
+        //    string result = PoolCodeHandler.GenerateQrCodeData(test);
+        //    Debug.WriteLine($"enc: {result}");
+
+        //    IEnumerable<string> ips = PoolCodeHandler.DecodePoolCodeData(result);
+        //    Debug.WriteLine($"dec: {string.Join(", ", ips)}");
+        //}
 
         private async Task<bool> RequestPermissions()
         {

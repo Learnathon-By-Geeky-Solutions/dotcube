@@ -84,6 +84,9 @@
 	  <MauiXaml Update="View\DownloadFileView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\InviteOthersView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\JoinPoolView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
