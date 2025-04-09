@@ -19,6 +19,5 @@ public partial class SignupViewModel : BaseViewModel
     [RelayCommand]
     private async Task ClickSignUpBtn()
     {
-        ShowDebugMsg("Sign up button clicked");
     }
 }

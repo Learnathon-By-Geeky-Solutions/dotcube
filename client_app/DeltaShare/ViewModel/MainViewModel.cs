@@ -81,7 +81,6 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private void ClickPrevPoolLabel(string uid)
         {
-            ShowDebugMsg($"pool clicked uid: {uid}");
         }
 
         [RelayCommand]
@@ -108,7 +107,6 @@ namespace DeltaShare.ViewModel
         private void ClearPreferencesBtn()
         {
             Preferences.Clear();
-            ShowDebugMsg("Preferences cleared");
         }
     }
 }
