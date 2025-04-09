@@ -32,6 +32,12 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
+        private static void ClickMicrosoftSignInBtn()
+        {
+
+        }
+
+        [RelayCommand]
         private static void ClickSignUpBtn()
         {
         }

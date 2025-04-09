@@ -21,6 +21,7 @@ namespace DeltaShare.ViewModel
 
         public SharePoolViewModel(PoolCreatorClientService clientService)
         {
+            Debug.WriteLine($"Local IPs: {string.Join(", ", NetworkHandler.GetLocalIps())}");
             QrCodeData = PoolCodeHandler.GenerateQrCodeData(NetworkHandler.GetLocalIps());
 
             StateManager.PoolUsers.CollectionChanged += (s, e) =>

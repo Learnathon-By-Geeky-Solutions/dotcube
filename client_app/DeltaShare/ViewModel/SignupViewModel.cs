@@ -20,4 +20,28 @@ public partial class SignupViewModel : BaseViewModel
     private async Task ClickSignUpBtn()
     {
     }
+
+    [RelayCommand]
+    private void ClickGoogleSignInBtn()
+    {
+
+    }
+
+    [RelayCommand]
+    private void ClickFacebookSignInBtn()
+    {
+
+    }
+
+    [RelayCommand]
+    private void ClickMicrosoftSignInBtn()
+    {
+
+    }
+
+    [RelayCommand]
+    private void ClickSignInBtn()
+    {
+
+    }
 }

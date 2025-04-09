@@ -18,9 +18,7 @@
             FontSize="20"
             HorizontalOptions="Center"
             Text="Scan below QR code" />
-        <Grid
-            Grid.Row="1"
-            HeightRequest="400">
+        <Grid Grid.Row="1" HeightRequest="400">
             <zxing:BarcodeGeneratorView
                 Margin="3"
                 ForegroundColor="{StaticResource Grad2}"

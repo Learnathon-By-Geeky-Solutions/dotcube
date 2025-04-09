@@ -140,16 +140,6 @@
                         Padding="0"
                         Stroke="Transparent"
                         StrokeShape="RoundRectangle 10">
-                        <Border.Background>
-                            <LinearGradientBrush>
-                                <GradientStop
-                                    Offset="0"
-                                    Color="Transparent" />
-                                <GradientStop
-                                    Offset="1"
-                                    Color="Transparent" />
-                            </LinearGradientBrush>
-                        </Border.Background>
                         <Grid
                             ColumnDefinitions="Auto,Auto,*"
                             ColumnSpacing="2"
@@ -286,7 +276,14 @@
                             <VisualStateGroup
                                 Name="CommonStates">
                                 <VisualState
-                                    Name="Normal" />
+                                    Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter
+                                            TargetName="itemBorder"
+                                            Property="Background"
+                                            Value="{StaticResource NullGradient}" />
+                                    </VisualState.Setters>
+                                </VisualState>
                                 <VisualState
                                     Name="Selected">
                                     <VisualState.Setters>

@@ -111,7 +111,7 @@
             Margin="0"
             Padding="0"
             BackgroundColor="Transparent"
-            Command="{Binding ClickSignInBtnCommand}"
+            Command="{Binding ClickSignUpBtnCommand}"
             FontAttributes="Bold"
             FontSize="Medium"
             HorizontalOptions="Center"
