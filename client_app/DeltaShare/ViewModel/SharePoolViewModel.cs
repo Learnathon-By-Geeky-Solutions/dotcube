@@ -40,6 +40,7 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private async Task ClickViewSharedFilesBtn()
         {
+            await Shell.Current.GoToAsync("../");
             await Shell.Current.GoToAsync(nameof(DownloadFileView));
         }
     }

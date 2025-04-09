@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Service;
+using DeltaShare.Util;
 using DeltaShare.View;
 
 namespace DeltaShare.ViewModel
@@ -26,8 +27,8 @@ namespace DeltaShare.ViewModel
             //listener.Prefixes.Add($"http://+:{Constants.Port}/");
             //PoolCreatorServerService serverService = new(listener);
             //serverService.StartListening();
-            //await Shell.Current.GoToAsync(nameof(DownloadFileView));
             //testFunc();
+            //await Shell.Current.GoToAsync(nameof(DownloadFileView));
 
             await Shell.Current.GoToAsync(nameof(SettingsView));
         }
@@ -84,21 +85,23 @@ namespace DeltaShare.ViewModel
         }
 
         [RelayCommand]
-        private void ClickCloudStorageBtn()
+        private async Task ClickCloudStorageBtn()
         {
-            ShowDebugMsg("go to cloud storage");
+            await Alert.Show("Not implemented yet");
         }
 
         [RelayCommand]
         private async Task ClickLoginBtn()
         {
-            await Shell.Current.GoToAsync(nameof(LoginView));
+            await Alert.Show("Not implemented yet");
+            //await Shell.Current.GoToAsync(nameof(LoginView));
         }
 
         [RelayCommand]
         private async Task ClickSignupBtn()
         {
-            await Shell.Current.GoToAsync(nameof(SignupView));
+            await Alert.Show("Not implemented yet");
+            //await Shell.Current.GoToAsync(nameof(SignupView));
         }
 
         [RelayCommand]

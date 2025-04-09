@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DeltaShare.View.InviteOthersView"
-             xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
-             x:DataType="viewmodel:InviteOthersViewModel"
-             Shell.ForegroundColor="{StaticResource Grad1}"
-             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
-    Title="">
-    <Grid Padding="16,16" RowSpacing="4" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+<ContentPage
+    x:Class="DeltaShare.View.InviteOthersView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
+    xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+    Title=""
+    x:DataType="viewmodel:InviteOthersViewModel"
+    Shell.ForegroundColor="{StaticResource Grad1}">
+    <Grid
+        Padding="16,16"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+        RowSpacing="4">
         <Label
             Grid.Row="0"
             FontAttributes="Bold"
             FontSize="20"
             HorizontalOptions="Center"
             Text="Scan below QR code" />
-        <Grid Grid.Row="1" HeightRequest="400">
+        <Grid
+            Grid.Row="1"
+            HeightRequest="400">
             <zxing:BarcodeGeneratorView
                 Margin="3"
                 ForegroundColor="{StaticResource Grad2}"

@@ -134,102 +134,120 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate
                     x:DataType="model:FileMetadata">
-                    <Grid
-                        ColumnDefinitions="Auto,Auto,*"
-                        RowDefinitions="Auto,Auto,Auto"
-                        RowSpacing="2">
-                        <Image
-                            Grid.Row="0"
-                            Grid.RowSpan="3"
-                            Grid.Column="0"
-                            HeightRequest="70"
-                            Source="{Binding ThumbnailSource}"
-                            WidthRequest="70" />
-                        <Label
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Grid.ColumnSpan="2"
-                            FontSize="20"
-                            HorizontalOptions="Start"
-                            LineBreakMode="TailTruncation"
-                            Text="{Binding Filename}" />
-                        <Label
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            FontSize="12"
-                            HorizontalOptions="Start"
-                            Text="{Binding FormattedSize}" />
-                        <Label
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            FontSize="12"
-                            HorizontalOptions="End"
-                            IsVisible="{Binding IsDownloading}"
-                            Text="{Binding FormattedDownloadedSize}"
-                            VerticalOptions="Center" />
-                        <HorizontalStackLayout
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            HorizontalOptions="Start">
-                            <Border
-                                Background="Transparent"
-                                HeightRequest="25"
-                                HorizontalOptions="Start"
-                                Stroke="SkyBlue"
-                                StrokeShape="RoundRectangle 25"
-                                StrokeThickness="3"
-                                WidthRequest="25">
-                                <Image
-                                    Aspect="AspectFit"
-                                    Source="user.png" />
-                            </Border>
+                    <Border
+                        x:Name="itemBorder"
+                        Margin="0"
+                        Padding="0"
+                        Stroke="Transparent"
+                        StrokeShape="RoundRectangle 10">
+                        <Border.Background>
+                            <LinearGradientBrush>
+                                <GradientStop
+                                    Offset="0"
+                                    Color="Transparent" />
+                                <GradientStop
+                                    Offset="1"
+                                    Color="Transparent" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid
+                            ColumnDefinitions="Auto,Auto,*"
+                            ColumnSpacing="2"
+                            RowDefinitions="Auto,Auto,Auto"
+                            RowSpacing="2">
+                            <Image
+                                Grid.Row="0"
+                                Grid.RowSpan="3"
+                                Grid.Column="0"
+                                HeightRequest="70"
+                                Source="{Binding ThumbnailSource}"
+                                WidthRequest="70" />
                             <Label
-                                FontSize="12"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                FontSize="20"
                                 HorizontalOptions="Start"
                                 LineBreakMode="TailTruncation"
-                                Text="{Binding Owner.Username}"
-                                TextColor="{StaticResource Grad1}" />
-                        </HorizontalStackLayout>
-                        <Border
-                            Grid.Row="0"
-                            Grid.RowSpan="3"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="3"
-                            IsVisible="{Binding IsDownloading}"
-                            Stroke="Transparent"
-                            StrokeShape="RoundRectangle 10">
-                            <Border.Background>
-                                <LinearGradientBrush>
-                                    <GradientStop
-                                        Offset="0"
-                                        Color="{StaticResource Grad1Back}" />
-                                    <GradientStop
-                                        Offset="1"
-                                        Color="{StaticResource Grad2Back}" />
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
-                        <Border
-                            Grid.Row="0"
-                            Grid.RowSpan="3"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="3"
-                            AnchorX="0"
-                            ScaleX="{Binding DownloadProgress}"
-                            Stroke="Transparent"
-                            StrokeShape="RoundRectangle 10">
-                            <Border.Background>
-                                <LinearGradientBrush>
-                                    <GradientStop
-                                        Offset="0"
-                                        Color="{StaticResource Grad1Fade}" />
-                                    <GradientStop
-                                        Offset="1"
-                                        Color="{StaticResource Grad2Fade}" />
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
-                        <!--
+                                Text="{Binding Filename}" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                FontSize="12"
+                                HorizontalOptions="Start"
+                                Text="{Binding FormattedSize}" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                FontSize="12"
+                                HorizontalOptions="End"
+                                IsVisible="{Binding IsDownloading}"
+                                Text="{Binding FormattedDownloadedSize}"
+                                VerticalOptions="Center" />
+                            <HorizontalStackLayout
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                HorizontalOptions="Start">
+                                <Border
+                                    Background="Transparent"
+                                    HeightRequest="25"
+                                    HorizontalOptions="Start"
+                                    Stroke="SkyBlue"
+                                    StrokeShape="RoundRectangle 25"
+                                    StrokeThickness="3"
+                                    WidthRequest="25">
+                                    <Image
+                                        Aspect="AspectFit"
+                                        Source="user.png" />
+                                </Border>
+                                <Label
+                                    FontSize="12"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="TailTruncation"
+                                    Text="{Binding Owner.Username}"
+                                    TextColor="{StaticResource Grad1}" />
+                            </HorizontalStackLayout>
+                            <Border
+                                Grid.Row="0"
+                                Grid.RowSpan="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                IsVisible="{Binding IsDownloading}"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 10">
+                                <Border.Background>
+                                    <LinearGradientBrush>
+                                        <GradientStop
+                                            Offset="0"
+                                            Color="{StaticResource Grad1Back}" />
+                                        <GradientStop
+                                            Offset="1"
+                                            Color="{StaticResource Grad2Back}" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.RowSpan="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                AnchorX="0"
+                                IsVisible="{Binding IsDownloading}"
+                                ScaleX="{Binding DownloadProgress}"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 10">
+                                <Border.Background>
+                                    <LinearGradientBrush>
+                                        <GradientStop
+                                            Offset="0"
+                                            Color="{StaticResource Grad1Fade}" />
+                                        <GradientStop
+                                            Offset="1"
+                                            Color="{StaticResource Grad2Fade}" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <!--
                         <Image
                             Grid.Row="0"
                             Grid.Column="0"
@@ -253,17 +271,34 @@
                             VerticalOptions="Center"
                             WidthRequest="20"
                             Source="check.png" />
-                        -->
-                        <Image
-                            x:Name="downloadIndicator"
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            HorizontalOptions="Start"
-                            IsVisible="{Binding IsDownloaded}"
-                            Source="download.png"
-                            VerticalOptions="Center"
-                            WidthRequest="20" />
-                    </Grid>
+                            -->
+                            <Image
+                                x:Name="downloadIndicator"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalOptions="Start"
+                                IsVisible="{Binding IsDownloaded}"
+                                Source="download.png"
+                                VerticalOptions="Center"
+                                WidthRequest="25" />
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup
+                                Name="CommonStates">
+                                <VisualState
+                                    Name="Normal" />
+                                <VisualState
+                                    Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter
+                                            TargetName="itemBorder"
+                                            Property="Background"
+                                            Value="{StaticResource SelectedGradient}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

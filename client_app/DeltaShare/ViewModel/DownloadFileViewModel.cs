@@ -50,7 +50,10 @@ namespace DeltaShare.ViewModel
             //        DownloadedSize = 2000,
             //        Size = 5000
             //    },
-            //    new("uuid6", 6000, "file6", "1.1.1.6", "video/mp4", "/some/path6"),
+            //    new("uuid6", 6000, "file6", "1.1.1.6", "video/mp4", "/some/path6"){
+            //        IsDownloaded = true,
+            //        Size = 10000
+            //    },
             //    new("uuid7", 7000, "file7", "1.1.1.7", "video/mp4", "/some/path7"),
             //    new("uuid8", 8000, "file8", "1.1.1.8", "video/mp4", "/some/path8"),
             //    new("uuid9", 9000, "file9", "1.1.1.9", "video/mp4", "/some/path9"),
