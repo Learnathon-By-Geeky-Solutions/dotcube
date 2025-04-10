@@ -41,8 +41,7 @@
             FontSize="24"
             HeightRequest="120"
             LineBreakMode="WordWrap"
-            Text="Join Pool"
-            VerticalOptions="Center">
+            Text="Join Pool">
             <Button.ImageSource>
                 <FontImageSource
                     FontFamily="FASolid"
@@ -60,8 +59,7 @@
             FontSize="24"
             HeightRequest="120"
             LineBreakMode="WordWrap"
-            Text="Create Pool"
-            VerticalOptions="Center">
+            Text="Create Pool">
             <Button.ImageSource>
                 <FontImageSource
                     FontFamily="FASolid"

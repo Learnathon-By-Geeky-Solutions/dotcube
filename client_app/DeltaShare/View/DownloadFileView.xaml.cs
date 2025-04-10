@@ -20,8 +20,14 @@ public partial class DownloadFileView : ContentPage
         {
 #if ANDROID || IOS
             gridLayout.Span = 2;
+            addFilesBtn.FontSize = 10;
+            saveToCloudBtn.FontSize = 10;
+            downloadBtn.FontSize = 10;
 #else
             gridLayout.Span = 4;
+            addFilesBtn.FontSize = 15;
+            saveToCloudBtn.FontSize = 15;
+            downloadBtn.FontSize = 15;
 #endif
         }
     }
