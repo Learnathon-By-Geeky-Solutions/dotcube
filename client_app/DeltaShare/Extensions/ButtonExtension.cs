@@ -32,8 +32,12 @@ public static class ButtonExtension
         };
 
         TapGestureRecognizer tapGesture = new();
-        tapGesture.Tapped += (s, e) =>
+        tapGesture.Tapped += async (s, e) =>
         {
+            AnimateGradient(true, button);
+            await button.ScaleTo(0.95, 125, Easing.SinOut);
+            await button.ScaleTo(1.0, 125, Easing.SinOut);
+            AnimateGradient(false, button);
             button.Command?.Execute(null);
         };
 
@@ -52,6 +56,7 @@ public static class ButtonExtension
             await button.ScaleTo(1.0, 50, Easing.SinOut);
         };
     }
+
     private static void AnimateGradient(bool isHovered, Button button)
     {
         LinearGradientBrush brush = (LinearGradientBrush)button.Background;
