@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# keystore
+release-key.keystore
+
 # dotenv files
 .env
 
