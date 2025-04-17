@@ -8,49 +8,79 @@
     Title=""
     x:DataType="viewmodel:DownloadFileViewModel"
     Shell.ForegroundColor="{StaticResource Grad1}">
+    <Shell.TitleView>
+        <Grid
+            ColumnDefinitions="*,Auto"
+            RowDefinitions="*">
+            <Button
+                x:Name="inviteBtn"
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,4,16,0"
+                Padding="16,0,16,0"
+                Command="{Binding ClickInviteOthersBtnCommand}"
+                FontSize="15"
+                HorizontalOptions="End"
+                Text="Invite others"
+                TextColor="White"
+                WidthRequest="160">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xf029;"
+                        Size="20"
+                        Color="{AppThemeBinding Light={StaticResource White},
+                                                Dark={StaticResource PrimaryDarkText}}" />
+                </Button.ImageSource>
+            </Button>
+            <Button
+                x:Name="refreshBtn"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,4,16,0"
+                Padding="16,0,16,0"
+                Command="{Binding ClickRefreshBtnCommand}"
+                HorizontalOptions="End"
+                Text="">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xf2f9;"
+                        Color="{AppThemeBinding Light={StaticResource White},
+                                                Dark={StaticResource PrimaryDarkText}}" />
+                </Button.ImageSource>
+            </Button>
+        </Grid>
+    </Shell.TitleView>
     <Grid
-        Padding="30,0"
-        RowDefinitions="Auto,Auto,Auto,*,Auto,Auto"
+        Padding="16,16"
+        ColumnSpacing="16"
+        RowDefinitions="Auto,Auto,*,Auto"
         RowSpacing="4">
-        <Button
-            Grid.Row="0"
-            Command="{Binding ClickRefreshBtnCommand}"
-            HorizontalOptions="End"
-            Text="">
-            <Button.Background>
-                <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
-                </LinearGradientBrush>
-            </Button.Background>
-            <Button.ImageSource>
-                <FontImageSource
-                    FontFamily="FASolid"
-                    Glyph="&#xf2f9;"
-                    Color="{AppThemeBinding Light={StaticResource White},
-                                            Dark={StaticResource PrimaryDarkText}}" />
-            </Button.ImageSource>
-        </Button>
         <CollectionView
-            Grid.Row="1"
+            Grid.Row="0"
             ItemsLayout="HorizontalList"
             ItemsSource="{Binding PoolUsers}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:User">
+                <DataTemplate
+                    x:DataType="model:User">
                     <VerticalStackLayout>
                         <Border
                             Margin="0,0,0,0"
                             Background="Transparent"
                             HeightRequest="60"
-                            Stroke="SkyBlue"
+                            Stroke="{StaticResource Grad1}"
                             StrokeShape="RoundRectangle 20,20,20,20"
                             StrokeThickness="4"
                             WidthRequest="60">
-                            <Image Aspect="AspectFit" Source="user.png" />
+                            <Image
+                                Aspect="AspectFit"
+                                Source="user.png" />
                         </Border>
                         <Label
                             Margin="4,0,4,0"
+                            FontAttributes="Bold"
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="Center"
                             Text="{Binding ViewableUsername}" />
@@ -58,177 +88,289 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Label
-            Grid.Row="2"
-            FontAttributes="Bold"
-            FontSize="Medium"
-            HorizontalOptions="FillAndExpand"
-            Text="Shared Files"
-            TextColor="White">
-            <Label.Background>
-                <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
-                </LinearGradientBrush>
-            </Label.Background>
-        </Label>
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="Auto,*">
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="Shared Files"
+                TextColor="{StaticResource Grad1}"
+                VerticalOptions="Center" />
+            <Border
+                Grid.Column="1"
+                Margin="10,0,0,0"
+                HeightRequest="18"
+                Stroke="Transparent"
+                StrokeShape="RoundRectangle 10"
+                VerticalOptions="Center">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop
+                            Offset="0"
+                            Color="{StaticResource Grad1}" />
+                        <GradientStop
+                            Offset="1"
+                            Color="{StaticResource Grad2}" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+        </Grid>
         <CollectionView
-            Grid.Row="3"
-            ItemsLayout="VerticalList"
+            x:Name="fileCollection"
+            Grid.Row="2"
+            Margin="0,0,0,-4"
             ItemsSource="{Binding PoolFiles}"
             SelectedItems="{Binding SelectedFiles}"
             SelectionChangedCommand="{Binding FileSelectionChangedCommand}"
             SelectionMode="Multiple">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout
+                    HorizontalItemSpacing="10"
+                    Orientation="Vertical"
+                    Span="4"
+                    VerticalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:FileMetadata">
-                    <HorizontalStackLayout Spacing="10">
-                        <Image
-                            HeightRequest="50"
-                            Source="{Binding ThumbnailSource}"
-                            WidthRequest="50" />
-                        <VerticalStackLayout Spacing="5">
-                            <Label FontSize="Medium" Text="{Binding Filename}" />
-                            <HorizontalStackLayout>
+                <DataTemplate
+                    x:DataType="model:FileMetadata">
+                    <Border
+                        x:Name="itemBorder"
+                        Margin="0"
+                        Padding="0"
+                        Stroke="Transparent"
+                        StrokeShape="RoundRectangle 10">
+                        <Grid
+                            ColumnDefinitions="Auto,*"
+                            ColumnSpacing="2"
+                            RowSpacing="2">
+                            <Image
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HeightRequest="70"
+                                Source="{Binding ThumbnailSource}"
+                                WidthRequest="70" />
+                            <Grid
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                ColumnDefinitions="*,*"
+                                RowDefinitions="Auto,Auto,Auto">
                                 <Label
-                                    FontSize="Small"
-                                    Text="{Binding FormattedSize}"
-                                    WidthRequest="80" />
-                                <Border
-                                    Margin="20,0,0,0"
-                                    Background="Transparent"
-                                    HeightRequest="30"
-                                    Stroke="SkyBlue"
-                                    StrokeShape="RoundRectangle 20,20,20,20"
-                                    StrokeThickness="3"
-                                    WidthRequest="30">
-                                    <Image Aspect="AspectFit" Source="user.png" />
-                                </Border>
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    FontSize="20"
+                                    HorizontalOptions="Start"
+                                    LineBreakMode="TailTruncation"
+                                    Text="{Binding Filename}" />
                                 <Label
-                                    BackgroundColor="{StaticResource Secondary}"
-                                    FontSize="Small"
-                                    Text="{Binding Owner.Username}" />
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    FontSize="12"
+                                    HorizontalOptions="Start"
+                                    Text="{Binding FormattedSize}" />
                                 <Label
-                                    FontSize="Small"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    FontSize="12"
+                                    HorizontalOptions="End"
                                     IsVisible="{Binding IsDownloading}"
+                                    LineBreakMode="TailTruncation"
+                                    Margin="0,0,4,0"
                                     Text="{Binding FormattedDownloadedSize}"
                                     VerticalOptions="Center" />
-                            </HorizontalStackLayout>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup>
-                                    <VisualState Name="Selected">
-                                        <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="Green" />
-                                            <Setter TargetName="seatNumber" Property="Label.TextColor" Value="White" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                    <VisualState Name="Normal">
-                                        <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="White" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                        </VerticalStackLayout>
-                    </HorizontalStackLayout>
+                                <HorizontalStackLayout
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    HorizontalOptions="Start">
+                                    <Border
+                                        Background="Transparent"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Start"
+                                        Stroke="SkyBlue"
+                                        StrokeShape="RoundRectangle 25"
+                                        StrokeThickness="3"
+                                        WidthRequest="20">
+                                        <Image
+                                            Aspect="AspectFit"
+                                            Source="user.png" />
+                                    </Border>
+                                    <Label
+                                        FontSize="12"
+                                        HorizontalOptions="Start"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding Owner.Username}"
+                                        TextColor="{StaticResource Grad1}" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                IsVisible="{Binding IsDownloading}"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 10">
+                                <Border.Background>
+                                    <LinearGradientBrush>
+                                        <GradientStop
+                                            Offset="0"
+                                            Color="{StaticResource Grad1Back}" />
+                                        <GradientStop
+                                            Offset="1"
+                                            Color="{StaticResource Grad2Back}" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                AnchorX="0"
+                                IsVisible="{Binding IsDownloading}"
+                                ScaleX="{Binding DownloadProgress}"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 10">
+                                <Border.Background>
+                                    <LinearGradientBrush>
+                                        <GradientStop
+                                            Offset="0"
+                                            Color="{StaticResource Grad1Fade}" />
+                                        <GradientStop
+                                            Offset="1"
+                                            Color="{StaticResource Grad2Fade}" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                            <Image
+                                x:Name="downloadIndicator"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalOptions="Start"
+                                IsVisible="{Binding IsDownloaded}"
+                                Source="download.png"
+                                VerticalOptions="Start"
+                                WidthRequest="25" />
+                        </Grid>
+                        <!--
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.RowSpan="3"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Scale="0"
+                            WidthRequest="30"
+                            Source="eye.png">
+                            <Image.GestureRecognizers>
+                                <PointerGestureRecognizer
+                                    PointerEntered="OnpreviewPointerEntered"
+                                    PointerExited="OnPreviewPointerExited" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image
+                            x:Name="markIndicator"
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            WidthRequest="20"
+                            Source="check.png" />
+                            -->
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup
+                                Name="CommonStates">
+                                <VisualState
+                                    Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter
+                                            Property="BackgroundColor"
+                                            Value="Transparent" />
+                                        <Setter
+                                            TargetName="itemBorder"
+                                            Property="Background"
+                                            Value="{StaticResource NullGradient}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState
+                                    Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter
+                                            Property="BackgroundColor"
+                                            Value="Transparent" />
+                                        <Setter
+                                            TargetName="itemBorder"
+                                            Property="Background"
+                                            Value="{StaticResource SelectedGradient}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Button
-            Grid.Row="4"
-            Margin="0,0,0,10"
-            Command="{Binding ClickDownloadBtnCommand}"
-            FontSize="15"
-            HorizontalOptions="Start"
-            IsEnabled="{Binding IsDownloadEnabled}"
-            Text="Save"
-            TextColor="White"
-            WidthRequest="140">
-            <Button.Background>
-                <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
-                </LinearGradientBrush>
-            </Button.Background>
-            <Button.ImageSource>
-                <FontImageSource
-                    FontFamily="FASolid"
-                    Glyph="&#xf019;"
-                    Size="20"
-                    Color="{AppThemeBinding Light={StaticResource White},
-                                            Dark={StaticResource PrimaryDarkText}}" />
-            </Button.ImageSource>
-        </Button>
-        <Button
-            Grid.Row="4"
-            Margin="0,0,0,10"
-            FontSize="15"
-            HorizontalOptions="End"
-            IsEnabled="false"
-            Text="Save to cloud"
-            TextColor="White"
-            WidthRequest="160">
-            <Button.Background>
-                <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
-                </LinearGradientBrush>
-            </Button.Background>
-            <Button.ImageSource>
-                <FontImageSource
-                    FontFamily="FASolid"
-                    Glyph="&#xf0ed;"
-                    Size="20"
-                    Color="{AppThemeBinding Light={StaticResource White},
-                                            Dark={StaticResource PrimaryDarkText}}" />
-            </Button.ImageSource>
-        </Button>
-        <Button
-            Grid.Row="5"
-            Margin="0,0,0,10"
-            Command="{Binding ClickAddFilesBtnCommand}"
-            FontSize="15"
-            HorizontalOptions="Start"
-            Text="Add files"
-            TextColor="White"
-            WidthRequest="140">
-            <Button.Background>
-                <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
-                </LinearGradientBrush>
-            </Button.Background>
-            <Button.ImageSource>
-                <FontImageSource
-                    FontFamily="FASolid"
-                    Glyph="&#xe494;"
-                    Size="20"
-                    Color="{AppThemeBinding Light={StaticResource White},
-                                            Dark={StaticResource PrimaryDarkText}}" />
-            </Button.ImageSource>
-        </Button>
-        <Button
-            Grid.Row="5"
-            Margin="0,0,0,10"
-            FontSize="15"
-            HorizontalOptions="End"
-            IsEnabled="False"
-            Text="Invite others"
-            TextColor="White"
-            WidthRequest="160">
-            <Button.Background>
-                <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
-                </LinearGradientBrush>
-            </Button.Background>
-            <Button.ImageSource>
-                <FontImageSource
-                    FontFamily="FASolid"
-                    Glyph="&#xf029;"
-                    Size="20"
-                    Color="{AppThemeBinding Light={StaticResource White},
-                                            Dark={StaticResource PrimaryDarkText}}" />
-            </Button.ImageSource>
-        </Button>
+        <Grid
+            Grid.Row="3"
+            Margin="0,0,0,0"
+            ColumnDefinitions="*,*,*"
+            ColumnSpacing="4">
+            <Button
+                x:Name="addFilesBtn"
+                Grid.Column="0"
+                Margin="0,10,0,0"
+                Command="{Binding ClickAddFilesBtnCommand}"
+                FontSize="10"
+                LineBreakMode="WordWrap"
+                Text="Add files"
+                TextColor="White">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xe494;"
+                        Size="20"
+                        Color="{AppThemeBinding Light={StaticResource White},
+                                                Dark={StaticResource PrimaryDarkText}}" />
+                </Button.ImageSource>
+            </Button>
+            <Button
+                x:Name="saveToCloudBtn"
+                Grid.Column="1"
+                Margin="0,10,0,0"
+                FontSize="10"
+                IsEnabled="false"
+                LineBreakMode="WordWrap"
+                Text="Save to cloud"
+                TextColor="White">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xf0ed;"
+                        Size="20"
+                        Color="White" />
+                </Button.ImageSource>
+            </Button>
+            <Button
+                x:Name="downloadBtn"
+                Grid.Column="2"
+                Margin="0,10,0,0"
+                Command="{Binding ClickDownloadBtnCommand}"
+                FontSize="10"
+                IsEnabled="{Binding IsDownloadEnabled}"
+                LineBreakMode="WordWrap"
+                Text="Save"
+                TextColor="White">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FASolid"
+                        Glyph="&#xf019;"
+                        Size="20"
+                        Color="White" />
+                </Button.ImageSource>
+            </Button>
+
+        </Grid>
     </Grid>
 </ContentPage>

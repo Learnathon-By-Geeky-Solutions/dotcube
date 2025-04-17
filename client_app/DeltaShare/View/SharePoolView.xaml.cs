@@ -1,3 +1,4 @@
+using DeltaShare.Extensions;
 using DeltaShare.ViewModel;
 
 namespace DeltaShare.View;
@@ -8,5 +9,7 @@ public partial class SharePoolView : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel;
+
+        viewSharedFilesBtn.AddButtonTheme();
     }
 }

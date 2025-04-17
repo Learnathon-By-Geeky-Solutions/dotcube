@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using DeltaShare.Service;
+using DeltaShare.Util;
 using DeltaShare.View;
 
 namespace DeltaShare.ViewModel
@@ -26,10 +27,21 @@ namespace DeltaShare.ViewModel
             //listener.Prefixes.Add($"http://+:{Constants.Port}/");
             //PoolCreatorServerService serverService = new(listener);
             //serverService.StartListening();
+            //testFunc();
             //await Shell.Current.GoToAsync(nameof(DownloadFileView));
 
             await Shell.Current.GoToAsync(nameof(SettingsView));
         }
+
+        //private void testFunc()
+        //{
+        //    string[] test = { "192.168.1.101", "172.27.27.84", "196.27.8.1" };
+        //    string result = PoolCodeHandler.GenerateQrCodeData(test);
+        //    Debug.WriteLine($"enc: {result}");
+
+        //    IEnumerable<string> ips = PoolCodeHandler.DecodePoolCodeData(result);
+        //    Debug.WriteLine($"dec: {string.Join(", ", ips)}");
+        //}
 
         private async Task<bool> RequestPermissions()
         {
@@ -69,32 +81,32 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private void ClickPrevPoolLabel(string uid)
         {
-            ShowDebugMsg($"pool clicked uid: {uid}");
         }
 
         [RelayCommand]
-        private void ClickCloudStorageBtn()
+        private async Task ClickCloudStorageBtn()
         {
-            ShowDebugMsg("go to cloud storage");
+            await Alert.Show("Not implemented yet");
         }
 
         [RelayCommand]
         private async Task ClickLoginBtn()
         {
-            await Shell.Current.GoToAsync(nameof(LoginView));
+            await Alert.Show("Not implemented yet");
+            //await Shell.Current.GoToAsync(nameof(LoginView));
         }
 
         [RelayCommand]
         private async Task ClickSignupBtn()
         {
-            await Shell.Current.GoToAsync(nameof(SignupView));
+            await Alert.Show("Not implemented yet");
+            //await Shell.Current.GoToAsync(nameof(SignupView));
         }
 
         [RelayCommand]
         private void ClearPreferencesBtn()
         {
             Preferences.Clear();
-            ShowDebugMsg("Preferences cleared");
         }
     }
 }

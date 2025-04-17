@@ -9,23 +9,16 @@
     x:DataType="viewmodel:JoinPoolViewModel"
     Shell.ForegroundColor="{StaticResource Grad1}">
 
-    <VerticalStackLayout Padding="30,0" Spacing="8">
-        <Image
-            Aspect="AspectFit"
-            HeightRequest="30"
-            HorizontalOptions="CenterAndExpand"
-            Source="join_pool_label.png"
-            VerticalOptions="Center" />
-
+    <VerticalStackLayout Padding="30,0" Spacing="16">
         <Label
             FontAttributes="Bold"
-            FontSize="Medium"
+            FontSize="32"
             HorizontalOptions="Center"
-            Text="Scan Pool QR Code" />
+            Text="Scan pool QR code" />
         <zxing:CameraBarcodeReaderView x:Name="cameraBarcodeReaderView" Options="{Binding ReaderOptions}" />
         <Label
             FontAttributes="Bold"
-            FontSize="Medium"
+            FontSize="20"
             HorizontalOptions="Center"
             Text="Or" />
         <Entry
@@ -34,16 +27,11 @@
             PlaceholderColor="#77000000"
             Text="{Binding PoolCodeInputText}" />
         <Button
+            x:Name="joinPoolBtn"
             Command="{Binding ClickJoinPoolBtnCommand}"
-            FontSize="Medium"
+            FontSize="24"
             HorizontalOptions="Fill"
             Text="Join Pool">
-            <Button.Background>
-                <LinearGradientBrush>
-                    <GradientStop Offset="0" Color="{StaticResource Grad1}" />
-                    <GradientStop Offset="1" Color="{StaticResource Grad2}" />
-                </LinearGradientBrush>
-            </Button.Background>
             <Button.ImageSource>
                 <FontImageSource
                     FontFamily="FASolid"

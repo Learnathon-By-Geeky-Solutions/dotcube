@@ -3,13 +3,13 @@ using DeltaShare.ViewModel;
 
 namespace DeltaShare.View;
 
-public partial class SettingsView : ContentPage
+public partial class InviteOthersView : ContentPage
 {
-    public SettingsView(SettingsViewModel viewModel)
+    public InviteOthersView(InviteOthersViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
 
-        saveBtn.AddButtonTheme();
+        viewSharedFilesBtn.AddButtonTheme();
     }
 }

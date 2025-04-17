@@ -1,6 +1,24 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <LinearGradientBrush x:Key="NullGradient">
+        <GradientStop Offset="0.0" Color="#00A100FE" />
+        <GradientStop Offset="1.0" Color="#001400FE" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SelectedGradient">
+        <GradientStop Offset="0.0" Color="#30A100FE" />
+        <GradientStop Offset="1.0" Color="#301400FE" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="NormalGradient">
+        <GradientStop Offset="0.0" Color="#A100FE" />
+        <GradientStop Offset="1.0" Color="#1400FE" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="HoverGradient">
+        <GradientStop Offset="1.0" Color="#A100FE" />
+        <GradientStop Offset="0.0" Color="#1400FE" />
+    </LinearGradientBrush>
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -40,6 +58,15 @@
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
                             <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="Opacity" Value="0.5" />
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush>
+                                        <GradientStop Offset="0" Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                                        <GradientStop Offset="1" Color="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="PointerOver" />

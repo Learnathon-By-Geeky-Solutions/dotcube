@@ -1,0 +1,3 @@
+[submodule "backend/DeltaShareApi/vendor/mobileauth-lib"]
+	path = backend/DeltaShareApi/vendor/mobileauth-lib
+	url = https://github.com/jahangir1x/mobileauth-lib.git

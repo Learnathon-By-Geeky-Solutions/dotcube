@@ -13,6 +13,11 @@
 
     <Color x:Key="Grad1">#A100FE</Color>
     <Color x:Key="Grad2">#1400FE</Color>
+    <Color x:Key="Grad1Fade">#22A100FE</Color>
+    <Color x:Key="Grad2Fade">#331400FE</Color>
+    <Color x:Key="Grad1Back">#01A100FE</Color>
+    <Color x:Key="Grad2Back">#111400FE</Color>
+
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>

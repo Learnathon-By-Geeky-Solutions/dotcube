@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeltaShare", "DeltaShare\DeltaShare.csproj", "{D6F3CB0D-3BDE-4165-895F-AA4F0CBB1DB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeltaShare", "DeltaShare\DeltaShare.csproj", "{71DF960B-242A-4A55-8948-19A9A262D191}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeltaShareTest", "DeltaShareTest\DeltaShareTest.csproj", "{C61E4EB0-C04F-49EA-8A30-E0FEC8B1174E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeltaShareTest", "DeltaShareTest\DeltaShareTest.csproj", "{28C65853-838B-4172-A239-66D63CAD4E11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D6F3CB0D-3BDE-4165-895F-AA4F0CBB1DB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6F3CB0D-3BDE-4165-895F-AA4F0CBB1DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6F3CB0D-3BDE-4165-895F-AA4F0CBB1DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6F3CB0D-3BDE-4165-895F-AA4F0CBB1DB2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C61E4EB0-C04F-49EA-8A30-E0FEC8B1174E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C61E4EB0-C04F-49EA-8A30-E0FEC8B1174E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C61E4EB0-C04F-49EA-8A30-E0FEC8B1174E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C61E4EB0-C04F-49EA-8A30-E0FEC8B1174E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71DF960B-242A-4A55-8948-19A9A262D191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71DF960B-242A-4A55-8948-19A9A262D191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71DF960B-242A-4A55-8948-19A9A262D191}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{71DF960B-242A-4A55-8948-19A9A262D191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71DF960B-242A-4A55-8948-19A9A262D191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71DF960B-242A-4A55-8948-19A9A262D191}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{28C65853-838B-4172-A239-66D63CAD4E11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28C65853-838B-4172-A239-66D63CAD4E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28C65853-838B-4172-A239-66D63CAD4E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28C65853-838B-4172-A239-66D63CAD4E11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

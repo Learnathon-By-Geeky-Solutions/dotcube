@@ -12,13 +12,5 @@ namespace DeltaShare.ViewModel
         private string title = string.Empty;
 
         public bool IsNotBusy => !IsBusy;
-
-#if DEBUG
-        public static void ShowDebugMsg(string msg)
-        {
-            Shell.Current.DisplayAlert("DEBUG", msg, "OK");
-        }
-#endif
-
     }
 }

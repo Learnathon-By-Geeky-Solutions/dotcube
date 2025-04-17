@@ -46,6 +46,7 @@ namespace DeltaShare
             builder.Services.AddSingleton<SettingsView>();
             builder.Services.AddSingleton<JoinPoolView>();
             builder.Services.AddSingleton<DownloadFileView>();
+            builder.Services.AddTransient<InviteOthersView>();
 
             // Dependency Injection - ViewModels
             builder.Services.AddSingleton<MainViewModel>();
@@ -56,6 +57,7 @@ namespace DeltaShare
             builder.Services.AddSingleton<SettingsViewModel>();
             builder.Services.AddSingleton<JoinPoolViewModel>();
             builder.Services.AddSingleton<DownloadFileViewModel>();
+            builder.Services.AddTransient<InviteOthersViewModel>();
 
             // Dependency Injection - Services
             builder.Services.AddSingleton<PoolCreatorServerService>();
@@ -73,18 +75,10 @@ namespace DeltaShare
 
             // Dependency Injection - Platform specific components
 #if ANDROID
-            // WifiDIrect service needs the Android context
-            builder.Services.AddSingleton(_ => Android.App.Application.Context);
-            builder.Services.AddSingleton<IWifiDirectService, WifiDirectService>(sp =>
-            {
-                var context = Platform.CurrentActivity ?? throw new InvalidOperationException("Android context is not available.");
-                return new WifiDirectService(context);
-            });
             builder.Services.AddSingleton<IPermissionService, PermissionService>();
 #endif
 
 #if WINDOWS
-            builder.Services.AddSingleton<IWifiDirectService, WifiDirectService>();
             builder.Services.AddSingleton<IPermissionService, PermissionService>();
 #endif
 
