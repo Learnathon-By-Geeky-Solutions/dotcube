@@ -81,6 +81,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddControllers();
+
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())

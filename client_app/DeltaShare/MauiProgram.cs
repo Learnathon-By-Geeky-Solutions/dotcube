@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using CommunityToolkit.Maui;
+using Refit;
 
 #if ANDROID
 using DeltaShare.Platforms.Android.Service;
@@ -38,7 +39,7 @@ namespace DeltaShare
 #endif
 
             // Dependency Injection - Views
-            builder.Services.AddTransient<MainView>();
+            builder.Services.AddSingleton<MainView>();
             builder.Services.AddSingleton<SharePoolView>();
             builder.Services.AddSingleton<SettingsView>();
             builder.Services.AddSingleton<JoinPoolView>();
@@ -46,7 +47,7 @@ namespace DeltaShare
             builder.Services.AddTransient<InviteOthersView>();
 
             // Dependency Injection - ViewModels
-            builder.Services.AddTransient<MainViewModel>();
+            builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<SharePoolViewModel>();
             builder.Services.AddSingleton<SettingsViewModel>();
             builder.Services.AddSingleton<JoinPoolViewModel>();
@@ -66,6 +67,11 @@ namespace DeltaShare
             HttpListener listener = new();
             listener.Prefixes.Add($"http://+:{Constants.Port}/");
             builder.Services.AddSingleton(listener);
+
+            // Dependency Injection - Secure Storage
+            builder.Services.AddSingleton(WebAuthenticator.Default);
+            builder.Services.AddSingleton(SecureStorage.Default);
+            builder.Services.AddRefitClient<IUserProfileService>();
 
             // Dependency Injection - Platform specific components
 #if ANDROID
