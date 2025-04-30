@@ -2,6 +2,7 @@
 
 namespace DeltaShare.Model
 {
+
     public class User(string name, string email, string username, string ipAddress, bool isAdmin)
     {
         public string Name { get; set; } = name;
@@ -40,4 +41,5 @@ namespace DeltaShare.Model
             return "Name: " + Name + ", Email: " + Email + ", Username: " + Username + ", IpAddress: " + IpAddress + ", IsAdmin: " + IsAdmin;
         }
     }
+
 }

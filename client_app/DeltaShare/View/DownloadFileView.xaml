@@ -6,12 +6,9 @@
     xmlns:model="clr-namespace:DeltaShare.Model"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     Title=""
-    x:DataType="viewmodel:DownloadFileViewModel"
-    Shell.ForegroundColor="{StaticResource Grad1}">
+    x:DataType="viewmodel:DownloadFileViewModel">
     <Shell.TitleView>
-        <Grid
-            ColumnDefinitions="*,Auto"
-            RowDefinitions="*">
+        <Grid ColumnDefinitions="*,Auto" RowDefinitions="*">
             <Button
                 x:Name="inviteBtn"
                 Grid.Row="0"
@@ -55,7 +52,7 @@
     <Grid
         Padding="16,16"
         ColumnSpacing="16"
-        RowDefinitions="Auto,Auto,*,Auto"
+        RowDefinitions="Auto,Auto,Auto,*,Auto"
         RowSpacing="4">
         <CollectionView
             Grid.Row="0"
@@ -63,8 +60,7 @@
             ItemsSource="{Binding PoolUsers}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
-                <DataTemplate
-                    x:DataType="model:User">
+                <DataTemplate x:DataType="model:User">
                     <VerticalStackLayout>
                         <Border
                             Margin="0,0,0,0"
@@ -74,9 +70,7 @@
                             StrokeShape="RoundRectangle 20,20,20,20"
                             StrokeThickness="4"
                             WidthRequest="60">
-                            <Image
-                                Aspect="AspectFit"
-                                Source="user.png" />
+                            <Image Aspect="AspectFit" Source="user.png" />
                         </Border>
                         <Label
                             Margin="4,0,4,0"
@@ -88,9 +82,14 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Grid
+        <Label
             Grid.Row="1"
-            ColumnDefinitions="Auto,*">
+            FontAttributes="Bold"
+            FontSize="10"
+            Text="{Binding DownloadPath}"
+            TextColor="{StaticResource Grad1}"
+            VerticalOptions="Center" />
+        <Grid Grid.Row="2" ColumnDefinitions="Auto,*">
             <Label
                 Grid.Column="0"
                 FontAttributes="Bold"
@@ -107,19 +106,16 @@
                 VerticalOptions="Center">
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop
-                            Offset="0"
-                            Color="{StaticResource Grad1}" />
-                        <GradientStop
-                            Offset="1"
-                            Color="{StaticResource Grad2}" />
+                        <GradientStop Offset="0" Color="{StaticResource Grad1}" />
+                        <GradientStop Offset="1" Color="{StaticResource Grad2}" />
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
         </Grid>
+
         <CollectionView
             x:Name="fileCollection"
-            Grid.Row="2"
+            Grid.Row="3"
             Margin="0,0,0,-4"
             ItemsSource="{Binding PoolFiles}"
             SelectedItems="{Binding SelectedFiles}"
@@ -133,8 +129,7 @@
                     VerticalItemSpacing="10" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate
-                    x:DataType="model:FileMetadata">
+                <DataTemplate x:DataType="model:FileMetadata">
                     <Border
                         x:Name="itemBorder"
                         Margin="0"
@@ -173,11 +168,11 @@
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
+                                    Margin="0,0,4,0"
                                     FontSize="12"
                                     HorizontalOptions="End"
                                     IsVisible="{Binding IsDownloading}"
                                     LineBreakMode="TailTruncation"
-                                    Margin="0,0,4,0"
                                     Text="{Binding FormattedDownloadedSize}"
                                     VerticalOptions="Center" />
                                 <HorizontalStackLayout
@@ -193,9 +188,7 @@
                                         StrokeShape="RoundRectangle 25"
                                         StrokeThickness="3"
                                         WidthRequest="20">
-                                        <Image
-                                            Aspect="AspectFit"
-                                            Source="user.png" />
+                                        <Image Aspect="AspectFit" Source="user.png" />
                                     </Border>
                                     <Label
                                         FontSize="12"
@@ -214,12 +207,8 @@
                                 StrokeShape="RoundRectangle 10">
                                 <Border.Background>
                                     <LinearGradientBrush>
-                                        <GradientStop
-                                            Offset="0"
-                                            Color="{StaticResource Grad1Back}" />
-                                        <GradientStop
-                                            Offset="1"
-                                            Color="{StaticResource Grad2Back}" />
+                                        <GradientStop Offset="0" Color="{StaticResource Grad1Back}" />
+                                        <GradientStop Offset="1" Color="{StaticResource Grad2Back}" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
@@ -234,12 +223,8 @@
                                 StrokeShape="RoundRectangle 10">
                                 <Border.Background>
                                     <LinearGradientBrush>
-                                        <GradientStop
-                                            Offset="0"
-                                            Color="{StaticResource Grad1Fade}" />
-                                        <GradientStop
-                                            Offset="1"
-                                            Color="{StaticResource Grad2Fade}" />
+                                        <GradientStop Offset="0" Color="{StaticResource Grad1Fade}" />
+                                        <GradientStop Offset="1" Color="{StaticResource Grad2Fade}" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
@@ -277,33 +262,20 @@
                             VerticalOptions="Center"
                             WidthRequest="20"
                             Source="check.png" />
-                            -->
+                        -->
 
                         <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup
-                                Name="CommonStates">
-                                <VisualState
-                                    Name="Normal">
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal">
                                     <VisualState.Setters>
-                                        <Setter
-                                            Property="BackgroundColor"
-                                            Value="Transparent" />
-                                        <Setter
-                                            TargetName="itemBorder"
-                                            Property="Background"
-                                            Value="{StaticResource NullGradient}" />
+                                        <Setter Property="BackgroundColor" Value="Transparent" />
+                                        <Setter TargetName="itemBorder" Property="Background" Value="{StaticResource NullGradient}" />
                                     </VisualState.Setters>
                                 </VisualState>
-                                <VisualState
-                                    Name="Selected">
+                                <VisualState Name="Selected">
                                     <VisualState.Setters>
-                                        <Setter
-                                            Property="BackgroundColor"
-                                            Value="Transparent" />
-                                        <Setter
-                                            TargetName="itemBorder"
-                                            Property="Background"
-                                            Value="{StaticResource SelectedGradient}" />
+                                        <Setter Property="BackgroundColor" Value="Transparent" />
+                                        <Setter TargetName="itemBorder" Property="Background" Value="{StaticResource SelectedGradient}" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -313,7 +285,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Grid
-            Grid.Row="3"
+            Grid.Row="4"
             Margin="0,0,0,0"
             ColumnDefinitions="*,*,*"
             ColumnSpacing="4">

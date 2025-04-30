@@ -19,6 +19,8 @@ namespace DeltaShare.ViewModel
         [ObservableProperty]
         private bool isDownloadEnabled = false;
 
+        public string DownloadPath => "Location: " + FileHandler.DownloadFolderPath;
+
         [RelayCommand]
         private void ClickRefreshBtn()
         {
@@ -76,7 +78,11 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private async Task ClickInviteOthersBtn()
         {
-            await Shell.Current.GoToAsync(nameof(InviteOthersView));
+
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await Shell.Current.GoToAsync(nameof(InviteOthersView));
+            });
         }
 
         [RelayCommand]

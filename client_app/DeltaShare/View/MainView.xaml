@@ -5,8 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
-    x:DataType="viewmodel:MainViewModel"
-    Shell.ForegroundColor="{StaticResource Grad1}">
+    x:DataType="viewmodel:MainViewModel">
     <Shell.TitleView>
         <Grid ColumnDefinitions="*,*" RowDefinitions="*">
             <Button
@@ -78,12 +77,14 @@
             HorizontalOptions="Center"
             Source="logo.png"
             VerticalOptions="Center" />
+        <!--
         <skia:SKLottieView
             x:Name="animationView"
             Grid.Row="1"
             Grid.ColumnSpan="2"
             RepeatCount="2"
             Source="share_animation.json" />
+        -->
         <Button
             x:Name="cloudStorageBtn"
             Grid.Row="2"
@@ -102,54 +103,5 @@
                                             Dark={StaticResource PrimaryDarkText}}" />
             </Button.ImageSource>
         </Button>
-        <Label
-            Grid.Row="3"
-            Grid.ColumnSpan="2"
-            FontAttributes="Bold"
-            FontSize="20"
-            HorizontalOptions="Center"
-            Text="To use cloud features" />
-        <Grid
-            Grid.Row="4"
-            Grid.ColumnSpan="2"
-            Margin="0,0,0,30"
-            ColumnDefinitions="*,Auto,*"
-            ColumnSpacing="10">
-            <Button
-                x:Name="loginBtn"
-                Grid.Column="0"
-                Command="{Binding ClickLoginBtnCommand}"
-                FontSize="24"
-                Text="Login">
-                <Button.ImageSource>
-                    <FontImageSource
-                        FontFamily="FASolid"
-                        Glyph="&#xf2f6;"
-                        Color="{AppThemeBinding Light={StaticResource White},
-                                                Dark={StaticResource PrimaryDarkText}}" />
-                </Button.ImageSource>
-            </Button>
-            <Label
-                Grid.Column="1"
-                FontAttributes="Bold"
-                FontSize="20"
-                HorizontalTextAlignment="Center"
-                Text="or"
-                VerticalTextAlignment="Center" />
-            <Button
-                x:Name="signupBtn"
-                Grid.Column="2"
-                Command="{Binding ClickSignupBtnCommand}"
-                FontSize="24"
-                Text="Sign up">
-                <Button.ImageSource>
-                    <FontImageSource
-                        FontFamily="FASolid"
-                        Glyph="&#xf234;"
-                        Color="{AppThemeBinding Light={StaticResource White},
-                                                Dark={StaticResource PrimaryDarkText}}" />
-                </Button.ImageSource>
-            </Button>
-        </Grid>
     </Grid>
 </ContentPage>

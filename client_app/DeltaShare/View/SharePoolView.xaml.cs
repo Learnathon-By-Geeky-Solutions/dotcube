@@ -11,5 +11,7 @@ public partial class SharePoolView : ContentPage
         BindingContext = viewModel;
 
         viewSharedFilesBtn.AddButtonTheme();
+
+        this.AddTitleBarTheme();
     }
 }

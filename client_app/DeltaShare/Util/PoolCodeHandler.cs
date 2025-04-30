@@ -3,6 +3,7 @@ using System.Text;
 
 namespace DeltaShare.Util
 {
+
     public static class PoolCodeHandler
     {
         private static char[] Base24Chars = "zyxwvutsrqpnmkjihgfedcba".ToCharArray();

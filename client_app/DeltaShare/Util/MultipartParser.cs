@@ -3,6 +3,7 @@ using MimeKit;
 
 namespace DeltaShare.Util
 {
+
     public static class MultipartParser
     {
         public static void SendResponse(HttpListenerContext ctx, string responseString)

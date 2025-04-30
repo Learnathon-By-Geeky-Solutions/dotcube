@@ -12,6 +12,8 @@ public partial class JoinPoolView : ContentPage
 
         joinPoolBtn.AddButtonTheme();
 
+        this.AddTitleBarTheme();
+
         cameraBarcodeReaderView.BarcodesDetected += (_, eventArgs) =>
         {
             var barcodes = eventArgs.Results.Select(result => result.Value).ToList();

@@ -6,8 +6,7 @@
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
     Title=""
-    x:DataType="viewmodel:InviteOthersViewModel"
-    Shell.ForegroundColor="{StaticResource Grad1}">
+    x:DataType="viewmodel:InviteOthersViewModel">
     <Grid
         Padding="16,16"
         RowDefinitions="Auto,Auto,Auto,Auto,Auto"

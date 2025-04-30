@@ -11,10 +11,11 @@ public static class ButtonExtension
             EndPoint = new Point(1, 1),
             GradientStops =
             [
-                new GradientStop { Color = Color.FromArgb("#1400FE"), Offset = -1.0f },
-        new GradientStop { Color = Color.FromArgb("#A100FE"), Offset = 0.0f },
-        new GradientStop { Color = Color.FromArgb("#1400FE"), Offset = 1.0f },
-    ]
+                new GradientStop { Color = Color.FromArgb("#1f565e"), Offset = -2.0f },
+                new GradientStop { Color = Color.FromArgb("#1f565e"), Offset = -1.0f },
+                new GradientStop { Color = Color.FromArgb("#1a434e"), Offset = 0.0f },
+                new GradientStop { Color = Color.FromArgb("#1a434e"), Offset = 1.0f },
+            ]
         };
 
         button.Background = buttonGradient;
@@ -61,7 +62,7 @@ public static class ButtonExtension
     {
         LinearGradientBrush brush = (LinearGradientBrush)button.Background;
 
-        if (brush == null || brush.GradientStops.Count < 3)
+        if (brush == null || brush.GradientStops.Count < 4)
             return;
 
         // Animate the gradient offsets
@@ -72,18 +73,22 @@ public static class ButtonExtension
             float currentVal1 = brush.GradientStops[0].Offset;
             float currentVal2 = brush.GradientStops[1].Offset;
             float currentVal3 = brush.GradientStops[2].Offset;
-            animation.Add(0, 1, new Animation(v => brush.GradientStops[0].Offset = (float)v, currentVal1, -1.0f));
-            animation.Add(0, 1, new Animation(v => brush.GradientStops[1].Offset = (float)v, currentVal2, 0.0f));
-            animation.Add(0, 1, new Animation(v => brush.GradientStops[2].Offset = (float)v, currentVal3, 1.0f));
+            float currentVal4 = brush.GradientStops[3].Offset;
+            animation.Add(0, 1, new Animation(v => brush.GradientStops[0].Offset = (float)v, currentVal1, -2.0f));
+            animation.Add(0, 1, new Animation(v => brush.GradientStops[1].Offset = (float)v, currentVal2, -1.0f));
+            animation.Add(0, 1, new Animation(v => brush.GradientStops[2].Offset = (float)v, currentVal3, 0.0f));
+            animation.Add(0, 1, new Animation(v => brush.GradientStops[3].Offset = (float)v, currentVal4, 1.0f));
         }
         else
         {
             float currentVal1 = brush.GradientStops[0].Offset;
             float currentVal2 = brush.GradientStops[1].Offset;
             float currentVal3 = brush.GradientStops[2].Offset;
+            float currentVal4 = brush.GradientStops[3].Offset;
             animation.Add(0, 1, new Animation(v => brush.GradientStops[0].Offset = (float)v, currentVal1, 0.0));
             animation.Add(0, 1, new Animation(v => brush.GradientStops[1].Offset = (float)v, currentVal2, 1.0));
             animation.Add(0, 1, new Animation(v => brush.GradientStops[2].Offset = (float)v, currentVal3, 2.0));
+            animation.Add(0, 1, new Animation(v => brush.GradientStops[3].Offset = (float)v, currentVal4, 3.0));
         }
 
         animation.Commit(button, $"GradientAnimation_{button.Id}", 16, 250, Easing.SinIn);

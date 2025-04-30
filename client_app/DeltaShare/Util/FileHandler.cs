@@ -7,14 +7,20 @@ using SkiaSharp;
 
 namespace DeltaShare.Util
 {
+
     public static class FileHandler
     {
+#if ANDROID
+    public static string DownloadFolderPath = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDownloads)!.AbsolutePath;
+#else
+        public static string DownloadFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+#endif
         public static async Task SaveFileInLocalStorage(HttpClient client, FileMetadata file)
         {
             MultipartFormDataContent form = new()
-            {
-                { new StringContent(file.Uuid), Constants.FileUuidField  }
-            };
+        {
+            { new StringContent(file.Uuid), Constants.FileUuidField  }
+        };
             HttpResponseMessage response = new();
             try
             {
@@ -32,14 +38,7 @@ namespace DeltaShare.Util
                 Debug.WriteLine($"Error: {e.Message}");
             }
 
-            string downloadFolderPath = String.Empty;
-#if WINDOWS
-            downloadFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-#endif
-#if ANDROID
-            downloadFolderPath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)!.AbsolutePath;
-#endif
-            string destinationPath = Path.Combine(downloadFolderPath, "DeltaShare");
+            string destinationPath = Path.Combine(DownloadFolderPath, "DeltaShare");
             Directory.CreateDirectory(destinationPath);
             using FileStream destinationStream = new(Path.Combine(destinationPath, file.Filename), FileMode.Create);
 
@@ -68,7 +67,7 @@ namespace DeltaShare.Util
             }
             stopwatch.Stop();
 
-            await MainThread.InvokeOnMainThreadAsync(() =>
+            await MainThread.InvokeOnMainThreadAsync(async () =>
             {
                 file.IsDownloading = false;
                 file.IsDownloaded = true;

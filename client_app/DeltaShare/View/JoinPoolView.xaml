@@ -6,8 +6,7 @@
     xmlns:viewmodel="clr-namespace:DeltaShare.ViewModel"
     xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
     Title=""
-    x:DataType="viewmodel:JoinPoolViewModel"
-    Shell.ForegroundColor="{StaticResource Grad1}">
+    x:DataType="viewmodel:JoinPoolViewModel">
 
     <VerticalStackLayout Padding="30,0" Spacing="16">
         <Label
