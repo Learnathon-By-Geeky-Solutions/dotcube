@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using CommunityToolkit.Maui;
+using Refit;
 
 #if ANDROID
 using DeltaShare.Platforms.Android.Service;
@@ -39,23 +40,19 @@ namespace DeltaShare
 
             // Dependency Injection - Views
             builder.Services.AddSingleton<MainView>();
-            builder.Services.AddSingleton<LoginView>();
-            builder.Services.AddSingleton<SignupView>();
             builder.Services.AddSingleton<SharePoolView>();
-            builder.Services.AddSingleton<CreatePoolView>();
             builder.Services.AddSingleton<SettingsView>();
             builder.Services.AddSingleton<JoinPoolView>();
             builder.Services.AddSingleton<DownloadFileView>();
+            builder.Services.AddTransient<InviteOthersView>();
 
             // Dependency Injection - ViewModels
             builder.Services.AddSingleton<MainViewModel>();
-            builder.Services.AddSingleton<LoginViewModel>();
-            builder.Services.AddSingleton<SignupViewModel>();
             builder.Services.AddSingleton<SharePoolViewModel>();
-            builder.Services.AddSingleton<CreatePoolViewModel>();
             builder.Services.AddSingleton<SettingsViewModel>();
             builder.Services.AddSingleton<JoinPoolViewModel>();
             builder.Services.AddSingleton<DownloadFileViewModel>();
+            builder.Services.AddTransient<InviteOthersViewModel>();
 
             // Dependency Injection - Services
             builder.Services.AddSingleton<PoolCreatorServerService>();
@@ -71,20 +68,17 @@ namespace DeltaShare
             listener.Prefixes.Add($"http://+:{Constants.Port}/");
             builder.Services.AddSingleton(listener);
 
+            // Dependency Injection - Secure Storage
+            builder.Services.AddSingleton(WebAuthenticator.Default);
+            builder.Services.AddSingleton(SecureStorage.Default);
+            builder.Services.AddRefitClient<IUserProfileService>();
+
             // Dependency Injection - Platform specific components
 #if ANDROID
-            // WifiDIrect service needs the Android context
-            builder.Services.AddSingleton(_ => Android.App.Application.Context);
-            builder.Services.AddSingleton<IWifiDirectService, WifiDirectService>(sp =>
-            {
-                var context = Platform.CurrentActivity ?? throw new InvalidOperationException("Android context is not available.");
-                return new WifiDirectService(context);
-            });
             builder.Services.AddSingleton<IPermissionService, PermissionService>();
 #endif
 
 #if WINDOWS
-            builder.Services.AddSingleton<IWifiDirectService, WifiDirectService>();
             builder.Services.AddSingleton<IPermissionService, PermissionService>();
 #endif
 

@@ -29,7 +29,9 @@
         public const string Port = "9898";
 
         // window size
-        public const int WindowWidth = 500;
+        public const int WindowWidth = 1000;
         public const int WindowHeight = 800;
+
+        public const string BackendBaseUrl = "http://127.0.0.1:8888";
     }
 }

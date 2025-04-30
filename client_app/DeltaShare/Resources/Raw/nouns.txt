@@ -298,7 +298,6 @@ middle
 sister
 drink
 majority
-sex
 store
 trial
 character
@@ -1293,7 +1292,6 @@ doctrine
 motor
 hunger
 intervention
-kiss
 fee
 portrait
 drawer
@@ -4150,7 +4148,6 @@ speck
 kite
 vent
 plow
-homosexual
 membrane
 waterfall
 teevee
@@ -4541,7 +4538,6 @@ practitioner
 parasite
 installment
 emission
-kissing
 chronology
 mosque
 chairmanship

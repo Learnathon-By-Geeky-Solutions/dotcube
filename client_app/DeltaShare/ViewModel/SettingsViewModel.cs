@@ -17,7 +17,7 @@ public partial class SettingsViewModel : BaseViewModel
     {
         SaveSettings();
         await Alert.Show("Settings saved");
-        await Shell.Current.GoToAsync("..");
+        MainThread.BeginInvokeOnMainThread(async () => { await Shell.Current.GoToAsync(".."); });
     }
 
     public SettingsViewModel()

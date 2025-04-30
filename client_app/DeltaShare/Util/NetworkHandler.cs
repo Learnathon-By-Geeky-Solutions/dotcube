@@ -3,6 +3,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 namespace DeltaShare.Util
 {
+
     public static class NetworkHandler
     {
         public static IEnumerable<string> GetLocalIps()

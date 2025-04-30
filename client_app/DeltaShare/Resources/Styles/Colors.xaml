@@ -4,15 +4,20 @@
 
     <!--  Note: For Android please see also Platforms\Android\Resources\values\colors.xml  -->
 
-    <Color x:Key="Primary">#512BD4</Color>
+    <Color x:Key="Primary">#1a434e</Color>
     <Color x:Key="PrimaryDark">#ac99ea</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>
     <Color x:Key="SecondaryDarkText">#9880e5</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
 
-    <Color x:Key="Grad1">#A100FE</Color>
-    <Color x:Key="Grad2">#1400FE</Color>
+    <Color x:Key="Grad1">#1A434E</Color>
+    <Color x:Key="Grad2">#1f565e</Color>
+    <Color x:Key="Grad1Fade">#221A434E</Color>
+    <Color x:Key="Grad2Fade">#331f565e</Color>
+    <Color x:Key="Grad1Back">#011A434E</Color>
+    <Color x:Key="Grad2Back">#111f565e</Color>
+
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>

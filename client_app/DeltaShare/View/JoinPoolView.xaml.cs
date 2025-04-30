@@ -1,3 +1,4 @@
+using DeltaShare.Extensions;
 using DeltaShare.ViewModel;
 
 namespace DeltaShare.View;
@@ -8,6 +9,11 @@ public partial class JoinPoolView : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel;
+
+        joinPoolBtn.AddButtonTheme();
+
+        this.AddTitleBarTheme();
+
         cameraBarcodeReaderView.BarcodesDetected += (_, eventArgs) =>
         {
             var barcodes = eventArgs.Results.Select(result => result.Value).ToList();

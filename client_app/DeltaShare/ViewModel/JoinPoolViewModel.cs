@@ -60,8 +60,11 @@ namespace DeltaShare.ViewModel
             }
             await MainThread.InvokeOnMainThreadAsync(async () =>
             {
-                await Shell.Current.GoToAsync("../");
-                await Shell.Current.GoToAsync(nameof(DownloadFileView));
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await Shell.Current.GoToAsync("../");
+                    await Shell.Current.GoToAsync(nameof(DownloadFileView));
+                });
             });
         }
 

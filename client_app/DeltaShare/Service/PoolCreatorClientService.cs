@@ -5,6 +5,7 @@ using DeltaShare.Util;
 
 namespace DeltaShare.Service
 {
+
     public class PoolCreatorClientService(HttpClient client)
     {
         private readonly HttpClient client = client;
@@ -19,9 +20,9 @@ namespace DeltaShare.Service
                     continue;
                 }
                 using var form = new MultipartFormDataContent
-                {
-                    { new StringContent(allFilesJson), Constants.AllFilesJsonField }
-                };
+            {
+                { new StringContent(allFilesJson), Constants.AllFilesJsonField }
+            };
                 foreach (FileMetadata file in StateManager.PoolFiles)
                 {
                     ByteArrayContent thumbnailContent = new(await file.ThumbnailContent!.ReadAsByteArrayAsync());
@@ -52,9 +53,9 @@ namespace DeltaShare.Service
                     continue;
                 }
                 using var form = new MultipartFormDataContent
-                {
-                    { new StringContent(allUsersJson), Constants.AllUsersJsonField }
-                };
+            {
+                { new StringContent(allUsersJson), Constants.AllUsersJsonField }
+            };
                 try
                 {
                     HttpResponseMessage response = await client.PostAsync(
@@ -71,4 +72,5 @@ namespace DeltaShare.Service
             }
         }
     }
+
 }
