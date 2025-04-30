@@ -30,24 +30,27 @@ In our project, we followed MVVM (Model-View-ViewModel) architectural pattern th
 By leveraging .NET MAUI (a cross-platform framework) we developed a native mobile and desktop applications using C# and XAML.
 
 
+## Work Brakdown
+- [Miro](https://miro.com/app/board/uXjVLvJbdCg=/?share_link_id=724383031734)
+![miro](https://github.com/user-attachments/assets/19a098dd-7022-4ab0-a970-fd865e92fdca)
+- [Figma](https://www.figma.com/design/mzHpEGtXMBVah7A1LLVoB3/Delta-Share-Wireframe?node-id=0-1&t=Y0x0Vu4RH9ijnQCl-1)
+![figma](https://github.com/user-attachments/assets/a40c610c-b646-4aed-90e5-f8021f2b613f)
+- Jira
+![jira](https://github.com/user-attachments/assets/61127df0-8c9e-43c2-81df-c3823e6c20f9)
+
 
 ## Getting Started
-### Download
-android: [here](https://github.com/Learnathon-By-Geeky-Solutions/dotcube/releases/download/v2.0.0/deltashare-android.apk)
-
-windows: [here](https://github.com/Learnathon-By-Geeky-Solutions/dotcube/releases/download/v2.0.0/DeltaShare_win_x64.exe)
-
 ### Prerequisites
 - Install .NET SDK 8.0 from [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
 - Download Visual Studio 2022 from [here](https://visualstudio.microsoft.com/downloads/).
-- Clone this repository git clone https://github.com/Learnathon-By-Geeky-Solutions/dotcube.git
-- Open client_app/DeltaShare.sln in Visual Studio 2022.
+- Clone this repository `git clone https://github.com/Learnathon-By-Geeky-Solutions/dotcube.git`
+- Open `client_app/DeltaShare.sln` in Visual Studio 2022.
 
 ### Run on local android device
 - Enable developer mode [guide](https://developer.android.com/studio/debug/dev-options)
 - Connect USB cable.
 - Open ADB prompt. ![image](https://github.com/user-attachments/assets/4442a2ea-10cb-4008-add2-98a5c0208746)
-- type adb devices and check device is authorized or not. Press "Allow" if asked in android. ![image](https://github.com/user-attachments/assets/55e2356e-e680-48f2-b981-8cacaf947a1e)
+- type `adb devices` and check device is authorized or not. Press "Allow" if asked in android. ![image](https://github.com/user-attachments/assets/55e2356e-e680-48f2-b981-8cacaf947a1e)
 - Select local device from devices. ![image](https://github.com/user-attachments/assets/af6bffde-5b02-4509-86b1-cf33ff62d59d)
 - Run!
 
@@ -61,12 +64,12 @@ Enable the following settings in Visual Studio 2022
 
 ![image](https://github.com/user-attachments/assets/88196d8e-b793-45cb-8bef-32fe283af59a)
 
-- Add following settings for Configure Code Cleanup
+- Add following settings for `Configure Code Cleanup`
 
 ![image](https://github.com/user-attachments/assets/187fd303-83d7-48e6-90f1-ad29cf8f1e54)
 
 - Tools > Options > Text Editor > XAML > Formatting > Spacing
-	- Set Position each attribute on a separate line
+	- Set `Position each attribute on a separate line`
 
 ![image](https://github.com/user-attachments/assets/ab2a7812-a4e4-4554-a8f2-d09e74a5c3d0)
 
@@ -75,14 +78,14 @@ Enable the following settings in Visual Studio 2022
 Windows/Linux/macOS firewalls might block incoming connections.
 We need to allow port 8080 in the firewall settings.
 
-On Windows, press Win+X
+On Windows, press `Win+X`
 
 ![image](https://github.com/user-attachments/assets/be831432-6a96-483a-9ffd-59834ec471a7)
 
-Open Windows Terminal (Admin)
-bash
+Open `Windows Terminal (Admin)`
+```bash
 netsh http add urlacl url="http://+:9898/" user=everyone
-
+```
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
