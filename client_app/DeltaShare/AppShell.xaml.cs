@@ -1,10 +1,18 @@
-﻿namespace DeltaShare
+﻿using DeltaShare.View;
+
+namespace DeltaShare;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
+        Items.Add(new ShellContent
         {
-            InitializeComponent();
-        }
+            Title = "DeltaShare",
+            ContentTemplate = new DataTemplate(typeof(MainView)),
+            Route = nameof(MainView)
+        });
+
+        InitializeComponent();
     }
 }

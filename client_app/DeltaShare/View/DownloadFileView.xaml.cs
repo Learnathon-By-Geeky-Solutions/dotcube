@@ -1,12 +1,53 @@
+using DeltaShare.Extensions;
 using DeltaShare.ViewModel;
 
 namespace DeltaShare.View;
 
 public partial class DownloadFileView : ContentPage
 {
-	public DownloadFileView(DownloadFileViewModel viewModel)
-	{
-		InitializeComponent();
-		BindingContext = viewModel;
-	}
+    public DownloadFileView(DownloadFileViewModel viewModel)
+    {
+        InitializeComponent();
+        BindingContext = viewModel;
+
+        inviteBtn.AddButtonTheme();
+        refreshBtn.AddButtonTheme();
+        addFilesBtn.AddButtonTheme();
+        saveToCloudBtn.AddButtonTheme();
+        downloadBtn.AddButtonTheme();
+
+        this.AddTitleBarTheme();
+
+        if (fileCollection.ItemsLayout is GridItemsLayout gridLayout)
+        {
+#if ANDROID || IOS
+            gridLayout.Span = 2;
+            addFilesBtn.FontSize = 10;
+            saveToCloudBtn.FontSize = 10;
+            downloadBtn.FontSize = 10;
+#else
+            gridLayout.Span = 4;
+            addFilesBtn.FontSize = 15;
+            saveToCloudBtn.FontSize = 15;
+            downloadBtn.FontSize = 15;
+#endif
+        }
+    }
+    protected override bool OnBackButtonPressed()
+    {
+        Dispatcher.Dispatch(async () =>
+        {
+            bool result = await DisplayAlert(
+                "Confirm Exit",
+                "Are you sure you want to go back? This pool will be closed.",
+                "Yes",
+                "No"
+            );
+
+            if (result)
+                await Navigation.PopAsync();
+        });
+
+        return true;
+    }
 }

@@ -1,3 +1,4 @@
+using DeltaShare.Extensions;
 using DeltaShare.ViewModel;
 
 namespace DeltaShare.View;
@@ -8,5 +9,9 @@ public partial class SettingsView : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel;
+
+        this.AddTitleBarTheme();
+
+        saveBtn.AddButtonTheme();
     }
 }

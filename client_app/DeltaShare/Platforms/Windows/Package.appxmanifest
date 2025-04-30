@@ -8,7 +8,7 @@
 
   <Identity Name="maui-package-name-placeholder" Publisher="CN=User Name" Version="0.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="42E1D730-FFA8-40F5-88A8-505D43FFEACC" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="2A4AAE01-BF34-4EB1-B8CA-43088823D829" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>$placeholder$</DisplayName>
@@ -36,7 +36,14 @@
         <uap:DefaultTile Square71x71Logo="$placeholder$.png" Wide310x150Logo="$placeholder$.png" Square310x310Logo="$placeholder$.png" />
         <uap:SplashScreen Image="$placeholder$.png" />
       </uap:VisualElements>
-    </Application>
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="deltashare">
+            <uap:DisplayName>DeltaShare</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
+	</Application>
   </Applications>
 
   <Capabilities>

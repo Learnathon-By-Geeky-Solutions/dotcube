@@ -2,6 +2,7 @@
 
 namespace DeltaShare.Util
 {
+
     public static class UsernameGenerator
     {
         private static string AdjectivesFileName = "adjectives.txt";
