@@ -34,6 +34,7 @@ By leveraging .NET MAUI (a cross-platform framework) we developed a native mobil
 ## Getting Started
 ### Download
 android: [here](https://github.com/Learnathon-By-Geeky-Solutions/dotcube/releases/download/v2.0.0/deltashare-android.apk)
+
 windows: [here](https://github.com/Learnathon-By-Geeky-Solutions/dotcube/releases/download/v2.0.0/DeltaShare_win_x64.exe)
 
 ### Prerequisites
