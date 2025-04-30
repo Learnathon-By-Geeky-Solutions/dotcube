@@ -15,7 +15,7 @@ public static class ButtonExtension
                 new GradientStop { Color = Color.FromArgb("#1f565e"), Offset = -1.0f },
                 new GradientStop { Color = Color.FromArgb("#1a434e"), Offset = 0.0f },
                 new GradientStop { Color = Color.FromArgb("#1a434e"), Offset = 1.0f },
-    ]
+            ]
         };
 
         button.Background = buttonGradient;

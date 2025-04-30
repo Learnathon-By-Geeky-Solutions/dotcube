@@ -7,6 +7,7 @@ using MimeKit;
 
 namespace DeltaShare.Service
 {
+
     public partial class PoolCreatorServerService : IDisposable
     {
         private CancellationTokenSource? cancellationTokenSource;
@@ -182,4 +183,5 @@ namespace DeltaShare.Service
             }
         }
     }
+
 }

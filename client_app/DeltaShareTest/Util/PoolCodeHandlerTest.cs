@@ -1,20 +1,17 @@
 ﻿using DeltaShare.Util;
 
 namespace DeltaShareTest.Util;
-
 public class PoolCodeHandlerTest
 {
+
     [Fact]
-    public void IntToBase24_ValidData_ReturnsImageSource()
+    public void DecodePoolCodeData_ThrowsArgumentExceptionForInvalidBase24()
     {
         // Arrange
-        uint value = 1234567890;
+        string qrCodeData = "invalid_base24";
 
-        // Act
-        string result = PoolCodeHandler.IntToBase24(value);
-
-        // Assert
-        Assert.NotNull(result);
+        // Act & Assert
+        var exception = Assert.Throws<ArgumentException>(() => PoolCodeHandler.DecodePoolCodeData(qrCodeData));
+        Assert.Contains("Invalid character", exception.Message);
     }
-
 }

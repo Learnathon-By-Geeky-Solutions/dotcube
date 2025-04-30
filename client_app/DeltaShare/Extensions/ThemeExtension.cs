@@ -7,6 +7,8 @@ public static class ThemeExtension
 #if ANDROID || IOS
         Shell.SetForegroundColor(contentPage, Color.FromRgba("#1a434e"));
 #else
+        if (Application.Current == null)
+            return;
         var currentTheme = Application.Current!.RequestedTheme;
         if (currentTheme == AppTheme.Dark)
         {

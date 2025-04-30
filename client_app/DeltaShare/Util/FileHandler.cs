@@ -7,19 +7,20 @@ using SkiaSharp;
 
 namespace DeltaShare.Util
 {
+
     public static class FileHandler
     {
 #if ANDROID
-        public static string DownloadFolderPath = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDownloads)!.AbsolutePath;
+    public static string DownloadFolderPath = Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDownloads)!.AbsolutePath;
 #else
         public static string DownloadFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
 #endif
         public static async Task SaveFileInLocalStorage(HttpClient client, FileMetadata file)
         {
             MultipartFormDataContent form = new()
-            {
-                { new StringContent(file.Uuid), Constants.FileUuidField  }
-            };
+        {
+            { new StringContent(file.Uuid), Constants.FileUuidField  }
+        };
             HttpResponseMessage response = new();
             try
             {
