@@ -15,7 +15,10 @@ namespace DeltaShare.ViewModel
             bool settingsShowed = Preferences.Get(Constants.SettingsShowedKey, false);
             if (!settingsShowed)
             {
-                Shell.Current.GoToAsync(nameof(SettingsView));
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    Shell.Current.GoToAsync(nameof(SettingsView));
+                });
             }
             this.serverService = serverService;
         }
@@ -29,8 +32,10 @@ namespace DeltaShare.ViewModel
             //serverService.StartListening();
             //testFunc();
             //await Shell.Current.GoToAsync(nameof(DownloadFileView));
-
-            await Shell.Current.GoToAsync(nameof(SettingsView));
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await Shell.Current.GoToAsync(nameof(SettingsView));
+            });
         }
 
         //private void testFunc()
@@ -63,7 +68,7 @@ namespace DeltaShare.ViewModel
         private async Task ClickJoinPoolBtn()
         {
             await RequestPermissions();
-            await Shell.Current.GoToAsync(nameof(JoinPoolView));
+            MainThread.BeginInvokeOnMainThread(async () => { await Shell.Current.GoToAsync(nameof(JoinPoolView)); });
         }
 
         [RelayCommand]
@@ -75,7 +80,7 @@ namespace DeltaShare.ViewModel
             }
             serverService.StartListening();
             //await Shell.Current.GoToAsync(nameof(CreatePoolView));
-            await Shell.Current.GoToAsync(nameof(SharePoolView));
+            MainThread.BeginInvokeOnMainThread(async () => { await Shell.Current.GoToAsync(nameof(SharePoolView)); });
         }
 
         [RelayCommand]
@@ -87,20 +92,6 @@ namespace DeltaShare.ViewModel
         private async Task ClickCloudStorageBtn()
         {
             await Alert.Show("Not implemented yet");
-        }
-
-        [RelayCommand]
-        private async Task ClickLoginBtn()
-        {
-            await Alert.Show("Not implemented yet");
-            //await Shell.Current.GoToAsync(nameof(LoginView));
-        }
-
-        [RelayCommand]
-        private async Task ClickSignupBtn()
-        {
-            await Alert.Show("Not implemented yet");
-            //await Shell.Current.GoToAsync(nameof(SignupView));
         }
 
         [RelayCommand]

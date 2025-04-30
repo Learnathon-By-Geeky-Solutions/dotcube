@@ -38,22 +38,16 @@ namespace DeltaShare
 #endif
 
             // Dependency Injection - Views
-            builder.Services.AddSingleton<MainView>();
-            builder.Services.AddSingleton<LoginView>();
-            builder.Services.AddSingleton<SignupView>();
+            builder.Services.AddTransient<MainView>();
             builder.Services.AddSingleton<SharePoolView>();
-            builder.Services.AddSingleton<CreatePoolView>();
             builder.Services.AddSingleton<SettingsView>();
             builder.Services.AddSingleton<JoinPoolView>();
             builder.Services.AddSingleton<DownloadFileView>();
             builder.Services.AddTransient<InviteOthersView>();
 
             // Dependency Injection - ViewModels
-            builder.Services.AddSingleton<MainViewModel>();
-            builder.Services.AddSingleton<LoginViewModel>();
-            builder.Services.AddSingleton<SignupViewModel>();
+            builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddSingleton<SharePoolViewModel>();
-            builder.Services.AddSingleton<CreatePoolViewModel>();
             builder.Services.AddSingleton<SettingsViewModel>();
             builder.Services.AddSingleton<JoinPoolViewModel>();
             builder.Services.AddSingleton<DownloadFileViewModel>();

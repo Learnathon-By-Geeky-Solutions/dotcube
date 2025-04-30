@@ -11,5 +11,7 @@ public partial class InviteOthersView : ContentPage
         BindingContext = viewModel;
 
         viewSharedFilesBtn.AddButtonTheme();
+
+        this.AddTitleBarTheme();
     }
 }

@@ -16,6 +16,8 @@ public partial class DownloadFileView : ContentPage
         saveToCloudBtn.AddButtonTheme();
         downloadBtn.AddButtonTheme();
 
+        this.AddTitleBarTheme();
+
         if (fileCollection.ItemsLayout is GridItemsLayout gridLayout)
         {
 #if ANDROID || IOS

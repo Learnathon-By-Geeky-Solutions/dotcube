@@ -76,7 +76,11 @@ namespace DeltaShare.ViewModel
         [RelayCommand]
         private async Task ClickInviteOthersBtn()
         {
-            await Shell.Current.GoToAsync(nameof(InviteOthersView));
+
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await Shell.Current.GoToAsync(nameof(InviteOthersView));
+            });
         }
 
         [RelayCommand]
